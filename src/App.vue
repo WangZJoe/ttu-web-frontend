@@ -15,7 +15,7 @@ export default {
 
 <style>
 #app {
-  font-family: Helvetica, sans-serif;
-  text-align: center;
+  background: #F0F7FD;
+  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
 }
 </style>

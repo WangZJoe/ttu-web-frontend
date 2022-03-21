@@ -1,45 +1,29 @@
 <template>
 
 <el-container style="border: 0px solid #eee;">
-      <el-header style="text-align: left;">
-        <span style="text-align:left;font-size:24px;color:rgb(8, 113, 117)">低压台区漏电管家</span>
-        <span style="margin-left:20px">10kv古城大道线路——邱家咀3#台区</span>
+
+    <el-header>
+        <span style="text-align:left;font-size:26px;font-weight:500">低压台区漏电管家</span>
+        <span style="margin-left:147px;font-size:18px">10kv古城大道线路——邱家咀3#台区</span>
+        <span style="margin-left:41px;background: #00FFDC;" class="circle"></span>
+        <span style="font-size:18px">在线{{online}}</span>
+        <span style="margin-left:41px;background: #CCD5DE" class="circle"></span>
+        <span style="font-size:18px">离线{{offline}}</span>
       <el-dropdown style="float:right">
-        <i class="el-icon-setting" style="margin-right: 15px"></i>
+        <span  style="float:right;font-size:16px">2022-03-20 15:12:55</span>
+        <!-- <i class="el-icon-setting" style="margin-right: 15px"></i>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>参数设置</el-dropdown-item>
-        </el-dropdown-menu>
+        </el-dropdown-menu> -->
       </el-dropdown>
-      <span  style="float:right;margin-right:20px">2022-03-20 15:12:55</span>
-      <span  style="float:right;margin-right:20px">离线设备8台</span>
-      <span  style="float:right;margin-right:20px">在线设备7台</span>
 
     </el-header>
 
   
   <el-container>
-  <el-aside width="150px" style="background-color: rgb(238, 241, 246)">
+  <el-aside width="12.5%" style="background-color: rgb(238, 241, 246)">
     <el-menu :default-openeds="['1', '2']">
-      <el-submenu index="1">
-        <template slot="title"><i class="el-icon-menu"></i>设备组1</template>
-        <el-menu-item index="1-1">01#设备</el-menu-item>
-        <el-menu-item index="1-1">02#设备</el-menu-item>
-        <el-menu-item index="1-1">03#设备</el-menu-item>
-        <el-menu-item index="1-1">04#设备</el-menu-item>
-        <el-menu-item index="1-1">05#设备</el-menu-item>
-        <el-menu-item index="1-1">06#设备</el-menu-item>
-        <el-menu-item index="1-1">07#设备</el-menu-item>
-      </el-submenu>
-      <el-submenu index="2">
-        <template slot="title"><i class="el-icon-menu"></i>设备组2</template>
-        <el-menu-item index="1-1">21#设备</el-menu-item>
-        <el-menu-item index="1-1">22#设备</el-menu-item>
-        <el-menu-item index="1-1">23#设备</el-menu-item>
-        <el-menu-item index="1-1">24#设备</el-menu-item>
-        <el-menu-item index="1-1">25#设备</el-menu-item>
-        <el-menu-item index="1-1">26#设备</el-menu-item>
-        <el-menu-item index="1-1">27#设备</el-menu-item>
-      </el-submenu>
+      <menu-tree :menuData="menuList"></menu-tree>
     </el-menu>
   </el-aside>
     
@@ -62,11 +46,75 @@
 
 <script>
 import DataCurve from './DataCurve.vue';
+import MenuTree from './MenuTree.vue'
 export default {
-  components: { DataCurve },
+  components: { DataCurve,MenuTree },
   data(){
       return{
-        activeName:"1"
+        activeName:"1",
+
+        //设备数量
+        online:34,
+        offline:12,
+
+
+        //侧边栏设备数据
+        menuList:[
+          {
+            index:'1',
+            icon:'el-icon-menu',
+            name:'设备组1',
+            children:[
+              {
+                index:'1-1',
+                icon:'el-icon-film',
+                name:'01#设备'
+              },
+              {
+                index:'1-2',
+                icon:'el-icon-film',
+                name:'02#设备'
+              },
+              {
+                index:'1-3',
+                icon:'el-icon-film',
+                name:'03#设备'
+              },
+              {
+                index:'1-4',
+                icon:'el-icon-film',
+                name:'04#设备'
+              }
+            ]
+          },
+           {
+            index:'2',
+            icon:'el-icon-menu',
+            name:'设备组2',
+            children:[
+              {
+                index:'2-1',
+                icon:'el-icon-film',
+                name:'21#设备'
+              },
+              {
+                index:'2-2',
+                icon:'el-icon-film',
+                name:'22#设备'
+              },
+              {
+                index:'2-3',
+                icon:'el-icon-film',
+                name:'23#设备'
+              },
+              {
+                index:'2-4',
+                icon:'el-icon-film',
+                name:'24#设备'
+              }
+            ]
+          }
+        ]
       }
   },
   methods: {
@@ -86,11 +134,28 @@ export default {
 
 <style>
   .el-header {
-    background-color: #e6e6e6;    
+    background-color: #fff;    
     line-height: 60px;
+    box-shadow: 0px 3px 10px 1px rgba(0, 104, 163, 0.1);
+  }
+
+  .circle{
+    display:inline-block; 
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .icon-1{
+    width: 20px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    background: url(assets/1.png);
+  }
+
+  .el-icon-menu:before {
+    content: url(assets/1.png);
   }
   
-  .el-aside {
-    color: #333;
-  }
 </style>

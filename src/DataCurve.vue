@@ -2,97 +2,53 @@
   <div>
 
     <el-row>
-      <el-col :span="16">
-        <line-chart-two style="height:300px"></line-chart-two>
+      <el-col class="statistics">
+        <data-statistics></data-statistics>
       </el-col>
-      <el-col :span="8">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix" shadow="never">
-            <span>实时数据</span>            
-          </div>
-            <el-row>
-              <el-col :span="12">
-                <el-card class="box-card" shadow="never">
-                  <div slot="header" class="clearfix">
-                    <span>漏电电流最大值(mA)</span>            
-                  </div>
-                  <span class="big-number">183</span>
-                </el-card>
-              </el-col>
-              <el-col :span="12">
-                <el-card class="box-card" shadow="never">
-                  <div slot="header" class="clearfix">
-                    <span>漏电电流平均值(mA)</span>            
-                  </div>
-                  <span class="big-number">36</span>
-                </el-card>
-              </el-col>
-            </el-row>
-          <div>
-            <el-row>
-              <el-col :span="8">
-                <gauge-chart></gauge-chart>
-              </el-col>
-              <el-col :span="8">
-                <gauge-chart></gauge-chart>
-              </el-col>              
-              <el-col :span="8">
-                <gauge-chart></gauge-chart>
-              </el-col>   
-            </el-row>            
-          </div>
-        </el-card>  
+      <el-col class="current">
+        <data-current></data-current>
       </el-col>
     </el-row>
-    <el-table :data="tableData" height="800px">
-      <el-table-column prop="date" label="时间" width="160"></el-table-column>
-      <el-table-column prop="name" label="漏电电流Avg(mA)"></el-table-column>
-      <el-table-column prop="name" label="漏电电流Max(mA)"></el-table-column>
-      <el-table-column prop="name" label="A相电流(A)"></el-table-column>
-      <el-table-column prop="name" label="B相电流(A)"></el-table-column>
-      <el-table-column prop="name" label="C相电流(A)"></el-table-column>        
-      <el-table-column prop="name" label="A相电压(A)"></el-table-column>
-      <el-table-column prop="name" label="B相电压(A)"></el-table-column>
-      <el-table-column prop="name" label="C相电压(A)"></el-table-column>
-      <el-table-column prop="name" label="环境温度(℃)"></el-table-column>
-      <el-table-column prop="name" label="环境湿度(%)"></el-table-column>
-      <el-table-column prop="name" label="接点温度(℃)"></el-table-column>        
-    </el-table>
-    <el-pagination
-      layout="->,prev, pager, next"
-      :total="50">
-    </el-pagination>
+
+    <data-monitoring :tableData="tableData" class="monitoring"></data-monitoring>
+    
   </div>
 </template>
 
 <script>
-import GaugeChart from './chart/GaugeChart.vue';
-import LineChartTwo from './chart/LineChartTwo.vue';
+import DataStatistics from './Data/DataStatistics.vue'
+import DataCurrent from './Data/DataCurrent.vue'
+import DataMonitoring from './Data/DataMonitoring.vue'
 export default {
-  components: {LineChartTwo, GaugeChart},
+  components: { DataStatistics, DataCurrent,DataMonitoring},
   data() {
       const item = {
         date: '2016-05-02 12:00:00',
         name: '25.45',
       };
       return {
-        tableData: Array(20).fill(item),
+        tableData: Array(5).fill(item),
         
-      lineData: {
-        "10:00": 30,
-        "11:00": 20,
-        "12:00": 50,
-        "13:00": 60,
-        "14:00": 70,
-        "15:00": 90,
-        "16:00": 55,
-        "17:00": 33,
-      }
+        lineData: {
+          "10:00": 30,
+          "11:00": 20,
+          "12:00": 50,
+          "13:00": 60,
+          "14:00": 70,
+          "15:00": 90,
+          "16:00": 55,
+          "17:00": 33,
+        }
     
-      }
-      },
+    }
+  },
   methods: {  
-    
+    handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    }
   }
 
 }
@@ -110,5 +66,24 @@ export default {
   }
   .el-card__body{
     padding: 0;
+  }
+  .statistics{
+    width: 54%;
+    height: 44%;
+    background: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+  }
+  .current{
+    margin-left: 3%;
+    width: 43%;
+    height: 44%;
+    background: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
+  }
+  .monitoring{
+    margin-top: 1%;
+    height: 39%;
+    background: #FFFFFF;
+    border-radius: 10px 10px 10px 10px;
   }
 </style>
