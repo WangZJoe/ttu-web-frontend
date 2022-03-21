@@ -3,12 +3,12 @@
 <el-container style="border: 0px solid #eee;">
 
     <el-header>
-        <span style="text-align:left;font-size:26px;font-weight:500">低压台区漏电管家</span>
-        <span style="margin-left:147px;font-size:18px">10kv古城大道线路——邱家咀3#台区</span>
+        <span style="text-align:left;font-size:26px;font-weight:500;color:#333333">低压台区漏电管家</span>
+        <span style="margin-left:147px;font-size:18px;font-weight:500;color:#333333">10kv古城大道线路——邱家咀3#台区</span>
         <span style="margin-left:41px;background: #00FFDC;" class="circle"></span>
-        <span style="font-size:18px">在线{{online}}</span>
+        <span style="font-size:18px;color:#666666;">在线 {{online}}</span>
         <span style="margin-left:41px;background: #CCD5DE" class="circle"></span>
-        <span style="font-size:18px">离线{{offline}}</span>
+        <span style="font-size:18px;color:#666666;">离线 {{offline}}</span>
       <el-dropdown style="float:right">
         <span  style="float:right;font-size:16px">2022-03-20 15:12:55</span>
         <!-- <i class="el-icon-setting" style="margin-right: 15px"></i>

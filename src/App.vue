@@ -14,8 +14,10 @@ export default {
 </script>
 
 <style>
+@import "./assets/font/SourceHanSansCN-Medium.css";
 #app {
   background: #F0F7FD;
-  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+  font-family: 'Source Han Sans CN-Medium, Source Han Sans CN';
+  font-weight: 500;
 }
 </style>

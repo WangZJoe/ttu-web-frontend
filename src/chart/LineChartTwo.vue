@@ -32,7 +32,7 @@ export default {
             trigger: "axis"
         },
         legend: {
-            // data: ["漏电电流"]
+            // data: ["漏电电流"],
         },
         grid: [
             {
@@ -87,7 +87,7 @@ export default {
                 ],                                
                 itemStyle: {
                     normal: {
-                        color: "rgb(8, 113, 117)"
+                        color: "#3BECF2"
                     }
                 }
             },
@@ -99,7 +99,7 @@ export default {
                 data: [20,30,25,35,45,40,50,55,60,65,52,68,72,85],
                 itemStyle: {
                     normal: {
-                        color: "#850000"
+                        color: "#FDDD00"
                     }
                 }
             },
@@ -111,7 +111,7 @@ export default {
                 data: [15,20,30,25,35,45,40,50,55,60,65,52,68,72],
                 itemStyle: {
                     normal: {
-                        color: "#885400"
+                        color: "#00DCFF"
                     }
                 }
             },
@@ -123,7 +123,7 @@ export default {
                 data: [12,18,20,30,25,35,45,40,50,55,60,65,52,68],
                 itemStyle: {
                     normal: {
-                        color: "#005455"
+                        color: "#FF1C7F"
                     }
                 }
             }
