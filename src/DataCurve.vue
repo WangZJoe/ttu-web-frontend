@@ -62,7 +62,7 @@ export default {
   .el-card__header{
     padding: 0;
     font-size: 18px;
-    background-color: rgb(166,202,202);
+    /* background-color: rgb(166,202,202); */
   }
   .el-card__body{
     padding: 0;

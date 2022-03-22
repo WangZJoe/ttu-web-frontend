@@ -41,7 +41,7 @@ export default {
                 show: true
             },
             itemStyle: {
-                color: 'rgb(8, 113, 117)'
+                color: '#3674F6'
             },
             detail: {
                 valueAnimation: true,

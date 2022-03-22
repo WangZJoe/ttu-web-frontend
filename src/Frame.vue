@@ -21,7 +21,7 @@
 
   
   <el-container>
-  <el-aside width="12.5%" style="background-color: rgb(238, 241, 246)">
+  <el-aside width="12.5%" style="background-color: #176AD5">
     <el-menu :default-openeds="['1', '2']">
       <menu-tree :menuData="menuList"></menu-tree>
     </el-menu>
@@ -29,13 +29,13 @@
     
     <el-main>
       <el-tabs v-model="activeName" type="card">
-        <el-tab-pane label="数据曲线" name="1">
+        <el-tab-pane class="tab-pane" label="数据曲线" name="1">
           <data-curve></data-curve>
         </el-tab-pane>
-        <el-tab-pane label="告警事件" name="2">告警事件</el-tab-pane>
-        <el-tab-pane label="故障波形" name="3">故障波形</el-tab-pane>
-        <el-tab-pane label="保护策略" name="4">保护策略</el-tab-pane>
-        <el-tab-pane label="漏电分析" name="5">漏电分析</el-tab-pane>
+        <el-tab-pane class="tab-pane" label="告警事件" name="2">告警事件</el-tab-pane>
+        <el-tab-pane class="tab-pane" label="故障波形" name="3">故障波形</el-tab-pane>
+        <el-tab-pane class="tab-pane" label="保护策略" name="4">保护策略</el-tab-pane>
+        <el-tab-pane class="tab-pane" label="漏电分析" name="5">漏电分析</el-tab-pane>
       </el-tabs>
       
     </el-main>
@@ -137,6 +137,7 @@ export default {
     background-color: #fff;    
     line-height: 60px;
     box-shadow: 0px 3px 10px 1px rgba(0, 104, 163, 0.1);
+    height: 6%;
   }
 
   .circle{
@@ -156,6 +157,13 @@ export default {
 
   .el-icon-menu:before {
     content: url(assets/1.png);
+  }
+
+  .tab-pane{
+    font-size: 22px;
+    font-family: 'Source Han Sans CN-Regular, Source Han Sans CN';
+    font-weight: 400;
+    color: #585858;
   }
   
 </style>
