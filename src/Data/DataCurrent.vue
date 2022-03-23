@@ -24,15 +24,15 @@
             </el-row>
           <div>
             <el-row>
-              <!-- <el-col :span="8">
+              <el-col :span="8">
                 <gauge-chart></gauge-chart>
-              </el-col> -->
-              <el-col :span="24">
+              </el-col>
+              <el-col :span="8">
                 <gauge-chart></gauge-chart>
               </el-col>              
-              <!-- <el-col :span="8">
+              <el-col :span="8">
                 <gauge-chart></gauge-chart>
-              </el-col>    -->
+              </el-col>   
             </el-row> 
             <el-row> 
               <el-col :span="8" style="text-align:center">

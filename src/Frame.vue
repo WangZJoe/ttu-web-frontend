@@ -29,13 +29,14 @@
     
     <el-main>
       <el-tabs v-model="activeName" type="card">
-        <el-tab-pane class="tab-pane" label="数据曲线" name="1">
+        <el-tab-pane class="tab-pane" label="实时监测" name="1">
           <data-curve></data-curve>
         </el-tab-pane>
-        <el-tab-pane class="tab-pane" label="告警事件" name="2">告警事件</el-tab-pane>
-        <el-tab-pane class="tab-pane" label="故障波形" name="3">故障波形</el-tab-pane>
-        <el-tab-pane class="tab-pane" label="保护策略" name="4">保护策略</el-tab-pane>
-        <el-tab-pane class="tab-pane" label="漏电分析" name="5">漏电分析</el-tab-pane>
+        <el-tab-pane class="tab-pane" label="历史数据" name="2">告警事件</el-tab-pane>
+        <el-tab-pane class="tab-pane" label="警告事件" name="3">故障波形</el-tab-pane>
+        <el-tab-pane class="tab-pane" label="故障波形" name="4">保护策略</el-tab-pane>
+        <el-tab-pane class="tab-pane" label="保护策略" name="5">漏电分析</el-tab-pane>
+        <el-tab-pane class="tab-pane" label="漏电分析" name="6">漏电分析</el-tab-pane>
       </el-tabs>
       
     </el-main>

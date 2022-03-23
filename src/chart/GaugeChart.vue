@@ -84,39 +84,33 @@ export default {
           min: 0,
           max: 250,
           splitNumber: 5,
-          progress: {
-            show: true,
-            width: 10
-          },
-          pointer: {
-            show: false
+          pointer:{
+            show:false
           },
           axisLine: {
-            lineStyle: {
-              width: 10
-            }
+            show: false
           },
           axisTick: {
-            distance: 20,
-            splitNumber: 5,
+            distance: 0,
+            splitNumber: 8,
             lineStyle: {
-              width: 2,
-              color: '#999'
+              width: 1,
+              color: '#AEC6F5'
             }
           },
           splitLine: {
             show:true,
-            distance: 10,
-            length: 14,
+            distance: 0,
+            length: 10,
             lineStyle: {
-              width: 3,
-              color: '#3674F6'
+              width: 1,
+              color: '#AEC6F5'
             }
           },
           axisLabel: {
-            distance: -20,
-            color: '#3674F6',
-            fontSize: 20
+            distance: 10,
+            color: '#999',
+            fontSize: 10
           },
           anchor: {
             show: false
@@ -129,17 +123,155 @@ export default {
             width: '60%',
             lineHeight: 40,
             borderRadius: 8,
-            offsetCenter: [0, '-10%'],
-            fontSize: 20,
-            fontWeight: 'bolder',
-            formatter: '{value} °C',
-            color: '#3674F6'
+            offsetCenter: [0, '-2%'],
+            formatter: function (value) {return '{value|' + value.toFixed(0) + '}{unit|°C}';},
+            rich:{
+              value: {
+                fontSize: 30,
+                fontWeight: 'bolder',
+                color: '#3674F6'
+              },
+              unit: {
+                fontSize: 13,
+                color: '#3674F6'
+              }
+            },
           },
           data: [
             {
-              value: 20
+              value: 25
             }
           ]
+        },{
+          'type':'gauge',
+          center:['50%','60%'],
+          startAngle: 240,
+          endAngle: -60,
+          min: 0,
+          max: 250,
+          splitNumber: 5,
+          pointer:{
+            show:false
+          },
+          axisLine: {
+            show: false
+          },
+          axisTick: {
+            distance: -4,
+            length:1,
+            splitNumber: 16,
+            lineStyle: {
+              width: 1,
+              color: '#AEC6F5'
+            }
+          },
+          splitLine: {
+            show: false
+          },
+          axisLabel: {
+            show: false
+          },
+          detail: {
+            show: false
+          }
+        },{
+          'type':'gauge',
+          center:['50%','60%'],
+          startAngle: 240,
+          endAngle: -60,
+          min: 0,
+          max: 250,
+          splitNumber: 5,
+          pointer:{
+            show:false
+          },
+          axisLine: {
+            show: false
+          },
+          axisTick: {
+            distance: -15,
+            length:8,
+            splitNumber: 16,
+            lineStyle: {
+              width: 3,
+              color: '#AEC6F5'
+            }
+          },
+          splitLine: {
+            show: false
+          },
+          axisLabel: {
+            show: false
+          },
+          detail: {
+            show: false
+          }
+        },
+        {
+          'type':'gauge',
+          center:['50%','60%'],
+          startAngle: 240,
+          endAngle: 210,
+          min: 0,
+          max: 250,
+          splitNumber: 1,
+          pointer:{
+            show:false
+          },
+          axisLine: {
+            show: false
+          },
+          axisTick: {
+            distance: -15,
+            length:8,
+            splitNumber: 8,
+            lineStyle: {
+              width: 3,
+              color: '#3674F6'
+            }
+          },
+          splitLine: {
+            show: false
+          },
+          axisLabel: {
+            show: false
+          },
+          detail: {
+            show: false
+          }
+        },
+        {
+          'type':'gauge',
+          center:['50%','60%'],
+          startAngle: 210,
+          endAngle: 210,
+          min: 0,
+          max: 250,
+          splitNumber: 1,
+          pointer:{
+            show:false
+          },
+          axisLine: {
+            show: false
+          },
+          axisTick: {
+            distance: -15,
+            length:8,
+            splitNumber: 1,
+            lineStyle: {
+              width: 3,
+              color: 'red'
+            }
+          },
+          splitLine: {
+            show: false
+          },
+          axisLabel: {
+            show: false
+          },
+          detail: {
+            show: false
+          }
         }
       ]
     };
