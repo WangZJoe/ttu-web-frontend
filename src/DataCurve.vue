@@ -2,7 +2,7 @@
   <div>
 
     <el-row>
-      <el-col class="statistics">
+      <el-col class="statistics" >
         <data-statistics></data-statistics>
       </el-col>
       <el-col class="current">
@@ -69,14 +69,14 @@ export default {
   }
   .statistics{
     width: 54%;
-    height: 44%;
+    height: 100%;
     background: #FFFFFF;
     border-radius: 10px 10px 10px 10px;
   }
   .current{
     margin-left: 3%;
     width: 43%;
-    height: 44%;
+    height: 100%;
     background: #FFFFFF;
     border-radius: 10px 10px 10px 10px;
   }

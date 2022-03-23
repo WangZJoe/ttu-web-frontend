@@ -62,54 +62,54 @@ export default {
         menuList:[
           {
             index:'1',
-            icon:'el-icon-menu',
+            icon:'icon-1',
             name:'设备组1',
             children:[
               {
                 index:'1-1',
-                icon:'el-icon-film',
+                icon:'icon-1-1',
                 name:'01#设备'
               },
               {
                 index:'1-2',
-                icon:'el-icon-film',
+                icon:'icon-2',
                 name:'02#设备'
               },
               {
                 index:'1-3',
-                icon:'el-icon-film',
+                icon:'icon-2-1',
                 name:'03#设备'
               },
               {
                 index:'1-4',
-                icon:'el-icon-film',
+                icon:'icon-2',
                 name:'04#设备'
               }
             ]
           },
            {
             index:'2',
-            icon:'el-icon-menu',
+            icon:'icon-3',
             name:'设备组2',
             children:[
               {
                 index:'2-1',
-                icon:'el-icon-film',
+                icon:'icon-3-1',
                 name:'21#设备'
               },
               {
                 index:'2-2',
-                icon:'el-icon-film',
+                icon:'icon-1',
                 name:'22#设备'
               },
               {
                 index:'2-3',
-                icon:'el-icon-film',
+                icon:'icon-1-1',
                 name:'23#设备'
               },
               {
                 index:'2-4',
-                icon:'el-icon-film',
+                icon:'icon-2-1',
                 name:'24#设备'
               }
             ]
@@ -147,16 +147,41 @@ export default {
     border-radius: 50%;
   }
 
-  .icon-1{
-    width: 20px;
-    height: 20px;
-    display: block;
-    position: absolute;
-    background: url(assets/1.png);
+  .icon-1, #el-icon-menu{
+    width: 18px;
+    height: 18px;
+    content: url(assets/1.png);
   }
 
-  .el-icon-menu:before {
-    content: url(assets/1.png);
+  
+  .icon-1-1, #el-icon-menu{
+    width: 18px;
+    height: 18px;
+    content: url(assets/1-1.png);
+  }
+
+  .icon-2, #el-icon-menu{
+    width: 18px;
+    height: 18px;
+    content: url(assets/2.png);
+  }
+
+  .icon-2-1, #el-icon-menu{
+    width: 18px;
+    height: 18px;
+    content: url(assets/2-1.png);
+  }
+
+  .icon-3, #el-icon-menu{
+    width: 18px;
+    height: 18px;
+    content: url(assets/3.png);
+  }
+
+  .icon-3-1, #el-icon-menu{
+    width: 18px;
+    height: 18px;
+    content: url(assets/3-1.png);
   }
 
   .tab-pane{

@@ -1,8 +1,8 @@
 <template>
     <div>
         <el-card class="box-card">
-          <div slot="header" class="clearfix" shadow="never">
-            <span class="title">实时数据</span>            
+          <div slot="header" class="clearfix" shadow="never" style="display: flex;align-items: center;">
+            <i class="icon-statistics"></i><span class="title">实时数据</span>            
           </div>
             <el-row>
               <el-col :span="11" style="margin-left: 4%;">
@@ -24,16 +24,27 @@
             </el-row>
           <div>
             <el-row>
-              <el-col :span="8">
+              <!-- <el-col :span="8">
                 <gauge-chart></gauge-chart>
-              </el-col>
-              <el-col :span="8">
+              </el-col> -->
+              <el-col :span="24">
                 <gauge-chart></gauge-chart>
               </el-col>              
-              <el-col :span="8">
+              <!-- <el-col :span="8">
                 <gauge-chart></gauge-chart>
+              </el-col>    -->
+            </el-row> 
+            <el-row> 
+              <el-col :span="8" style="text-align:center">
+                <span class="gauge_title">环境温度</span>
+              </el-col>
+              <el-col :span="8" style="text-align:center">
+                <span class="gauge_title">节点最高温度</span>
+              </el-col>              
+              <el-col :span="8" style="text-align:center">
+                <span class="gauge_title">环境湿度</span>
               </el-col>   
-            </el-row>            
+            </el-row>             
           </div>
         </el-card>  
     </div>
@@ -74,6 +85,17 @@ export default{
   font-size: 20px;
   font-family: 'Source Han Sans CN-Medium, Source Han Sans CN';
   font-weight: 500;
+  color: #333333;
+}
+.icon-statistics, #el-icon-menu{
+  width: 32px;
+  height: 32px;
+  content: url(../assets/statistics.png);
+}
+.gauge_title{
+  font-size: 16px;
+  font-family: 'Source Han Sans CN-Normal, Source Han Sans CN';
+  font-weight: 400;
   color: #333333;
 }
 </style>

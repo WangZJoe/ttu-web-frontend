@@ -1,6 +1,8 @@
 <template>
     <div>
-        <span class="title">数据统计</span>
+      <el-row style="display: flex;align-items: center;">
+        <i class="icon-statistics"></i><span class="title">数据统计</span>
+      </el-row>
         <line-chart-two style="height:300px"></line-chart-two>
     </div>
 </template>

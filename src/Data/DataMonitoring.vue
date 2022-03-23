@@ -1,6 +1,8 @@
 <template>
     <div>
-      <span class="title">数据监测</span>
+      <el-row style="height:70px;display: flex;align-items: center;">
+        <i class="icon-monitor"></i><span class="title">数据监测</span>
+      </el-row>
       <el-table :data="tableData" class="table" border :row-style="tableRowStyle" :header-cell-style="tableHeaderColor">
         <el-table-column prop="date" label="时间" width="165"></el-table-column>
         <el-table-column prop="name" label="In Avg(mA)"></el-table-column>
@@ -65,5 +67,10 @@ export default{
   font-family: 'Source Han Sans CN-Medium, Source Han Sans CN';
   font-weight: 500;
   color: #333333;
+}
+.icon-monitor, #el-icon-menu{
+  width: 32px;
+  height: 32px;
+  content: url(../assets/monitor.png);
 }
 </style>
