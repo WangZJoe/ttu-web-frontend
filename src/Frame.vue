@@ -6,15 +6,17 @@
         <span style="text-align:left;font-size:26px;font-weight:500;color:#333333">低压台区漏电管家</span>
         <span style="margin-left:147px;font-size:18px;font-weight:500;color:#333333">10kv古城大道线路——邱家咀3#台区</span>
         <span style="margin-left:41px;background: #00FFDC;" class="circle"></span>
-        <span style="font-size:18px;color:#666666;">在线 {{online}}</span>
-        <span style="margin-left:41px;background: #CCD5DE" class="circle"></span>
-        <span style="font-size:18px;color:#666666;">离线 {{offline}}</span>
+        <span style="font-size:18px;color:#666666;">在线 {{online}}/{{total}}</span>
       <el-dropdown style="float:right">
         <span  style="float:right;font-size:16px">2022-03-20 15:12:55</span>
-        <!-- <i class="el-icon-setting" style="margin-right: 15px"></i>
+        <i class="el-icon-bell" style="margin-right: 15px"></i>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>消息提醒</el-dropdown-item>
+        </el-dropdown-menu>
+        <i class="el-icon-setting" style="margin-right: 15px"></i>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>参数设置</el-dropdown-item>
-        </el-dropdown-menu> -->
+        </el-dropdown-menu>
       </el-dropdown>
 
     </el-header>
@@ -32,7 +34,9 @@
         <el-tab-pane class="tab-pane" label="实时监测" name="1">
           <data-curve></data-curve>
         </el-tab-pane>
-        <el-tab-pane class="tab-pane" label="历史数据" name="2">告警事件</el-tab-pane>
+        <el-tab-pane class="tab-pane" label="历史数据" name="2">
+          <data-before></data-before>
+        </el-tab-pane>
         <el-tab-pane class="tab-pane" label="警告事件" name="3">故障波形</el-tab-pane>
         <el-tab-pane class="tab-pane" label="故障波形" name="4">保护策略</el-tab-pane>
         <el-tab-pane class="tab-pane" label="保护策略" name="5">漏电分析</el-tab-pane>
@@ -47,16 +51,17 @@
 
 <script>
 import DataCurve from './DataCurve.vue';
+import DataBefore from './DataBefore.vue';
 import MenuTree from './MenuTree.vue'
 export default {
-  components: { DataCurve,MenuTree },
+  components: { DataCurve,DataBefore,MenuTree },
   data(){
       return{
         activeName:"1",
 
         //设备数量
         online:34,
-        offline:12,
+        total:45,
 
 
         //侧边栏设备数据
