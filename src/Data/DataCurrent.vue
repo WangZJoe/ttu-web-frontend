@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-card class="box-card">
-          <div slot="header" class="clearfix" shadow="never" style="display: flex;align-items: center;">
+          <div slot="header" class="clearfix" shadow="never" style="display: flex;align-items: center;margin-left: 18px">
             <i class="icon-statistics"></i><span class="title">实时数据</span>            
           </div>
             <el-row>

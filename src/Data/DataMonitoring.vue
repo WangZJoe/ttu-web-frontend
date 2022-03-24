@@ -1,6 +1,6 @@
 <template>
     <div>
-      <el-row style="height:70px;display: flex;align-items: center;">
+      <el-row style="height:70px;display: flex;align-items: center;margin-left: 18px">
         <i class="icon-monitor"></i><span class="title">数据监测</span>
       </el-row>
       <el-table :data="tableData" class="table" border :row-style="tableRowStyle" :header-cell-style="tableHeaderColor">

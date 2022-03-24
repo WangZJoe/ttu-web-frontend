@@ -1,6 +1,6 @@
 <template>
     <div>
-      <el-row style="display: flex;align-items: center;">
+      <el-row style="display: flex;align-items: center;margin-left: 18px">
         <i class="icon-statistics"></i><span class="title">数据统计</span>
       </el-row>
         <line-chart-two style="height:300px"></line-chart-two>
@@ -23,7 +23,7 @@ export default{
 .title{
     color: #333333;
     font-size: 20px;
-    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    font-family: 'Source Han Sans CN-Medium, Source Han Sans CN';
     font-weight: 500;
 }
 </style>
