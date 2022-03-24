@@ -21,7 +21,7 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage4"
+        :current-page="currentPage"
         :page-size="100"
         layout="total, sizes, prev, pager, next, jumper"
         :total="20"
@@ -34,7 +34,9 @@
 export default{
   props: ['tableData'],
   data(){
-
+    return{
+      currentPage:1,
+    }
   },
   methods:{
     // 修改table tr行
@@ -46,6 +48,12 @@ export default{
       if (rowIndex === 0) {
         return 'text-align: center;background-color: #FBFBFD; color: #333333; font-family: Source Han Sans CN-Medium, Source Han Sans CN;font-weight: 400;'
       }
+    },
+    handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
     }
   }
 }

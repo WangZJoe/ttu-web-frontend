@@ -56,9 +56,6 @@ export default{
     components:{
         GaugeChart
     },
-    data(){
-
-    },
     methods:{
 
     }
