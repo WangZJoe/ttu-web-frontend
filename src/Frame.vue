@@ -25,11 +25,12 @@
   <el-container>
   <el-aside width="12.5%" style="background-color: #176AD5">
     <el-menu :default-openeds="['1', '2']">
-      <menu-tree :menuData="menuList"></menu-tree>
+      <menu-tree :menuData="menuList" :currentDev="currentDev" @SelectDev="SelectDev"></menu-tree>
     </el-menu>
   </el-aside>
     
     <el-main>
+      {{currentDev}}
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane class="tab-pane" label="实时监测" name="1">
           <data-curve></data-curve>
@@ -53,8 +54,14 @@
 import DataCurve from './DataCurve.vue';
 import DataBefore from './DataBefore.vue';
 import MenuTree from './MenuTree.vue'
+import {GetMenuTree} from './utils/api'
 export default {
   components: { DataCurve,DataBefore,MenuTree },
+  created:function(){
+    // this.menuList = GetMenuTree()
+    // console.log(this.menuList)
+    GetMenuTree()
+  },
   data(){
       return{
         activeName:"1",
@@ -63,6 +70,8 @@ export default {
         online:34,
         total:45,
 
+        //当前选择设备
+        currentDev:'1-1',
 
         //侧边栏设备数据
         menuList:[
@@ -72,22 +81,22 @@ export default {
             name:'设备组1',
             children:[
               {
-                index:'1-1',
+                dev:'1-1',
                 icon:'icon-1-1',
                 name:'01#设备'
               },
               {
-                index:'1-2',
+                dev:'1-2',
                 icon:'icon-2',
                 name:'02#设备'
               },
               {
-                index:'1-3',
+                dev:'1-3',
                 icon:'icon-2-1',
                 name:'03#设备'
               },
               {
-                index:'1-4',
+                dev:'1-4',
                 icon:'icon-2',
                 name:'04#设备'
               }
@@ -99,22 +108,22 @@ export default {
             name:'设备组2',
             children:[
               {
-                index:'2-1',
+                dev:'2-1',
                 icon:'icon-3-1',
                 name:'21#设备'
               },
               {
-                index:'2-2',
+                dev:'2-2',
                 icon:'icon-1',
                 name:'22#设备'
               },
               {
-                index:'2-3',
+                dev:'2-3',
                 icon:'icon-1-1',
                 name:'23#设备'
               },
               {
-                index:'2-4',
+                dev:'2-4',
                 icon:'icon-2-1',
                 name:'24#设备'
               }
@@ -131,7 +140,10 @@ export default {
         message: 'We\'ve laid the ground work for you. It\'s time for you to build something epic!',
         duration: 5000
       })
-    }    
+    },
+    SelectDev(dev){
+      this.currentDev=dev
+    } 
   },
       
 

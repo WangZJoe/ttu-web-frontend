@@ -1,25 +1,29 @@
 <template>
   <div style="background-color: #176AD5;">
-    <template v-for="menu in this.menuData">
-      <el-submenu :key="menu.index" :index="menu.index" v-if="menu.children">
-          <template slot="title">
-              <i :class="menu.icon"></i>
-              <span slot="title" class="menu-items">{{menu.name}}</span>
-          </template>
-          <menu-tree :menuData="menu.children" class="menu-items"></menu-tree>
+    <el-menu @select="handleSelect">
+      <el-submenu v-for="menu in this.menuData" :key="menu.model" :index="menu.model">
+        <template slot="title">
+            <i :class="menu.icon"></i>
+            <span slot="title">{{menu.model}}</span>
+        </template>
+        <el-menu-item v-for="cons in menu.body" :key="cons.dev" :index="cons.dev">
+          <i :class="cons.icon"></i>
+          <span slot="title">{{cons.dev}}</span>
+        </el-menu-item>
       </el-submenu>
-      <el-menu-item :key="menu.index" :index="menu.index" v-else>
-          <i :class="menu.icon"></i>
-          <span slot="title" class="menu-items">{{menu.name}}</span>
-      </el-menu-item>
-    </template>
+    </el-menu>
   </div>
 </template>
  
 <script>
 export default {
-  props: ['menuData'],
-  name: 'MenuTree'
+  props: ['menuData','currentDev'],
+  name: 'MenuTree',
+  methods:{
+    handleSelect(key){
+      this.$emit('SelectDev',key)
+    }
+  }
 }
 </script>
 

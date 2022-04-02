@@ -170,6 +170,13 @@
     "postcss" "^5.2.16"
     "postcss-value-parser" "^3.2.3"
 
+"axios@^0.26.1", "axios@>= 0.20.0":
+  "integrity" "sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA=="
+  "resolved" "https://registry.npmmirror.com/axios/-/axios-0.26.1.tgz"
+  "version" "0.26.1"
+  dependencies:
+    "follow-redirects" "^1.14.8"
+
 "babel-code-frame@^6.11.0", "babel-code-frame@^6.22.0":
   "integrity" "sha512-Dmx3yJCO/UHWgFTKUlBPHUm7h5hCjI5Lfc07gmSv7H4AbUwxS7NHyorp8HN1YEd4xSDCf7P4zqnS63I3aaJTwg=="
   "resolved" "http://registry.npm.taobao.org/babel-code-frame/download/babel-code-frame-6.22.0.tgz"
@@ -1750,6 +1757,11 @@
   "resolved" "http://registry.npm.taobao.org/flatten/download/flatten-1.0.2.tgz"
   "version" "1.0.2"
 
+"follow-redirects@^1.14.8":
+  "integrity" "sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w=="
+  "resolved" "https://registry.npmmirror.com/follow-redirects/-/follow-redirects-1.14.9.tgz"
+  "version" "1.14.9"
+
 "for-in@^1.0.1":
   "integrity" "sha512-7EwmXrOjyL+ChxMhmG5lnW9MPt1aIeZEwKhQzoBUdTV0N3zuwWDZYVJatDvZ2OyzPUvdIAZDsCetk3coyMfcnQ=="
   "resolved" "http://registry.npm.taobao.org/for-in/download/for-in-1.0.2.tgz"
@@ -3202,6 +3214,11 @@
   "resolved" "http://registry.npm.taobao.org/q/download/q-1.5.0.tgz"
   "version" "1.5.0"
 
+"qs.js@^0.1.12":
+  "integrity" "sha512-AW97KDJtO7tAsGN97CY1mmS5YyQGm6f8AonHPnKz0VnOc/9y1PVzoZfbkRo2VaVz+UPzvukK4WVyRwXOOUN1Bg=="
+  "resolved" "https://registry.npmmirror.com/qs.js/-/qs.js-0.1.12.tgz"
+  "version" "0.1.12"
+
 "qs@6.4.0":
   "integrity" "sha512-Qs6dfgR5OksK/PSxl1kGxiZgEQe8RqJMB9wZqVlKQfU+zzV+HY77pWJnoJENACKDQByWdpr8ZPIh1TBi4lpiSQ=="
   "resolved" "http://registry.npm.taobao.org/qs/download/qs-6.4.0.tgz"
@@ -3989,6 +4006,11 @@
   dependencies:
     "indexof" "0.0.1"
 
+"vue-axios@^3.4.1":
+  "integrity" "sha512-8YZYUOQrBEJktxoQtrM4rr2LfVcDaWfJqv8MqtLlgLlkuBvCYKFSZSo6AXQ4YcCzdgccDqstmuaEh68lcH9xWA=="
+  "resolved" "https://registry.npmmirror.com/vue-axios/-/vue-axios-3.4.1.tgz"
+  "version" "3.4.1"
+
 "vue-hot-reload-api@^2.2.0":
   "integrity" "sha512-Hn0jdFiNfNx4+Nxz1vokYUsP3mwpn9r/XomLrXA+KafYaiR7LNQG1fxtpVklD4KxD5GluXRiSoWNDf0H9BdsJw=="
   "resolved" "https://registry.npmmirror.com/vue-hot-reload-api/-/vue-hot-reload-api-2.2.0.tgz"
@@ -4034,7 +4056,7 @@
   "resolved" "https://registry.npmmirror.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz"
   "version" "1.6.0"
 
-"vue@^2.5.16", "vue@^2.5.2":
+"vue@^2.5.16", "vue@^2.5.2", "vue@^3.0.0 || ^2.0.0":
   "integrity" "sha512-/ffmsiVuPC8PsWcFkZngdpas19ABm5mh2wA7iDqcltyCTwlgZjHGeJYOXkBMo422iPwIcviOtrTCUpSfXmToLQ=="
   "resolved" "https://registry.npmmirror.com/vue/-/vue-2.5.16.tgz"
   "version" "2.5.16"
