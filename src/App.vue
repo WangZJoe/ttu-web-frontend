@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <layout>
+    </layout>
     <link rel="shortcut icon" href="#"/>
     <Frame></Frame>
   </div>
