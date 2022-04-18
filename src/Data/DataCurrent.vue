@@ -8,30 +8,32 @@
               <el-col :span="11" style="margin-left: 4%;">
                 <el-card class="box-card1" shadow="never">
                   <div slot="header" class="clearfix">
-                    <span>漏电电流最大值(mA)</span>            
+                    <!-- <span>漏电电流最大值(mA)</span>             -->
+                    <span>A_phsA</span>            
                   </div>
-                  <span class="big-number">183</span>
+                  <span class="big-number">{{data.A_phsA}}</span>
                 </el-card>
               </el-col>
               <el-col :span="11" style="margin-left: 4%;">
                 <el-card class="box-card2" shadow="never">
                   <div slot="header" class="clearfix">
-                    <span>漏电电流平均值(mA)</span>            
+                    <!-- <span>漏电电流平均值(mA)</span>             -->
+                    <span>B_phsA</span>   
                   </div>
-                  <span class="big-number">36</span>
+                  <span class="big-number">{{data.B_phsA}}</span>
                 </el-card>
               </el-col>
             </el-row>
           <div>
             <el-row>
               <el-col :span="8">
-                <gauge-chart></gauge-chart>
+                <gauge-chart :value="data.Tmp"></gauge-chart>
               </el-col>
               <el-col :span="8">
-                <gauge-chart></gauge-chart>
+                <gauge-chart :value="data.Tmp"></gauge-chart>
               </el-col>              
               <el-col :span="8">
-                <gauge-chart></gauge-chart>
+                <gauge-chart :value="data.EnvHum"></gauge-chart>
               </el-col>   
             </el-row> 
             <el-row> 
@@ -56,6 +58,7 @@ export default{
     components:{
         GaugeChart
     },
+    props:["data"],
     methods:{
 
     }

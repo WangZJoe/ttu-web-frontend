@@ -8,16 +8,26 @@
 <script>
 import DataStatistics from './Data/DataStatistics.vue'
 import DataMonitoring from './Data/DataMonitoring.vue'
+import {GetHistoryData} from './utils/api'
 
 export default{
     components:{DataStatistics,DataMonitoring},
+    mounted:async ()=>{
+      // let historyData = await GetHistoryData({
+      //   "dev": "LTU_bb38620dc4e710b0",
+      //   "upperN": 10,
+      //   "frozen_type": "SchFroz",
+      //   "body": "-"
+      // })      
+      // this.tableData = historyData      
+    },
     data(){
-         const item = {
-        date: '2016-05-02 12:00:00',
+      const item = {
+        time: '2016-05-02 12:00:00',
         name: '25.45',
       };
       return {
-        tableData: Array(10).fill(item),
+        tableData: [],//Array(10).fill(item),
         
         lineData: {
           "10:00": 30,

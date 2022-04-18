@@ -3,10 +3,10 @@
 
     <el-row>
       <el-col class="statistics" >
-        <data-statistics></data-statistics>
+        <data-statistics :value="tableData"></data-statistics>
       </el-col>
       <el-col class="current">
-        <data-current></data-current>
+        <data-current :data="realtimeData"></data-current>
       </el-col>
     </el-row>
 
@@ -19,16 +19,20 @@
 import DataStatistics from './Data/DataStatistics.vue'
 import DataCurrent from './Data/DataCurrent.vue'
 import DataMonitoring from './Data/DataMonitoring.vue'
+import {GetHistoryData,GetRealtime} from './utils/api'
+
 export default {
   components: { DataStatistics, DataCurrent,DataMonitoring},
+  props: ['currentDev'],
+  // mounted:{},
   data() {
       const item = {
         date: '2016-05-02 12:00:00',
         name: '25.45',
       };
       return {
-        tableData: Array(5).fill(item),
-        
+        tableData: [{ "time": "2022-04-02 15:40:42",}],//Array(5).fill(item),
+        realtimeData:[{"Tmp":25.21}],
         lineData: {
           "10:00": 30,
           "11:00": 20,
@@ -43,7 +47,32 @@ export default {
     }
   },
   methods: {  
-
+    getTableData : async function(){
+      let historyData = await GetHistoryData({
+        "dev": this.currentDev,
+        "upperN": 10,
+        "frozen_type": "SchFroz",
+        "body": "-"
+      })  
+      this.tableData.length=0    
+      this.tableData = historyData      
+    },
+    getRealtimeData : async function(){
+      let RealtimeData = await GetRealtime({
+        "dev": this.currentDev,
+        "attribute": "-",
+        "totalCall": "1"
+      })  
+      this.realtimeData.length=0    
+      this.realtimeData = RealtimeData      
+    },
+  },
+  watch:{
+    currentDev:async function(oldDev,newDev){
+      if(oldDev==newDev){return}
+      await this.getTableData()      
+      await this.getRealtimeData()      
+    }
   }
 
 }

@@ -2363,10 +2363,10 @@
   "resolved" "http://registry.npm.taobao.org/lodash.uniq/download/lodash.uniq-4.5.0.tgz"
   "version" "4.5.0"
 
-"lodash@^4.14.0", "lodash@^4.17.2", "lodash@^4.17.3", "lodash@^4.2.0":
-  "integrity" "sha512-6X37Sq9KCpLSXEh8uM12AKYlviHPNNk4RxiGBn4cmKGJinbXBneWIV7iE/nXkM928O7ytHcHb6+X6Svl0f4hXg=="
-  "resolved" "http://registry.npm.taobao.org/lodash/download/lodash-4.17.4.tgz"
-  "version" "4.17.4"
+"lodash@^4.14.0", "lodash@^4.17.2", "lodash@^4.17.21", "lodash@^4.17.3", "lodash@^4.2.0":
+  "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
+  "resolved" "https://registry.npmmirror.com/lodash/-/lodash-4.17.21.tgz"
+  "version" "4.17.21"
 
 "longest@^1.0.1":
   "integrity" "sha512-k+yt5n3l48JU4k8ftnKG6V7u32wyH2NfKzeMto9F/QRE0amxy/LayxwlvjjkZEIzqR+19IrtFO8p5kB9QaYUFg=="

@@ -3,11 +3,11 @@
     <el-menu @select="handleSelect">
       <el-submenu v-for="menu in this.menuData" :key="menu.model" :index="menu.model">
         <template slot="title">
-            <i :class="menu.icon"></i>
+            <i class="el-icon-document"></i>
             <span slot="title">{{menu.model}}</span>
         </template>
         <el-menu-item v-for="cons in menu.body" :key="cons.dev" :index="cons.dev">
-          <i :class="cons.icon"></i>
+          <i class="el-icon-document"></i>
           <span slot="title">{{cons.dev}}</span>
         </el-menu-item>
       </el-submenu>

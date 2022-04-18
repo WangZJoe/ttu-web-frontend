@@ -3,7 +3,7 @@
       <el-row style="display: flex;align-items: center;margin-left: 18px">
         <i class="icon-statistics"></i><span class="title">数据统计</span>
       </el-row>
-        <line-chart-two style="height:300px"></line-chart-two>
+        <line-chart-two :value=value style="height:300px"></line-chart-two>
     </div>
 </template>
 
@@ -13,6 +13,7 @@ export default{
     components: {
         LineChartTwo
     },
+    props:["value"],
     methods:{
 
     }

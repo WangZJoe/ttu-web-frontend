@@ -4,19 +4,27 @@
         <i class="icon-monitor"></i><span class="title">数据监测</span>
       </el-row>
       <el-table :data="tableData" class="table" border :row-style="tableRowStyle" :header-cell-style="tableHeaderColor">
-        <el-table-column prop="date" label="时间" width="165"></el-table-column>
-        <el-table-column prop="name" label="In Avg(mA)"></el-table-column>
-        <el-table-column prop="name" label="In Max(mA)"></el-table-column>
-        <el-table-column prop="name" label="Ia(A)"></el-table-column>
-        <el-table-column prop="name" label="Ib(A)"></el-table-column>
-        <el-table-column prop="name" label="Ic(A)"></el-table-column>        
-        <el-table-column prop="name" label="Ua(v)"></el-table-column>
-        <el-table-column prop="name" label="Ub(v)"></el-table-column>
-        <el-table-column prop="name" label="Uc(v)"></el-table-column>
-        <el-table-column prop="name" label="Tn(℃)"></el-table-column>
-        <el-table-column prop="name" label="T(℃)"></el-table-column>
-        <el-table-column prop="name" label="H(%rh)"></el-table-column>
-        <el-table-column prop="name" label="接点温度Max(℃)" width="142"></el-table-column>        
+        <!-- <el-table-column prop="time" label="时间" width="165"></el-table-column> -->
+        <el-table-column v-for="(value, name) in tableData[0]" v-bind:key="name" v-bind:prop="name" v-bind:label="name"></el-table-column>
+        <!-- <el-table-column prop="AMax_phsA"            label="AMax_phsA"            ></el-table-column>         
+        <el-table-column prop="BMax_phsA"            label="BMax_phsA"            ></el-table-column>         
+        <el-table-column prop="CMax_phsA"            label="CMax_phsA"            ></el-table-column>         
+        <el-table-column prop="AMax_neut"            label="AMax_neut"            ></el-table-column>         
+        <el-table-column prop="A_phsA"               label="A_phsA"               ></el-table-column>   
+        <el-table-column prop="B_phsA"               label="B_phsA"               ></el-table-column>   
+        <el-table-column prop="C_phsA"               label="C_phsA"               ></el-table-column>   
+        <el-table-column prop="EnvHum"               label="EnvHum"               ></el-table-column>   
+        <el-table-column prop="PhV_phsA"             label="PhV_phsA"             ></el-table-column>       
+        <el-table-column prop="PhV_phsB"             label="PhV_phsB"             ></el-table-column>       
+        <el-table-column prop="PhV_phsC"             label="PhV_phsC"             ></el-table-column>       
+        <el-table-column prop="Tmp"                  label="Tmp"                  ></el-table-column>
+        <el-table-column prop="PTUV_Open_Op_phsA"    label="PTUV_Open_Op_phsA"    ></el-table-column>                         
+        <el-table-column prop="PTUV_Open_Op_phsB"    label="PTUV_Open_Op_phsB"    ></el-table-column>                         
+        <el-table-column prop="PTUV_Open_Op_phsC"    label="PTUV_Open_Op_phsC"    ></el-table-column>                         
+        <el-table-column prop="A_neut"               label="A_neut"               ></el-table-column>   
+        <el-table-column prop="AMax_neut"            label="AMax_neut"            ></el-table-column>         
+        <el-table-column prop="Max_Tmp"              label="Max_Tmp"              ></el-table-column>     
+        <el-table-column prop="Max_TmpValue"         label="Max_TmpValue"         ></el-table-column>         -->
       </el-table>
       <el-pagination
         @size-change="handleSizeChange"

@@ -59,11 +59,11 @@ module.exports = (options = {}) => ({
     port: 8010,
     proxy: {
       '/api/': {
-        target: 'http://127.0.0.1:8000',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
+        target: 'http://127.0.0.1:8002',
+        // changeOrigin: true,
+        // pathRewrite: {
+        //   '^/api': ''
+        // }
       }
     },
     historyApiFallback: {

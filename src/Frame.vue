@@ -2,7 +2,7 @@
 
 <el-container style="border: 0px solid #eee;">
 
-    <el-header>
+    <el-header style="">
         <span style="text-align:left;font-size:26px;font-weight:500;color:#333333">低压台区漏电管家</span>
         <span style="margin-left:147px;font-size:18px;font-weight:500;color:#333333">10kv古城大道线路——邱家咀3#台区</span>
         <span style="margin-left:41px;background: #00FFDC;" class="circle"></span>
@@ -30,10 +30,9 @@
   </el-aside>
     
     <el-main>
-      {{currentDev}}
       <el-tabs v-model="activeName" type="card">
         <el-tab-pane class="tab-pane" label="实时监测" name="1">
-          <data-curve></data-curve>
+          <data-curve :currentDev="currentDev"></data-curve>
         </el-tab-pane>
         <el-tab-pane class="tab-pane" label="历史数据" name="2">
           <data-before></data-before>
@@ -57,10 +56,11 @@ import MenuTree from './MenuTree.vue'
 import {GetMenuTree} from './utils/api'
 export default {
   components: { DataCurve,DataBefore,MenuTree },
-  created:function(){
-    // this.menuList = GetMenuTree()
-    // console.log(this.menuList)
-    GetMenuTree()
+  mounted:async function(){
+    var menuList = await GetMenuTree()
+    console.log(menuList)
+    this.menuList = menuList    
+    //GetMenuTree()
   },
   data(){
       return{
@@ -71,64 +71,40 @@ export default {
         total:45,
 
         //当前选择设备
-        currentDev:'1-1',
+        currentDev:'LTU_bb38620dc4e710b0',
 
         //侧边栏设备数据
         menuList:[
-          {
-            index:'1',
-            icon:'icon-1',
-            name:'设备组1',
-            children:[
-              {
-                dev:'1-1',
-                icon:'icon-1-1',
-                name:'01#设备'
-              },
-              {
-                dev:'1-2',
-                icon:'icon-2',
-                name:'02#设备'
-              },
-              {
-                dev:'1-3',
-                icon:'icon-2-1',
-                name:'03#设备'
-              },
-              {
-                dev:'1-4',
-                icon:'icon-2',
-                name:'04#设备'
-              }
-            ]
-          },
-           {
-            index:'2',
-            icon:'icon-3',
-            name:'设备组2',
-            children:[
-              {
-                dev:'2-1',
-                icon:'icon-3-1',
-                name:'21#设备'
-              },
-              {
-                dev:'2-2',
-                icon:'icon-1',
-                name:'22#设备'
-              },
-              {
-                dev:'2-3',
-                icon:'icon-1-1',
-                name:'23#设备'
-              },
-              {
-                dev:'2-4',
-                icon:'icon-2-1',
-                name:'24#设备'
-              }
-            ]
-          }
+            {
+                "model": "ADC",
+                "port": "1",
+                "body": [
+                    {
+                        "guid": "5aeeb33b6dcaceff",
+                        "dev": "ADC_5aeeb33b6dcaceff",
+                        "addr": "1",
+                        "appname": "",
+                        "desc": "jiao liu cai ji",
+                        "manuID": "1234",
+                        "isreport": "1"
+                    }
+                ]
+            },
+            {
+                "model": "ADC_frozen",
+                "port": "1",
+                "body": [
+                    {
+                        "guid": "31f499096bfb9036",
+                        "dev": "ADC_frozen_31f499096bfb9036",
+                        "addr": "1",
+                        "appname": "",
+                        "desc": "jiao liu cai ji",
+                        "manuID": "1234",
+                        "isreport": "1"
+                    }
+                ]
+            }
         ]
       }
   },

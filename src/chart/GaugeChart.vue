@@ -10,7 +10,7 @@ import * as echarts from 'echarts'
 export default {
   name: 'GaugeChart',
   props: {
-    value: Object,
+    value: Number,
     text: String,
     subtext: String
   },
@@ -139,7 +139,7 @@ export default {
           },
           data: [
             {
-              value: 25
+              value: String(this.value)
             }
           ]
         },{
