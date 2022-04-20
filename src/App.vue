@@ -1,26 +1,23 @@
 <template>
-  <div id="app">
-    <layout>
-    </layout>
-    <link rel="shortcut icon" href="#"/>
-    <Frame></Frame>
-  </div>
+    <div id="app">
+        <Frame></Frame>
+    </div>
 </template>
 
 <script>
-import Frame from './Frame.vue'
+import Frame from "./layout/mainView/Frame.vue";
 export default {
-  components: { Frame },
-  methods: {
-  }
-}
+    components: { Frame },
+    methods: {},
+};
 </script>
 
-<style>
+<style lang="scss">
 @import "./assets/font/SourceHanSansCN-Medium.css";
+/* 页面初始化样式 */
+@import "./styles/reset.scss";
 #app {
-  background: #F0F7FD;
-  font-family: 'Source Han Sans CN-Medium, Source Han Sans CN';
-  font-weight: 500;
+    width: 100%;
+    height: 100%;
 }
 </style>
