@@ -136,54 +136,113 @@
 
 <script>
 import * as echarts from "echarts";
-import { GetHistoryData, GetRealtime } from "../../../api/api";
-
+import { GetDeviceData } from "../../../api/api";
 export default {
-    props: ["devData"],
+    props: ["curveDev"],
     data() {
-        const item = {
-            date: "2016-05-02 12:00:00",
-            name: "25.45",
-        };
         return {
             //漏电电流最大
-            electricMax: this.devData.record[0].In_Max,
+            electricMax: "",
             //漏电电流平均值
-            average: this.devData.record[0].In_Avg,
+            average: "",
             //X相电流
-            electricA: this.devData.record[0].Ia,
-            electricB: this.devData.record[0].Ib,
-            electricC: this.devData.record[0].Ic,
+            electricA: "",
+            electricB: "",
+            electricC: "",
             //X相电压
-            voltageA: this.devData.record[0].Ua,
-            voltageB: this.devData.record[0].Ub,
-            voltageC: this.devData.record[0].Uc,
+            voltageA: "",
+            voltageB: "",
+            voltageC: "",
+            //漏电电流图表数据
+            electricDatas: [],
+            //X相电流图表数据
+            electricDatasA: [],
+            electricDatasB: [],
+            electricDatasC: [],
+            //环境温度
+            temperature: "",
+            //接点最高温度
+            maxTemperature: "",
+            //环境湿度
+            humidity: ""
         };
     },
-    mounted() {
-        this.setRealTimeCharts();
-        this.setEnvironmentalCharts();
+    created() {
+        //初始化请求数据
+        // this.$emit('requstStatus', true);
+        // this.$nextTick(() => {
+        //     this.rest();
+        //     this.getRealDevDatas(this.curveDev);
+        //     console.log(this.curveDev, 'curve');
+        //     this.$emit('requstStatus', false);
+        // })
+        //轮询数据
+        this.timer = window.setInterval(() => {
+            if (this.curveDev) {
+                setTimeout(() => {
+                    this.getRealDevDatas(this.curveDev);
+                }, 0)
+            }
+        }, 5000)
     },
     methods: {
-        getTableData: async function () {
-            let historyData = await GetHistoryData({
-                dev: this.currentDev,
-                upperN: 10,
-                frozen_type: "SchFroz",
-                body: "-",
-            });
-            this.tableData.length = 0;
-            this.tableData = historyData;
+        //请求设备实时数据
+        async getRealDevDatas(params) {
+            let res = await GetDeviceData(params);
+            if (res.data.code != 0) {
+                this.$message.error('设备数据请求失败');
+            } else {
+                let data = res.data.data;
+                this.electricMax = data.record[0].In_Max;
+                this.average = data.record[0].In_Avg;
+                this.electricA = data.record[0].Ia;
+                this.electricB = data.record[0].Ib;
+                this.electricC = data.record[0].Ic;
+                this.voltageA = data.record[0].Ua;
+                this.voltageB = data.record[0].Ub;
+                this.voltageC = data.record[0].Uc;
+                this.temperature = data.record[0].T;
+                this.maxTemperature = data.record[0].Tn;
+                this.humidity = data.record[0].H;
+                if (this.electricDatas.length == 12) {
+                    this.electricDatas.shift();
+                }
+                if (this.electricDatasA.length == 12) {
+                    this.electricDatasA.shift();
+                }
+                if (this.electricDatasB.length == 12) {
+                    this.electricDatasB.shift();
+                }
+                if (this.electricDatasC.length == 12) {
+                    this.electricDatasC.shift();
+                }
+                this.electricDatas.push(data.record[0].In_Max);
+                this.electricDatasA.push(data.record[0].Ia);
+                this.electricDatasB.push(data.record[0].Ib);
+                this.electricDatasC.push(data.record[0].Ic);
+                this.setRealTimeCharts();
+                this.setEnvironmentalCharts();
+            }
         },
-        getRealtimeData: async function () {
-            let RealtimeData = await GetRealtime({
-                dev: this.currentDev,
-                attribute: "-",
-                totalCall: "1",
-            });
-            this.realtimeData.length = 0;
-            this.realtimeData = RealtimeData;
+        //初始化数据
+        rest() {
+            this.electricMax = "";
+            this.average = "";
+            this.electricA = "";
+            this.electricB = "";
+            this.electricC = "";
+            this.voltageA = "";
+            this.voltageB = "";
+            this.voltageC = "";
+            this.electricDatas = [];
+            this.electricDatasA = [];
+            this.electricDatasB = [];
+            this.electricDatasC = [];
+            this.temperature = "";
+            this.maxTemperature = "";
+            this.humidity = "";
         },
+        //设置实时曲线图表
         setRealTimeCharts() {
             let electricCharts = document.getElementById("electricCharts");
             let relativeCharts = document.getElementById("relativeCharts");
@@ -220,7 +279,7 @@ export default {
                 },
                 series: [
                     {
-                        data: [100, 150, 200, 250],
+                        data: this.electricDatas,
                         type: "line",
                     },
                 ],
@@ -261,25 +320,26 @@ export default {
                         name: "A相电流",
                         type: "line",
                         stack: "Total",
-                        data: [120, 132, 101, 134, 90, 230, 210],
+                        data: this.electricDatasA,
                     },
                     {
                         name: "B相电流",
                         type: "line",
                         stack: "Total",
-                        data: [220, 182, 191, 234, 290, 330, 310],
+                        data: this.electricDatasB,
                     },
                     {
                         name: "C相电流",
                         type: "line",
                         stack: "Total",
-                        data: [150, 232, 201, 154, 190, 330, 410],
+                        data: this.electricDatasC,
                     },
                 ],
             };
             myElectricChart.setOption(electricOption);
             myRelativeChart.setOption(relativeOption);
         },
+        //设置环境监测图表
         setEnvironmentalCharts() {
             let temperatureCharts = document.getElementById("temperatureCharts");
             let maxTemperatureCharts = document.getElementById("maxTemperatureCharts");
@@ -311,7 +371,7 @@ export default {
                             width: 30
                         },
                         pointer: {
-                            show: true
+                            show: false
                         },
                         axisLine: {
                             lineStyle: {
@@ -358,7 +418,7 @@ export default {
                         },
                         data: [
                             {
-                                value: this.devData.record[0].T
+                                value: this.temperature
                             }
                         ]
                     },
@@ -387,7 +447,7 @@ export default {
                             width: 30
                         },
                         pointer: {
-                            show: true
+                            show: false
                         },
                         axisLine: {
                             lineStyle: {
@@ -434,7 +494,7 @@ export default {
                         },
                         data: [
                             {
-                                value: this.devData.record[0].Tn
+                                value: this.maxTemperature
                             }
                         ]
                     },
@@ -463,7 +523,7 @@ export default {
                             width: 30
                         },
                         pointer: {
-                            show: true
+                            show: false
                         },
                         axisLine: {
                             lineStyle: {
@@ -510,7 +570,7 @@ export default {
                         },
                         data: [
                             {
-                                value: this.devData.record[0].H
+                                value: this.humidity
                             }
                         ]
                     },
@@ -522,14 +582,22 @@ export default {
         },
     },
     watch: {
-        currentDev: async function (oldDev, newDev) {
-            if (oldDev == newDev) {
-                return;
+        //请求组件数据
+        curveDev: {
+            immediate: true,
+            handler(newVal) {
+                this.$emit('requstStatus', true);
+                this.rest();
+                this.getRealDevDatas(newVal);
+                setTimeout(() => {
+                    this.$emit('requstStatus', false);
+                }, 500);
             }
-            await this.getTableData();
-            await this.getRealtimeData();
         },
     },
+    destroyed() {
+        window.clearInterval(this.timer)
+    }
 };
 </script>
 

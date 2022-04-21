@@ -1,0 +1,61 @@
+.history-standing-book {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .card-box {
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+
+        .title {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            height: 2.3rem;
+
+            .tip-color {
+                width: 0.4rem;
+                height: 1.1rem;
+                margin-right: 5px;
+                background-color: #189E99;
+            }
+
+            h3 {
+                font-size: 20px;
+                font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                font-weight: 500;
+                color: #333333;
+                line-height: 0px;
+            }
+        }
+
+        .row-charts {
+            display: flex;
+            justify-content: space-evenly;
+
+            div {
+                flex-basis: 31%;
+            }
+        }
+
+        .card-content {
+            flex: 1;
+        }
+
+        .table-content {
+            width: 83vw;
+            padding: 0 30px 5px 30px;
+        }
+    }
+
+    .top-charts {
+        height: 16rem;
+        margin-bottom: 1rem;
+    }
+
+    .table-body {
+        flex: 1;
+    }
+}

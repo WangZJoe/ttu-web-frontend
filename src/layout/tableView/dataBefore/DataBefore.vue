@@ -1,45 +1,300 @@
 <template>
-    <div>
-        <data-statistics></data-statistics>
-        <data-monitoring :tableData="tableData" class="monitoring"></data-monitoring>
+    <div class="history-standing-book">
+        <date-pick-search @getTime="getTime"></date-pick-search>
+        <div class="top-charts card-box">
+            <div class="title">
+                <div class="tip-color"></div>
+                <h3>数据统计</h3>
+            </div>
+            <div class="card-content row-charts">
+                <div id="leakageCharts" :style="{ height: '14rem'}"></div>
+                <div id="electricCharts" :style="{ height: '14rem'}"></div>
+                <div id="voltageCharts" :style="{ height: '14rem'}"></div>
+            </div>
+        </div>
+        <div class="table-body card-box">
+            <div class="title">
+                <div class="tip-color"></div>
+                <h3>历史数据</h3>
+            </div>
+            <div class="card-content table-content">
+                <el-table :data="tableData" border height="100%" :header-cell-style="{background:'#F0F7FD'}">
+                    <el-table-column prop="time" label="时间">
+                    </el-table-column>
+                    <el-table-column prop="In_Avg" label="In Avg(mA)">
+                    </el-table-column>
+                    <el-table-column prop="In_Max" label="In Max(mA)">
+                    </el-table-column>
+                    <el-table-column prop="Ia" label="Ia(A)">
+                    </el-table-column>
+                    <el-table-column prop="Ib" label="Ib(A)">
+                    </el-table-column>
+                    <el-table-column prop="Ic" label="Ic(A)">
+                    </el-table-column>
+                    <el-table-column prop="Ua" label="Ua(V)">
+                    </el-table-column>
+                    <el-table-column prop="Ub" label="Ub(V)">
+                    </el-table-column>
+                    <el-table-column prop="Uc" label="Uc(V)">
+                    </el-table-column>
+                    <el-table-column prop="In_Max" label="Tn(°C)">
+                    </el-table-column>
+                    <el-table-column prop="In_Max" label="T(°C)">
+                    </el-table-column>
+                    <el-table-column prop="In_Max" label="H(%rh)">
+                    </el-table-column>
+                </el-table>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-import DataStatistics from "../../../components/DataStatistics.vue";
-import DataMonitoring from "../../../components/DataMonitoring.vue";
-import { GetHistoryData } from "../../../api/api"
+import * as echarts from "echarts";
+import DatePickSearch from "../../../components/DatePickSearch.vue";
+// import DataStatistics from "../../../components/DataStatistics.vue";
+// import DataMonitoring from "../../../components/DataMonitoring.vue";
+import { GetDeviceHistoryData } from "../../../api/api"
 
 export default {
-    components: { DataStatistics, DataMonitoring },
-    mounted: async () => {
-        // let historyData = await GetHistoryData({
-        //   "dev": "LTU_bb38620dc4e710b0",
-        //   "upperN": 10,
-        //   "frozen_type": "SchFroz",
-        //   "body": "-"
-        // })
-        // this.tableData = historyData
+    components: { DatePickSearch },
+    props: ["curveDev"],
+    created() {
+        // this.$emit('requstStatus', true);
+        // this.$nextTick(() => {
+        //     let params = {
+        //         dev: this.curveDev,
+        //         start_time: this.start_time,
+        //         end_time: this.end_time,
+        //         time_span_unit: this.time_span_unit,
+        //         time_span_number: this.time_span_number,
+        //     }
+        //     this.rest();
+        //     this.getHistoryDatas(params);
+        //     console.log(this.curveDev, 'history');
+        // });
+        // setTimeout(() => {
+        //     this.$emit('requstStatus', false);
+        // }, 500);
     },
     data() {
-        const item = {
-            time: "2016-05-02 12:00:00",
-            name: "25.45",
-        };
         return {
-            tableData: [], //Array(10).fill(item),
-
-            lineData: {
-                "10:00": 30,
-                "11:00": 20,
-                "12:00": 50,
-                "13:00": 60,
-                "14:00": 70,
-                "15:00": 90,
-                "16:00": 55,
-                "17:00": 33,
-            },
+            //表格数据
+            tableData: [],
+            //数据时间
+            dataTimes: [],
+            //漏电电流 时间
+            leakageDatas: [],
+            //x相电流 时间
+            electricDatasA: [],
+            electricDatasB: [],
+            electricDatasC: [],
+            //x相电压 时间
+            voltageDatasA: [],
+            voltageDatasB: [],
+            voltageDatasC: [],
+            //开始 结束时间
+            start_time: this.$moment().format('YYYY-MM-DD'),
+            end_time: this.$moment().format('YYYY-MM-DD'),
+            //间隔周期 间隔数
+            time_span_unit: "day",
+            time_span_number: "1",
         };
     },
+    methods: {
+        //请求历史台账数据
+        async getHistoryDatas(params) {
+            let res = await GetDeviceHistoryData(params);
+            if (res.data.code != 0) {
+                this.$message.error('设备数据请求失败');
+                this.setDataCensusCharts();
+            } else {
+                let data = res.data.data;
+                data.record.forEach(item => {
+                    this.dataTimes.push(item.time);
+                    this.leakageDatas.push(item.In_Avg);
+                    this.electricDatasA.push(item.Ia);
+                    this.electricDatasB.push(item.Ib);
+                    this.electricDatasC.push(item.Ic);
+                    this.voltageDatasA.push(item.Ua);
+                    this.voltageDatasB.push(item.Ub);
+                    this.voltageDatasC.push(item.Uc);
+                });
+                this.tableData = data.record;
+                this.setDataCensusCharts();
+            }
+        },
+        //初始化数据
+        rest() {
+            this.tableData = [];
+            this.leakageDatas = [];
+            this.dataTimes = [];
+            this.electricDatasA = [];
+            this.electricDatasB = [];
+            this.electricDatasC = [];
+            this.voltageDatasA = [];
+            this.voltageDatasB = [];
+            this.voltageDatasC = [];
+        },
+        //设置数据统计图表
+        setDataCensusCharts() {
+            let leakageCharts = document.getElementById("leakageCharts");
+            let electricCharts = document.getElementById("electricCharts");
+            let voltageCharts = document.getElementById("voltageCharts");
+
+            let myLeakageCharts = echarts.init(leakageCharts);
+            let myElectricCharts = echarts.init(electricCharts);
+            let myVoltageCharts = echarts.init(voltageCharts);
+
+            let leakageOption = {
+                title: {
+                    left: "center",
+                    text: "漏电电流",
+                },
+                xAxis: {
+                    type: "category",
+                    data: this.dataTimes
+                },
+                yAxis: {
+                    type: "value",
+                    name: "(mA)",
+                    nameTextStyle: {
+                        align: "right",
+                    },
+                },
+                series: [
+                    {
+                        data: this.leakageDatas,
+                        type: "line",
+                    },
+                ],
+            };
+            let electricOption = {
+                tooltip: {
+                    trigger: "axis",
+                },
+                legend: {
+                    data: ["A相电流", "B相电流", "C相电流"],
+                },
+                xAxis: {
+                    type: "category",
+                    data: this.dataTimes,
+                },
+                yAxis: {
+                    type: "value",
+                    name: "(A)",
+                    nameTextStyle: {
+                        align: "right",
+                    },
+                },
+                series: [
+                    {
+                        name: "A相电流",
+                        type: "line",
+                        stack: "Total",
+                        data: this.electricDatasA,
+                    },
+                    {
+                        name: "B相电流",
+                        type: "line",
+                        stack: "Total",
+                        data: this.electricDatasB,
+                    },
+                    {
+                        name: "C相电流",
+                        type: "line",
+                        stack: "Total",
+                        data: this.electricDatasC,
+                    },
+                ],
+            };
+            let voltageOption = {
+                tooltip: {
+                    trigger: "axis",
+                },
+                legend: {
+                    data: ["A相电压", "B相电压", "C相电压"],
+                },
+                xAxis: {
+                    type: "category",
+                    data: this.dataTimes,
+                },
+                yAxis: {
+                    type: "value",
+                    name: "(V)",
+                    nameTextStyle: {
+                        align: "right",
+                    },
+                },
+                series: [
+                    {
+                        name: "A相电压",
+                        type: "line",
+                        stack: "Total",
+                        data: this.voltageDatasA,
+                    },
+                    {
+                        name: "B相电压",
+                        type: "line",
+                        stack: "Total",
+                        data: this.voltageDatasB,
+                    },
+                    {
+                        name: "C相电压",
+                        type: "line",
+                        stack: "Total",
+                        data: this.voltageDatasC,
+                    },
+                ],
+            };
+            myLeakageCharts.setOption(leakageOption);
+            myElectricCharts.setOption(electricOption);
+            myVoltageCharts.setOption(voltageOption);
+        },
+        //获取时间组件选择时间
+        getTime(val) {
+            this.start_time = val[0];
+            this.end_time = val[1];
+        }
+    },
+    watch: {
+        //请求组件数据
+        // curveDev(newVal) {
+        //     this.$emit('requstStatus', true);
+        //     let params = {
+        //         dev: newVal,
+        //         start_time: this.start_time,
+        //         end_time: this.end_time,
+        //         time_span_unit: this.time_span_unit,
+        //         time_span_number: this.time_span_number,
+        //     }
+        //     this.rest();
+        //     this.getHistoryDatas(params);
+        //     setTimeout(() => {
+        //         this.$emit('requstStatus', false);
+        //     }, 500);
+        // },
+        curveDev: {
+            immediate: true,
+            handler(newVal) {
+                this.$emit('requstStatus', true);
+                let params = {
+                    dev: newVal,
+                    start_time: this.start_time,
+                    end_time: this.end_time,
+                    time_span_unit: this.time_span_unit,
+                    time_span_number: this.time_span_number,
+                }
+                this.rest();
+                this.getHistoryDatas(params);
+                setTimeout(() => {
+                    this.$emit('requstStatus', false);
+                }, 500);
+            }
+        },
+    }
 };
 </script>
+<style lang="scss">
+@import "./DataBefore.scss";
+</style>

@@ -44,8 +44,8 @@
                     </el-submenu>
                 </el-menu>
             </div>
-            <div class="right-body">
-                <component :is="currentTabComponent" :devData="devData"></component>
+            <div class="right-body" v-loading="requstLoading">
+                <component :is="currentTabComponent" :curveDev="curveDev" @requstStatus="requstStatus"></component>
             </div>
         </div>
     </div>
@@ -54,10 +54,10 @@
 <script>
 import DataCurve from "../tableView/dataCurve/DataCurve.vue";
 import DataBefore from "../tableView/dataBefore/DataBefore.vue";
-import { GetDeviceList, GetDeviceData } from "../../api/api";
+import { GetDeviceList } from "../../api/api";
 export default {
     components: { DataCurve, DataBefore },
-    mounted: async function () {
+    created: async function () {
         //获取设备列表
         var res = await GetDeviceList();
         if (res.data.code != 0) {
@@ -70,7 +70,7 @@ export default {
                 }
             });
             this.defaultActive = obj.device[0].dev;
-            this.changeDev(obj.device[0].dev);
+            this.curveDev = obj.device[0].dev;
             this.menuList = res.data.data.group;
             this.loading = false;
         }
@@ -85,8 +85,8 @@ export default {
             currentTabComponent: "data-curve",
             //设备列表默认打开的子菜单
             defaultActive: "LTU_bb38620dc4e710b0",
-            //设备数据
-            devData: "",
+            //当前选取设备
+            curveDev: "",
             //侧边栏设备数据
             menuList: [{
                 "name": "线路终端",
@@ -139,28 +139,27 @@ export default {
                         "badge": 0
                     }
                 ]
-            }]
+            }],
+            //请求加载loading
+            requstLoading: true,
         };
     },
     methods: {
         //切换设备
         handleSelect(devName) {
-            this.changeDev(devName);
+            this.curveDev = devName;
         },
         //切换导肮组件
         changeTopMenu(comName) {
+            this.curveDev = this.defaultActive;
             this.currentTabComponent = comName;
         },
-        //切换设备请求
-        async changeDev(pms) {
-            let res = await GetDeviceData(pms);
-            if (res.data.code != 0) {
-                this.$message.error('设备数据请求失败');
-            } else {
-                this.devData = res.data.data;
-            }
+        //组件请求状态loading
+        requstStatus(val) {
+            this.requstLoading = val;
         }
-    },
+    }
+
 };
 </script>
 <style lang="scss">
