@@ -2,21 +2,22 @@
     <div class="container">
         <div class="header">
             <div class="left-title">
+                <img src="../../assets/img/title-img.png" alt="">
                 <span class="main-title">低压台区漏电管家</span>
             </div>
             <div class="tabs">
                 <el-menu default-active="data-curve" class="el-menu-demo" mode="horizontal" active-text-color="#19807C" @select="changeTopMenu">
-                    <el-menu-item index="data-curve">实时监测</el-menu-item>
-                    <el-menu-item index="data-before">历史台账</el-menu-item>
-                    <el-menu-item index="3">告警事件</el-menu-item>
-                    <el-menu-item index="4">故障波形</el-menu-item>
-                    <el-menu-item index="5">参数整定</el-menu-item>
-                    <el-menu-item index="6">漏电分析</el-menu-item>
+                    <el-menu-item index="data-curve"><img :src="realWatch" alt=""><span>实时监测</span></el-menu-item>
+                    <el-menu-item index="data-before"><img :src="historyData" alt=""><span>历史台账</span></el-menu-item>
+                    <el-menu-item index="3"><img :src="warningEvent" alt=""><span>告警事件</span></el-menu-item>
+                    <el-menu-item index="4"><img :src="errorStatus" alt=""><span>故障波形</span></el-menu-item>
+                    <el-menu-item index="5"><img :src="paramsSetting" alt=""><span>参数整定</span></el-menu-item>
+                    <el-menu-item index="6"><img :src="leakageAnalysis" alt=""><span>漏电分析</span></el-menu-item>
                 </el-menu>
             </div>
             <div class="right-compoment">
                 <el-dropdown>
-                    <span>2022-03-20 15:12:55</span>
+                    <span>{{nowDate}}</span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>消息提醒</el-dropdown-item>
                     </el-dropdown-menu>
@@ -52,8 +53,8 @@
 </template>
 
 <script>
-import DataCurve from "../tableView/dataCurve/DataCurve.vue";
-import DataBefore from "../tableView/dataBefore/DataBefore.vue";
+import DataCurve from "../menuView/dataCurve/DataCurve.vue";
+import DataBefore from "../menuView/dataBefore/DataBefore.vue";
 import { GetDeviceList } from "../../api/api";
 export default {
     components: { DataCurve, DataBefore },
@@ -74,9 +75,15 @@ export default {
             this.menuList = res.data.data.group;
             this.loading = false;
         }
+        //右上时间定时器
+        this.timer = window.setInterval(() => {
+            this.nowDate = this.$moment().format('YYYY-MM-DD HH:mm:ss');
+        }, 100)
     },
     data() {
         return {
+            //当前时间
+            nowDate: this.$moment().format('YYYY-MM-DD HH:mm:ss'),
             //设备列表loading
             loading: true,
             //当前设备位置
@@ -142,6 +149,20 @@ export default {
             }],
             //请求加载loading
             requstLoading: true,
+            //导航icon png
+            png: ".png",
+            //实时监测
+            realWatch: require("../../assets/img/real-watch-on.png"),
+            //历史数据
+            historyData: require("../../assets/img/history-off.png"),
+            //告警事件
+            warningEvent: require("../../assets/img/warning-off.png"),
+            //故障波形
+            errorStatus: require("../../assets/img/error-off.png"),
+            //参数整定
+            paramsSetting: require("../../assets/img/params-off.png"),
+            //漏电分析
+            leakageAnalysis: require("../../assets/img/leakage-off.png"),
         };
     },
     methods: {
@@ -151,17 +172,69 @@ export default {
         },
         //切换导肮组件
         changeTopMenu(comName) {
-            this.curveDev = this.defaultActive;
             this.currentTabComponent = comName;
+            switch (comName) {
+                case "data-curve":
+                    this.realWatch = require("../../assets/img/real-watch-on.png");
+                    this.historyData = require("../../assets/img/history-off.png");
+                    this.warningEvent = require("../../assets/img/warning-off.png");
+                    this.errorStatus = require("../../assets/img/error-off.png");
+                    this.paramsSetting = require("../../assets/img/params-off.png");
+                    this.leakageAnalysis = require("../../assets/img/leakage-off.png");
+                    break;
+                case "data-before":
+                    this.realWatch = require("../../assets/img/real-watch-off.png");
+                    this.historyData = require("../../assets/img/history-on.png");
+                    this.warningEvent = require("../../assets/img/warning-off.png");
+                    this.errorStatus = require("../../assets/img/error-off.png");
+                    this.paramsSetting = require("../../assets/img/params-off.png");
+                    this.leakageAnalysis = require("../../assets/img/leakage-off.png");
+                    break;
+                case "3":
+                    this.realWatch = require("../../assets/img/real-watch-off.png");
+                    this.historyData = require("../../assets/img/history-off.png");
+                    this.warningEvent = require("../../assets/img/warning-on.png");
+                    this.errorStatus = require("../../assets/img/error-off.png");
+                    this.paramsSetting = require("../../assets/img/params-off.png");
+                    this.leakageAnalysis = require("../../assets/img/leakage-off.png");
+                    break;
+                case "4":
+                    this.realWatch = require("../../assets/img/real-watch-off.png");
+                    this.historyData = require("../../assets/img/history-off.png");
+                    this.warningEvent = require("../../assets/img/warning-off.png");
+                    this.errorStatus = require("../../assets/img/error-on.png");
+                    this.paramsSetting = require("../../assets/img/params-off.png");
+                    this.leakageAnalysis = require("../../assets/img/leakage-off.png");
+                    break;
+                case "5":
+                    this.realWatch = require("../../assets/img/real-watch-off.png");
+                    this.historyData = require("../../assets/img/history-off.png");
+                    this.warningEvent = require("../../assets/img/warning-off.png");
+                    this.errorStatus = require("../../assets/img/error-off.png");
+                    this.paramsSetting = require("../../assets/img/params-on.png");
+                    this.leakageAnalysis = require("../../assets/img/leakage-off.png");
+                    break;
+                case "6":
+                    this.realWatch = require("../../assets/img/real-watch-off.png");
+                    this.historyData = require("../../assets/img/history-off.png");
+                    this.warningEvent = require("../../assets/img/warning-off.png");
+                    this.errorStatus = require("../../assets/img/error-off.png");
+                    this.paramsSetting = require("../../assets/img/params-off.png");
+                    this.leakageAnalysis = require("../../assets/img/leakage-on.png");
+                    break;
+            }
         },
         //组件请求状态loading
         requstStatus(val) {
             this.requstLoading = val;
         }
+    },
+    destroyed() {
+        window.clearInterval(this.timer)
     }
-
 };
 </script>
 <style lang="scss">
 @import "./mainView.scss";
+@import url("//unpkg.com/element-ui@2.15.6/lib/theme-chalk/index.css");
 </style>

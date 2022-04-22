@@ -62,9 +62,38 @@
                         .tip {
                             .icon {
                                 width: 5rem;
-                                height: 5rem;
+                                height: 5.5rem;
                                 margin-right: 1rem;
-                                background-color: #008c8c;
+                            }
+
+                            .Ia {
+                                background: url("../../../assets/img/Ia.png") no-repeat;
+                                background-size: 100%;
+                            }
+
+                            .Ib {
+                                background: url("../../../assets/img/Ib.png") no-repeat;
+                                background-size: 100%;
+                            }
+
+                            .Ic {
+                                background: url("../../../assets/img/Ic.png") no-repeat;
+                                background-size: 100%;
+                            }
+
+                            .Va {
+                                background: url("../../../assets/img/Ua.png") no-repeat;
+                                background-size: 100%;
+                            }
+
+                            .Vb {
+                                background: url("../../../assets/img/Ub.png") no-repeat;
+                                background-size: 100%;
+                            }
+
+                            .Vc {
+                                background: url("../../../assets/img/Uc.png") no-repeat;
+                                background-size: 100%;
                             }
 
                             display: flex;
@@ -79,6 +108,7 @@
 
                             .num {
                                 font-size: 2rem;
+                                font-family: LCD2-Bold, LCD2;
                             }
                         }
                     }
@@ -107,23 +137,23 @@
                     }
 
                     .max {
-                        background: url(../../../assets/card1.png) no-repeat;
+                        background: url(../../../assets/img/card1.png) no-repeat;
                         background-size: 100%;
                         background-color: #1D89FF;
 
                         .first-icon {
-                            background: url(../../../assets/32959.png) no-repeat;
+                            background: url(../../../assets/img/32959.png) no-repeat;
                             background-size: 100%;
                         }
                     }
 
                     .average {
-                        background: url(../../../assets/card2.png) no-repeat;
+                        background: url(../../../assets/img/card2.png) no-repeat;
                         background-size: 100%;
                         background-color: #02E1E4;
 
                         .second-icon {
-                            background: url(../../../assets/32911.png) no-repeat;
+                            background: url(../../../assets/img/32911.png) no-repeat;
                             background-size: 100%;
                         }
                     }

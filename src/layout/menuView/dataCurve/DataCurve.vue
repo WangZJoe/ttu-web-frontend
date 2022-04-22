@@ -38,7 +38,7 @@
                     <div class="card-content">
                         <div class="electric-A electric">
                             <div class="tip">
-                                <div class="icon"></div>
+                                <div class="Ia icon"></div>
                                 <p class="text">A相电流</p>
                             </div>
                             <div class="value">
@@ -48,7 +48,7 @@
                         </div>
                         <div class="electric-B electric">
                             <div class="tip">
-                                <div class="icon"></div>
+                                <div class="Ib icon"></div>
                                 <p class="text">B相电流</p>
                             </div>
                             <div class="value">
@@ -58,7 +58,7 @@
                         </div>
                         <div class="electric-C electric">
                             <div class="tip">
-                                <div class="icon"></div>
+                                <div class="Ic icon"></div>
                                 <p class="text">C相电流</p>
                             </div>
                             <div class="value">
@@ -76,7 +76,7 @@
                     <div class="card-content">
                         <div class="electric-A electric">
                             <div class="tip">
-                                <div class="icon"></div>
+                                <div class="Va icon"></div>
                                 <p class="text">A相电压</p>
                             </div>
                             <div class="value">
@@ -86,7 +86,7 @@
                         </div>
                         <div class="electric-B electric">
                             <div class="tip">
-                                <div class="icon"></div>
+                                <div class="Vb icon"></div>
                                 <p class="text">B相电压</p>
                             </div>
                             <div class="value">
@@ -96,7 +96,7 @@
                         </div>
                         <div class="electric-C electric">
                             <div class="tip">
-                                <div class="icon"></div>
+                                <div class="Vc icon"></div>
                                 <p class="text">C相电压</p>
                             </div>
                             <div class="value">
@@ -168,14 +168,6 @@ export default {
         };
     },
     created() {
-        //初始化请求数据
-        // this.$emit('requstStatus', true);
-        // this.$nextTick(() => {
-        //     this.rest();
-        //     this.getRealDevDatas(this.curveDev);
-        //     console.log(this.curveDev, 'curve');
-        //     this.$emit('requstStatus', false);
-        // })
         //轮询数据
         this.timer = window.setInterval(() => {
             if (this.curveDev) {
@@ -188,40 +180,42 @@ export default {
     methods: {
         //请求设备实时数据
         async getRealDevDatas(params) {
-            let res = await GetDeviceData(params);
-            if (res.data.code != 0) {
-                this.$message.error('设备数据请求失败');
-            } else {
-                let data = res.data.data;
-                this.electricMax = data.record[0].In_Max;
-                this.average = data.record[0].In_Avg;
-                this.electricA = data.record[0].Ia;
-                this.electricB = data.record[0].Ib;
-                this.electricC = data.record[0].Ic;
-                this.voltageA = data.record[0].Ua;
-                this.voltageB = data.record[0].Ub;
-                this.voltageC = data.record[0].Uc;
-                this.temperature = data.record[0].T;
-                this.maxTemperature = data.record[0].Tn;
-                this.humidity = data.record[0].H;
-                if (this.electricDatas.length == 12) {
-                    this.electricDatas.shift();
+            if (params) {
+                let res = await GetDeviceData(params);
+                if (res.data.code != 0) {
+                    this.$message.error('设备数据请求失败');
+                } else {
+                    let data = res.data.data;
+                    this.electricMax = data.record[0].In_Max;
+                    this.average = data.record[0].In_Avg;
+                    this.electricA = data.record[0].Ia;
+                    this.electricB = data.record[0].Ib;
+                    this.electricC = data.record[0].Ic;
+                    this.voltageA = data.record[0].Ua;
+                    this.voltageB = data.record[0].Ub;
+                    this.voltageC = data.record[0].Uc;
+                    this.temperature = data.record[0].T;
+                    this.maxTemperature = data.record[0].Tn;
+                    this.humidity = data.record[0].H;
+                    if (this.electricDatas.length == 12) {
+                        this.electricDatas.shift();
+                    }
+                    if (this.electricDatasA.length == 12) {
+                        this.electricDatasA.shift();
+                    }
+                    if (this.electricDatasB.length == 12) {
+                        this.electricDatasB.shift();
+                    }
+                    if (this.electricDatasC.length == 12) {
+                        this.electricDatasC.shift();
+                    }
+                    this.electricDatas.push(data.record[0].In_Max);
+                    this.electricDatasA.push(data.record[0].Ia);
+                    this.electricDatasB.push(data.record[0].Ib);
+                    this.electricDatasC.push(data.record[0].Ic);
+                    this.setRealTimeCharts();
+                    this.setEnvironmentalCharts();
                 }
-                if (this.electricDatasA.length == 12) {
-                    this.electricDatasA.shift();
-                }
-                if (this.electricDatasB.length == 12) {
-                    this.electricDatasB.shift();
-                }
-                if (this.electricDatasC.length == 12) {
-                    this.electricDatasC.shift();
-                }
-                this.electricDatas.push(data.record[0].In_Max);
-                this.electricDatasA.push(data.record[0].Ia);
-                this.electricDatasB.push(data.record[0].Ib);
-                this.electricDatasC.push(data.record[0].Ic);
-                this.setRealTimeCharts();
-                this.setEnvironmentalCharts();
             }
         },
         //初始化数据

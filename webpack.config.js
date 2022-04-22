@@ -2,6 +2,7 @@ const resolve = require('path').resolve
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const url = require('url')
+const path = require('path')
 const publicPath = ''
 
 module.exports = (options = {}) => ({
@@ -46,7 +47,9 @@ module.exports = (options = {}) => ({
             use: [{
                 loader: 'url-loader',
                 options: {
-                    limit: 10000
+                    esModule: false,
+                    limit: 10000,
+                    name: 'fonts/[name].[hash:7].[ext]',
                 }
             }]
         }
@@ -57,7 +60,8 @@ module.exports = (options = {}) => ({
             names: ['vendor', 'manifest']
         }),
         new HtmlWebpackPlugin({
-            template: './public/index.html'
+            template: './public/index.html',
+            favicon: path.resolve('./public/favicon.ico')
         })
     ],
     resolve: {
