@@ -9,8 +9,8 @@
                 <el-menu default-active="data-curve" class="el-menu-demo" mode="horizontal" active-text-color="#19807C" @select="changeTopMenu">
                     <el-menu-item index="data-curve"><img :src="realWatch" alt=""><span>实时监测</span></el-menu-item>
                     <el-menu-item index="data-before"><img :src="historyData" alt=""><span>历史台账</span></el-menu-item>
-                    <el-menu-item index="3"><img :src="warningEvent" alt=""><span>告警事件</span></el-menu-item>
-                    <el-menu-item index="4"><img :src="errorStatus" alt=""><span>故障波形</span></el-menu-item>
+                    <el-menu-item index="warn-event"><img :src="warningEvent" alt=""><span>告警事件</span></el-menu-item>
+                    <el-menu-item index="error-state"><img :src="errorStatus" alt=""><span>故障波形</span></el-menu-item>
                     <el-menu-item index="5"><img :src="paramsSetting" alt=""><span>参数整定</span></el-menu-item>
                     <el-menu-item index="6"><img :src="leakageAnalysis" alt=""><span>漏电分析</span></el-menu-item>
                 </el-menu>
@@ -55,9 +55,11 @@
 <script>
 import DataCurve from "../menuView/dataCurve/DataCurve.vue";
 import DataBefore from "../menuView/dataBefore/DataBefore.vue";
+import WarnEvent from "../menuView/warnEvent/WarnEvent.vue";
+import ErrorState from "../menuView/errorState/ErrorState.vue";
 import { GetDeviceList } from "../../api/api";
 export default {
-    components: { DataCurve, DataBefore },
+    components: { DataCurve, DataBefore, WarnEvent, ErrorState },
     created: async function () {
         //获取设备列表
         var res = await GetDeviceList();
@@ -190,7 +192,7 @@ export default {
                     this.paramsSetting = require("../../assets/img/params-off.png");
                     this.leakageAnalysis = require("../../assets/img/leakage-off.png");
                     break;
-                case "3":
+                case "warn-event":
                     this.realWatch = require("../../assets/img/real-watch-off.png");
                     this.historyData = require("../../assets/img/history-off.png");
                     this.warningEvent = require("../../assets/img/warning-on.png");
@@ -198,7 +200,7 @@ export default {
                     this.paramsSetting = require("../../assets/img/params-off.png");
                     this.leakageAnalysis = require("../../assets/img/leakage-off.png");
                     break;
-                case "4":
+                case "error-state":
                     this.realWatch = require("../../assets/img/real-watch-off.png");
                     this.historyData = require("../../assets/img/history-off.png");
                     this.warningEvent = require("../../assets/img/warning-off.png");

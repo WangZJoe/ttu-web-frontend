@@ -1,0 +1,57 @@
+.error-state-book {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    // justify-content: space-between;
+
+    .layout {
+        display: flex;
+        flex-direction: row;
+
+        .card-box {
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+
+            .title {
+                display: flex;
+                align-items: center;
+                padding: 5px 10px;
+                height: 2.3rem;
+    
+                .tip-color {
+                    width: 0.4rem;
+                    height: 1.1rem;
+                    margin-right: 5px;
+                    background-color: #189E99;
+                }
+    
+                h3 {
+                    font-size: 20px;
+                    font-family: 'Source Han Sans CN-Medium, Source Han Sans CN';
+                    font-weight: 500;
+                    color: #333333;
+                    line-height: 0px;
+                }
+            }
+    
+            .card-content {
+                flex: 1;
+            }
+    
+            .table-body {
+                flex:1;
+                padding: 10px 30px 5px 30px;
+                text-align: center;
+            }
+        }
+
+        .card-table{
+            width: 30%;
+        }
+        .card-charts{
+            width: 70%;
+            margin-left: 20px;
+        }
+    }
+}
