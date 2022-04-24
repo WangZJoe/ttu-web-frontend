@@ -74,10 +74,10 @@ export default {
             voltageDatasB: [],
             voltageDatasC: [],
             //开始 结束时间
-            // start_time: this.$moment().format('YYYY-MM-DD'),
-            start_time: "2022-04-04",
-            // end_time: this.$moment().format('YYYY-MM-DD'),
-            end_time: "2022-04-24",
+            start_time: this.$moment().format('YYYY-MM-DD'),
+            // start_time: "2022-04-04",
+            end_time: this.$moment().format('YYYY-MM-DD'),
+            // end_time: "2022-04-24",
             //间隔周期 间隔数
             time_span_unit: "min",
             time_span_number: 60,

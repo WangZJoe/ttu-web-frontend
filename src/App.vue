@@ -13,9 +13,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./assets/font/SourceHanSansCN-Medium.css";
 /* 页面初始化样式 */
 @import "./styles/reset.scss";
+@import "./assets/font/font.css";
 #app {
     width: 100%;
     height: 100%;

@@ -1,0 +1,19 @@
+@font-face {
+	font-family: "font-demo";
+	src: url("LCD2-Bold.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "Source Han Sans CN-Normal, Source Han Sans CN";
+	src: url("SourceHanSans-Normal.ttf");
+}
+
+@font-face {
+	font-family: "Source Han Sans CN-Medium, Source Han Sans CN";
+	src: url("SourceHanSansCN-Medium.ttf");
+}
+
+@font-face {
+	font-family: "Source Han Sans CN-Regular, Source Han Sans CN";
+	src: url("SourceHanSansCNRegular.ttf");
+}
