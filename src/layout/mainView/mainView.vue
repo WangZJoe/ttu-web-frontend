@@ -6,13 +6,13 @@
                 <span class="main-title">低压台区漏电管家</span>
             </div>
             <div class="tabs">
-                <el-menu default-active="data-curve" class="el-menu-demo" mode="horizontal" active-text-color="#19807C" @select="changeTopMenu">
-                    <el-menu-item index="data-curve"><img :src="realWatch" alt=""><span>实时监测</span></el-menu-item>
-                    <el-menu-item index="data-before"><img :src="historyData" alt=""><span>历史台账</span></el-menu-item>
+                <el-menu default-active="real-time-monitoring" class="el-menu-demo" mode="horizontal" active-text-color="#19807C" @select="changeTopMenu">
+                    <el-menu-item index="real-time-monitoring"><img :src="realWatch" alt=""><span>实时监测</span></el-menu-item>
+                    <el-menu-item index="history-standing-book"><img :src="historyData" alt=""><span>历史台账</span></el-menu-item>
                     <el-menu-item index="3"><img :src="warningEvent" alt=""><span>告警事件</span></el-menu-item>
                     <el-menu-item index="4"><img :src="errorStatus" alt=""><span>故障波形</span></el-menu-item>
-                    <el-menu-item index="5"><img :src="paramsSetting" alt=""><span>参数整定</span></el-menu-item>
-                    <el-menu-item index="6"><img :src="leakageAnalysis" alt=""><span>漏电分析</span></el-menu-item>
+                    <el-menu-item index="params-setting"><img :src="paramsSetting" alt=""><span>参数整定</span></el-menu-item>
+                    <el-menu-item index="leakage-analysis"><img :src="leakageAnalysis" alt=""><span>漏电分析</span></el-menu-item>
                 </el-menu>
             </div>
             <div class="right-compoment">
@@ -53,11 +53,14 @@
 </template>
 
 <script>
-import DataCurve from "../menuView/dataCurve/DataCurve.vue";
-import DataBefore from "../menuView/dataBefore/DataBefore.vue";
+import realTimeMonitoring from "../menuView/realTimeMonitoring/realTimeMonitoring.vue";
+import historyStandingBook from "../menuView/historyStandingBook/historyStandingBook.vue";
+import leakageAnalysis from "../menuView/leakageAnalysis/leakageAnalysis.vue";
+import paramsSetting from "../menuView/paramsSetting/paramsSetting.vue";
+
 import { GetDeviceList } from "../../api/api";
 export default {
-    components: { DataCurve, DataBefore },
+    components: { realTimeMonitoring, historyStandingBook, leakageAnalysis, paramsSetting },
     created: async function () {
         //获取设备列表
         var res = await GetDeviceList();
@@ -89,7 +92,7 @@ export default {
             //当前设备位置
             station: "",
             //当前选择的组件
-            currentTabComponent: "data-curve",
+            currentTabComponent: "real-time-monitoring",
             //设备列表默认打开的子菜单
             defaultActive: "LTU_bb38620dc4e710b0",
             //当前选取设备
@@ -174,7 +177,7 @@ export default {
         changeTopMenu(comName) {
             this.currentTabComponent = comName;
             switch (comName) {
-                case "data-curve":
+                case "real-time-monitoring":
                     this.realWatch = require("../../assets/img/real-watch-on.png");
                     this.historyData = require("../../assets/img/history-off.png");
                     this.warningEvent = require("../../assets/img/warning-off.png");
@@ -182,7 +185,7 @@ export default {
                     this.paramsSetting = require("../../assets/img/params-off.png");
                     this.leakageAnalysis = require("../../assets/img/leakage-off.png");
                     break;
-                case "data-before":
+                case "history-standing-book":
                     this.realWatch = require("../../assets/img/real-watch-off.png");
                     this.historyData = require("../../assets/img/history-on.png");
                     this.warningEvent = require("../../assets/img/warning-off.png");
@@ -206,7 +209,7 @@ export default {
                     this.paramsSetting = require("../../assets/img/params-off.png");
                     this.leakageAnalysis = require("../../assets/img/leakage-off.png");
                     break;
-                case "5":
+                case "params-setting":
                     this.realWatch = require("../../assets/img/real-watch-off.png");
                     this.historyData = require("../../assets/img/history-off.png");
                     this.warningEvent = require("../../assets/img/warning-off.png");
@@ -214,7 +217,7 @@ export default {
                     this.paramsSetting = require("../../assets/img/params-on.png");
                     this.leakageAnalysis = require("../../assets/img/leakage-off.png");
                     break;
-                case "6":
+                case "leakage-analysis":
                     this.realWatch = require("../../assets/img/real-watch-off.png");
                     this.historyData = require("../../assets/img/history-off.png");
                     this.warningEvent = require("../../assets/img/warning-off.png");

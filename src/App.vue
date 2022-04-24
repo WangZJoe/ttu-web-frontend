@@ -1,13 +1,13 @@
 <template>
     <div id="app">
-        <Frame></Frame>
+        <mainView></mainView>
     </div>
 </template>
 
 <script>
-import Frame from "./layout/mainView/Frame.vue";
+import mainView from "./layout/mainView/mainView.vue";
 export default {
-    components: { Frame },
+    components: { mainView },
     methods: {},
 };
 </script>

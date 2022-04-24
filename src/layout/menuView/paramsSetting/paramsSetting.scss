@@ -1,0 +1,147 @@
+.params-setting {
+    display: flex;
+    padding: 2rem;
+    flex: 1;
+
+    .card-box {
+        flex: 1;
+        background-color: #FFFFFF;
+        display: flex;
+        flex-direction: column;
+
+        .title {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            height: 2.3rem;
+
+            .tip-color {
+                width: 0.4rem;
+                height: 1.1rem;
+                margin-right: 5px;
+                background-color: #189E99;
+            }
+
+            h3 {
+                font-size: 20px;
+                font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                font-weight: 500;
+                color: #333333;
+                line-height: 0px;
+            }
+        }
+
+        .card-content {
+            padding: 3rem 8rem 5rem 6rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+
+            .params-msg {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+
+                .row-params-status {
+                    display: flex;
+                    padding: 1rem 0;
+
+                    .left-text {
+                        display: flex;
+                        align-items: center;
+                        margin-right: 3rem;
+                        flex-basis: 50%;
+                        height: 2.6rem;
+
+                        p {
+                            margin-left: 1rem;
+                        }
+                    }
+
+                    .right-text {
+                        display: flex;
+                        align-items: center;
+                        flex: 1;
+
+                        .el-input {
+                            flex-basis: 70%;
+                        }
+
+                        .fill {
+                            flex-basis: 40%;
+                        }
+
+                        .value {
+                            font-size: 24px;
+                            font-family: LcdD;
+                            font-weight: 400;
+                            line-height: 0px;
+                            color: #006F6B;
+                        }
+
+                        .off-gap {
+                            width: 6px;
+                            height: 6px;
+                            background: #C1C1C1;
+                            border-radius: 50%;
+                        }
+
+                        .comp {
+                            margin-left: 1rem;
+                        }
+
+                        .gap-comp {
+                            margin-left: .5rem;
+                        }
+                    }
+                }
+            }
+
+            .params-button {
+                flex: 1;
+                padding-top: 4rem;
+                display: flex;
+                justify-content: center;
+
+                .el-button {
+                    height: 4rem;
+                    width: 23rem;
+                    background-color: #006F6B;
+                    color: #FFFFFF;
+
+                    &:hover {
+                        opacity: .8;
+                    }
+                }
+            }
+        }
+
+        .params-content {
+            padding: 3rem 3rem 5rem 3rem;
+
+            .params-msg {
+                .row-params-status {
+                    .left-text {
+                        flex-basis: 43%;
+                        margin-right: 0;
+                    }
+
+                    .right-text {
+                        .el-input {
+                            flex-basis: 85%;
+                        }
+                    }
+                }
+            }
+
+            .params-button {
+                padding-left: 4rem;
+                padding-right: 4rem;
+            }
+        }
+    }
+
+    .clearance {
+        width: 2rem;
+    }
+}

@@ -1,6 +1,7 @@
 .real-time-monitoring {
     height: 100%;
     display: flex;
+    flex: 1;
 
     .card-box {
         display: flex;
@@ -9,8 +10,7 @@
         .title {
             display: flex;
             align-items: center;
-            padding: 5px 10px;
-            height: 2.3rem;
+            padding: 10px;
 
             .tip-color {
                 width: 0.4rem;
@@ -35,7 +35,6 @@
         flex-direction: column;
 
         .data-show {
-            height: 22rem;
             margin-bottom: 10px;
             display: flex;
 
@@ -99,6 +98,7 @@
                             display: flex;
                             align-items: center;
                             flex-basis: 50%;
+                            margin-bottom: 0.8rem;
                         }
 
                         .value {
@@ -120,6 +120,7 @@
                         display: flex;
                         align-items: center;
                         justify-content: space-evenly;
+                        border-radius: 8px 8px 8px 8px;
 
                         .icon {
                             width: 5rem;
@@ -182,6 +183,5 @@
     .right-layout {
         width: 15rem;
         background-color: #ffffff;
-        margin-right: 10px;
     }
 }

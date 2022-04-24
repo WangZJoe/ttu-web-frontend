@@ -596,5 +596,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./DataCurve.scss";
+@import "./realTimeMonitoring.scss";
 </style>
