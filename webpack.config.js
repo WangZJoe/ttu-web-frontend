@@ -68,7 +68,7 @@ module.exports = (options = {}) => ({
         alias: {
             '~': resolve(__dirname, 'src')
         },
-        extensions: ['.js', '.vue', '.json', '.css']
+        extensions: ['.js', '.vue', '.json', '.css', '.scss']
     },
     devServer: {
         host: '127.0.0.1',
