@@ -276,5 +276,5 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "./DataBefore.scss";
+@import "./historyStandingBook.scss";
 </style>
