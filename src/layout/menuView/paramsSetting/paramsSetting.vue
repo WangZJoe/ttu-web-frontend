@@ -1,6 +1,6 @@
 <template>
     <div class="params-setting">
-        <div class="get-params card-box">
+        <div class="get-params card-box" v-loading="getLoading">
             <div class="title">
                 <div class="tip-color"></div>
                 <h3>参数读取</h3>
@@ -64,15 +64,15 @@
                     </div>
                 </div>
                 <div class="params-button">
-                    <el-button>参数读取</el-button>
+                    <el-button @click="getParams">参数读取</el-button>
                 </div>
             </div>
         </div>
         <div class="clearance"></div>
-        <div class="push-params card-box">
+        <div class="push-params card-box" v-loading="pushLoading">
             <div class="title">
                 <div class="tip-color"></div>
-                <h3>参数读取</h3>
+                <h3>参数写入</h3>
             </div>
             <div class="card-content params-content">
                 <div class="params-msg">
@@ -127,7 +127,7 @@
                     </div>
                 </div>
                 <div class="params-button">
-                    <el-button>上传</el-button>
+                    <el-button @click="pushParams">上传</el-button>
                 </div>
             </div>
         </div>
@@ -143,7 +143,9 @@ export default {
         return {
             //表格数据
             tableData: [],
-
+            //页面loading
+            getLoading: false,
+            pushLoading: false,
             //漏电电流 时间
             leakageDatas: [],
             //x相电流 时间
@@ -157,6 +159,20 @@ export default {
         };
     },
     methods: {
+        //参数读取
+        getParams() {
+            this.getLoading = true;
+            setTimeout(() => {
+                this.getLoading = false;
+            }, 1000);
+        },
+        //上传
+        pushParams() {
+            this.pushLoading = true;
+            setTimeout(() => {
+                this.pushLoading = false;
+            }, 1000);
+        }
         //获取历史设备数据参数
         // getHistoryDataParams(dev) {
         //     let params = {
