@@ -10,26 +10,45 @@
 
     .card-box {
         background-color: #ffffff;
+        display: flex;
+        flex-direction: column;
 
         .title {
             display: flex;
             align-items: center;
-            padding: 5px 10px;
+            padding: 10px;
             height: 2.3rem;
+            display: flex;
+            justify-content: space-between;
 
-            .tip-color {
-                width: 0.4rem;
-                height: 1.1rem;
-                margin-right: 5px;
-                background-color: #189E99;
+            .letf-tip {
+                display: flex;
+                align-items: center;
+
+                .tip-color {
+                    width: 0.4rem;
+                    height: 1.1rem;
+                    margin-right: 5px;
+                    background-color: #189E99;
+                }
+
+                h3 {
+                    font-size: 20px;
+                    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                    font-weight: 500;
+                    color: #333333;
+                    line-height: 0px;
+                }
             }
 
-            h3 {
-                font-size: 20px;
-                font-family: Source Han Sans CN-Medium, Source Han Sans CN;
-                font-weight: 500;
-                color: #333333;
-                line-height: 0px;
+        }
+
+        .card-content {
+            flex: 1;
+            display: flex;
+
+            div {
+                flex: 1;
             }
         }
     }
