@@ -11,8 +11,8 @@
                 type="number"
                 >
                 <span>共{{pageCount}}页</span>
-                <li class="el-icon-d-arrow-right"></li>
                 <li class="el-icon-arrow-right"></li>
+                <li class="el-icon-d-arrow-right"></li>
                 <span>共<span style="color:#19807C">{{pagerCount}}</span>条记录</span>
             </ul>
             <div class="table-body">
