@@ -9,8 +9,8 @@
                 <el-menu default-active="real-time-monitoring" class="el-menu-demo" mode="horizontal" active-text-color="#19807C" @select="changeTopMenu">
                     <el-menu-item index="real-time-monitoring"><img :src="realWatch" alt=""><span>实时监测</span></el-menu-item>
                     <el-menu-item index="history-standing-book"><img :src="historyData" alt=""><span>历史台账</span></el-menu-item>
-                    <el-menu-item index="3"><img :src="warningEvent" alt=""><span>告警事件</span></el-menu-item>
-                    <el-menu-item index="4"><img :src="errorStatus" alt=""><span>故障波形</span></el-menu-item>
+                    <el-menu-item index="warn-event"><img :src="warningEvent" alt=""><span>告警事件</span></el-menu-item>
+                    <el-menu-item index="error-state"><img :src="errorStatus" alt=""><span>故障波形</span></el-menu-item>
                     <el-menu-item index="params-setting"><img :src="paramsSetting" alt=""><span>参数整定</span></el-menu-item>
                     <el-menu-item index="leakage-analysis"><img :src="leakageAnalysis" alt=""><span>漏电分析</span></el-menu-item>
                 </el-menu>
@@ -55,12 +55,14 @@
 <script>
 import realTimeMonitoring from "../menuView/realTimeMonitoring/realTimeMonitoring.vue";
 import historyStandingBook from "../menuView/historyStandingBook/historyStandingBook.vue";
+import WarnEvent from "../menuView/warnEvent/WarnEvent.vue";
+import ErrorState from "../menuView/errorState/ErrorState.vue";
 import leakageAnalysis from "../menuView/leakageAnalysis/leakageAnalysis.vue";
 import paramsSetting from "../menuView/paramsSetting/paramsSetting.vue";
 
 import { GetDeviceList } from "../../api/api";
 export default {
-    components: { realTimeMonitoring, historyStandingBook, leakageAnalysis, paramsSetting },
+    components: { realTimeMonitoring, historyStandingBook, WarnEvent, ErrorState, leakageAnalysis, paramsSetting },
     created: async function () {
         //获取设备列表
         var res = await GetDeviceList();
@@ -193,7 +195,7 @@ export default {
                     this.paramsSetting = require("../../assets/img/params-off.png");
                     this.leakageAnalysis = require("../../assets/img/leakage-off.png");
                     break;
-                case "3":
+                case "warn-event":
                     this.realWatch = require("../../assets/img/real-watch-off.png");
                     this.historyData = require("../../assets/img/history-off.png");
                     this.warningEvent = require("../../assets/img/warning-on.png");
@@ -201,7 +203,7 @@ export default {
                     this.paramsSetting = require("../../assets/img/params-off.png");
                     this.leakageAnalysis = require("../../assets/img/leakage-off.png");
                     break;
-                case "4":
+                case "error-state":
                     this.realWatch = require("../../assets/img/real-watch-off.png");
                     this.historyData = require("../../assets/img/history-off.png");
                     this.warningEvent = require("../../assets/img/warning-off.png");

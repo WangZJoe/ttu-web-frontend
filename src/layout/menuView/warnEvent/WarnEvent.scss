@@ -1,0 +1,26 @@
+.warn-events-book {
+    height: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    // justify-content: space-between;
+
+    .card-box {
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+
+        .card-content {
+            flex: 1;
+        }
+
+        .table-body {
+            // width: 83vw;
+            padding: 10px 30px 5px 30px;
+        }
+    }
+
+    // .table-body {
+    //     flex: 1;
+    // }
+}
