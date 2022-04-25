@@ -188,6 +188,7 @@ export default {
                     padding: 10
                 }, 
                 toolbox: {
+                    show: false,
                     feature: {
                         mark: {
                             show: true

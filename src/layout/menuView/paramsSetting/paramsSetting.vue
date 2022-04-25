@@ -227,12 +227,12 @@ export default {
         curveDev: {
             immediate: true,
             handler(newVal) {
-                // this.$emit('requstStatus', true);
+                this.$emit('requstStatus', true);
                 // let params = this.getHistoryDataParams(newVal);
                 // this.getHistoryDatas(params);
-                // setTimeout(() => {
-                //     this.$emit('requstStatus', false);
-                // }, 500);
+                setTimeout(() => {
+                    this.$emit('requstStatus', false);
+                }, 500);
             }
         },
     }
