@@ -256,7 +256,6 @@ export default {
                     },
                     borderWidth: 0,
                     selectedMode: "multiple",
-                    backgroundColor: "rgb(255, 255, 255)",
                     y: "top",
                     orient: "horizontal",
                     itemWidth: 16
@@ -381,6 +380,7 @@ export default {
                         padding: 10
                     },
                     toolbox: {
+                        show: false,
                         feature: {
                             mark: {
                                 show: true
