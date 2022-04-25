@@ -16,13 +16,21 @@
                 </el-menu>
             </div>
             <div class="right-compoment">
+                <span>{{nowDate}}</span>
                 <el-dropdown>
-                    <span>{{nowDate}}</span>
+                    <span><i class="el-icon-eleme"></i></span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>消息提醒</el-dropdown-item>
+                        <el-dropdown-item>消息提醒1</el-dropdown-item>
+                        <el-dropdown-item>消息提醒2</el-dropdown-item>
+                        <el-dropdown-item>消息提醒3</el-dropdown-item>
                     </el-dropdown-menu>
+                </el-dropdown>
+                <el-dropdown>
+                    <span><i class="el-icon-eleme"></i></span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>参数设置</el-dropdown-item>
+                        <el-dropdown-item>参数设置1</el-dropdown-item>
+                        <el-dropdown-item>参数设置2</el-dropdown-item>
+                        <el-dropdown-item>参数设置3</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
