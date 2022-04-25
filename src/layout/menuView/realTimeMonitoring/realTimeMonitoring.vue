@@ -243,92 +243,286 @@ export default {
             let myElectricChart = echarts.init(electricCharts);
             let myRelativeChart = echarts.init(relativeCharts);
             let electricOption = {
-                title: {
-                    left: "center",
-                    text: "漏电电流",
+                tooltip: {
+                    trigger: "axis",
+                    show: false
                 },
+                legend: {
+                    data: ["漏电电流"],
+                    x: "center",
+                    textStyle: {
+                        color: "rgb(153, 153, 153)",
+                        fontSize: 14
+                    },
+                    borderWidth: 0,
+                    selectedMode: "multiple",
+                    backgroundColor: "rgb(255, 255, 255)",
+                    y: "top",
+                    orient: "horizontal",
+                    itemWidth: 16
+                },
+                toolbox: {
+                    show: false,
+                    feature: {
+                        mark: {
+                            show: true
+                        }, 
+                        dataView: {
+                            show: true, 
+                            readOnly: true
+                        }, 
+                        magicType: {
+                            show: false, 
+                            type: ["line","bar"]
+                        }, 
+                        restore: {
+                            show: true
+                        }, 
+                        saveAsImage: {
+                            show: true
+                        }
+                    }
+                }, 
+                calculable: true, 
                 xAxis: {
                     type: "category",
-                    data: [
-                        "01",
-                        "02",
-                        "03",
-                        "04",
-                        "05",
-                        "06",
-                        "07",
-                        "08",
-                        "09",
-                        "10",
-                        "11",
-                        "12",
-                    ],
+                    boundaryGap: false,
+                    data: ["01","02","03","04","05","06","07","08","09","10","11","12",],
+                    axisLine: {
+                        show: true, 
+                        lineStyle: {
+                            color: "rgb(232, 234, 238)", 
+                            width: 1
+                        }
+                    }, 
+                    axisLabel: {
+                        textStyle: {
+                            color: "rgb(142, 149, 170)",
+                            fontSize: 12
+                        }, 
+                        show: true
+                    }, 
+                    splitLine: {
+                        show: false, 
+                    }, 
+                    axisTick: {
+                        show: false
+                    }
                 },
-                yAxis: {
-                    type: "value",
-                    name: "(mA)",
-                    nameTextStyle: {
-                        align: "right",
-                    },
-                },
+                yAxis: [
+                    {
+                        type: "value",
+                        name: "(mA)",
+                        nameTextStyle: {
+                            color: "rgb(142, 149, 170)"
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgb(232, 234, 238)",
+                                width: 1
+                            }
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: "rgb(142, 149, 170)"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgb(232, 234, 238)",
+                                width: 1
+                            }
+                        },
+                        splitArea: {
+                            areaStyle: {
+                                type: "default"
+                            }
+                        }
+                    }
+                ],
                 series: [
                     {
                         data: this.electricDatas,
                         type: "line",
+                        name: "漏电电流",
+                        itemStyle: {
+                            normal: {
+                                lineStyle: {
+                                    color: "rgb(59, 236, 242)",
+                                    width: 3
+                                }
+                            }
+                        },
+                        symbolSize: 0
                     },
                 ],
+                calculable: true,
+                grid: {
+                    x: 71,
+                    borderWidth: 1,
+                    borderColor: "rgb(232, 234, 238)"
+                }
             };
             let relativeOption = {
-                tooltip: {
-                    trigger: "axis",
-                },
-                legend: {
-                    data: ["A相电流", "B相电流", "C相电流"],
-                },
-                xAxis: {
-                    type: "category",
-                    data: [
-                        "01",
-                        "02",
-                        "03",
-                        "04",
-                        "05",
-                        "06",
-                        "07",
-                        "08",
-                        "09",
-                        "10",
-                        "11",
-                        "12",
+                   tooltip: {
+                        trigger: "axis",
+                        show: false
+                    },
+                    legend: {
+                        data: ["A相电流",,"B相电流","C相电流"],
+                        selectedMode: "multiple",
+                        x: "center",
+                        y: "top",
+                        textStyle: { color: "rgb(153, 153, 153)" },
+                        itemWidth: 8,
+                        itemHeighth: 8,
+                        padding: 10
+                    },
+                    toolbox: {
+                        feature: {
+                            mark: {
+                                show: true
+                            },
+                            dataView: {
+                                show: true,
+                                readOnly: true
+                            },
+                            magicType: {
+                                show: false,
+                                type: ["line", "bar"]
+                            },
+                            restore: {
+                                show: true
+                            },
+                            saveAsImage: {
+                                show: true
+                            }
+                        }
+                    },
+                    xAxis: [
+                        {
+                            type: "category",
+                            boundaryGap: false,
+                            data: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"],
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    width: 1,
+                                    color: "rgb(232, 234, 238)"
+                                }
+                            },
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    color: "rgb(142, 149, 170)",
+                                    fontSize: 12
+                                }
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            splitLine: {
+                                show: false
+                            }
+                        }
                     ],
-                },
-                yAxis: {
-                    type: "value",
-                    name: "(A)",
-                    nameTextStyle: {
-                        align: "right",
-                    },
-                },
-                series: [
-                    {
-                        name: "A相电流",
-                        type: "line",
-                        stack: "Total",
-                        data: this.electricDatasA,
-                    },
-                    {
-                        name: "B相电流",
-                        type: "line",
-                        stack: "Total",
-                        data: this.electricDatasB,
-                    },
-                    {
-                        name: "C相电流",
-                        type: "line",
-                        stack: "Total",
-                        data: this.electricDatasC,
-                    },
-                ],
+                    yAxis: [
+                        {
+                            type: "value",
+                            name: "(A)",
+                            nameTextStyle: {
+                                color: "rgb(142, 149, 170)"
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "rgb(232, 234, 238)",
+                                    width: 1
+                                }
+                            },
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    color: "rgb(142, 149, 170)"
+                                }
+                            },
+                            splitLine: {
+                                show:true,
+                                lineStyle: {
+                                    color: "rgb(232, 234, 238)",
+                                    width: 1
+                                }
+                            },
+                            splitArea: {
+                                areaStyle: {
+                                    type: "default"
+                                }
+                            }
+                        }
+                    ],
+                    series: [
+                        {
+                            name: "A相电流",
+                            type: "line",
+                            data: this.electricDatasA,
+                            itemStyle: {
+                                normal: {
+                                    color: '#FDDD00',
+                                    type: 'solid',
+                                    lineStyle: { type: "solid", color: "#FDDD00", width: 2 },
+                                    borderWidth: 1,
+                                    borderColor: "#FFFFFF",
+                                    // shadowColor: 'rgba(0, 0, 0, 0.32)',
+                                    // shadowBlur: 6
+                                }
+                            },
+                            symbol: 'circle',
+                            showSymbol: false,
+                            symbolSize: 7
+                        },
+                        {
+                            type: "line",
+                            name: "B相电流",
+                            data: this.electricDatasB,
+                            itemStyle: {
+                                normal: {
+                                    color: "#02E437",
+                                    type: 'solid',
+                                    lineStyle: { color: "#02E437", width: 2 },
+                                    borderWidth: 1,
+                                    borderColor: "#FFFFFF",
+                                }
+                            },
+                            symbol: 'circle',
+                            showSymbol: false,
+                            symbolSize: 7
+                        },
+                        {
+                            type: "line",
+                            name: "C相电流",
+                            data: this.electricDatasC,
+                            itemStyle: {
+                                normal: {
+                                    color: "#FF1C43",
+                                    type: 'solid',
+                                    lineStyle: { color: "#FF1C43", width: 2 },
+                                    borderWidth: 1,
+                                    borderColor: "#FFFFFF",
+                                }
+                            },
+                            symbol: 'circle',
+                            showSymbol: false,
+                            symbolSize: 7
+                        }
+                    ],
+                    calculable: true,
+                    grid: {
+                        x: 71,
+                        borderWidth: 1,
+                        borderColor: "rgb(232, 234, 238)"
+                    }
             };
             myElectricChart.setOption(electricOption);
             myRelativeChart.setOption(relativeOption);

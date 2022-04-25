@@ -118,64 +118,277 @@ export default {
                     trigger: "axis",
                 },
                 legend: {
-                    data: ["漏电电流", "A相电流", "B相电流", "C相电流"],
+                    data: [
+                        {
+                            name: "漏电电流",
+                            itemStyle: {
+                                borderColor: 'rgba(59, 236, 242, 0.41)',
+                                borderWidth: 1.6
+                            }
+                        }, {
+                            name: "A相电流",
+                            itemStyle: {
+                                borderColor: 'rgba(255, 163, 0, 0.3)',
+                                borderWidth: 1.6
+                            }
+                        }, {
+                            name: "B相电流",
+                            itemStyle: {
+                                borderColor: 'rgba(2, 228, 151, 0.52)',
+                                borderWidth: 1.6
+                            }
+                        }, {
+                            name: "C相电流",
+                            itemStyle: {
+                                borderColor: 'rgba(255, 116, 173, 0.3)',
+                                borderWidth: 1.6
+                            }
+                        }],
+                    selectedMode: "multiple",
+                    x: "center",
+                    y: "top",
+                    textStyle: { color: "rgb(153, 153, 153)" },
+                    itemWidth: 8,
+                    itemHeighth: 8,
+                    // padding: 10
                 },
-                xAxis: {
-                    type: "category",
-                    data: this.dataTimes,
+                toolbox: {
+                    feature : {
+                        mark: {
+                            show: true
+                        },
+                        dataView: { show: true, readOnly: true },
+                        magicType: { show: false, type: ["line", "bar"] },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
                 },
-                yAxis: {
+                calculable: true,
+                 xAxis: { 
+                    type: "category", 
+                    boundaryGap: false, 
+                    // 测试数据
+                    data: ["01", "02", "03", "04", "05", "06", "07"], 
+                    // 实际接口
+                    // data: this.dataTimes,
+                    axisLine: {
+                        show: true,
+                        lineStyle: { color: "rgb(232, 234, 238)", width: 1 }
+                    },
+                    axisLabel: {
+                        textStyle: { color: "rgb(142, 149, 170)" }, show: true
+                    }, 
+                    splitLine: {
+                        show: false,
+                        lineStyle: { width: 1 }
+                    },
+                    axisTick: { show: false }
+                },
+                 yAxis: {
                     type: "value",
                     name: "(A)",
                     nameTextStyle: {
-                        align: "right",
+                        color: "rgb(142, 149, 170)"
                     },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "rgb(232, 234, 238)",
+                            width: 1
+                        }
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "rgb(142, 149, 170)"
+                        }
+                    },
+                    splitArea: { show: false },
+                    axisTick: { show: false },
+                    splitLine: {
+                        show: true,
+                        lineStyle: { color: "rgb(232, 234, 238)" }
+                    }
                 },
+                // yAxis: {
+                //     type: "value",
+                //     name: "(A)",
+                //     nameTextStyle: {
+                //         align: "right",
+                //     },
+                // },
                 series: [
                     {
-                        name: "漏电电流",
                         type: "line",
-                        stack: "Total",
-                        data: this.electricDatas,
+                        name: "漏电电流",
+                        data: [45, 78, 79, 34, 56, 78, 34],
+                        itemStyle: {
+                            normal: {
+                                color: '#3BECF2',
+                                lineStyle: { color: "#3BECF2", width: 2 },
+                                borderColor: "#FFFFFF",
+                                borderWidth: 1,
+                                // shadowColor: 'rgba(0, 0, 0, 0.32)',
+                                // shadowBlur: 6
+                            }
+                        },
+                        symbol: 'circle',
+                        showSymbol: false,
+                        symbolSize: 7
                     },
                     {
                         name: "A相电流",
                         type: "line",
-                        stack: "Total",
-                        data: this.electricDatasA,
+                        // 测试数据
+                        data: [56, 65, 67, 67, 56, 68, 89],
+                        itemStyle: {
+                            normal: {
+                                color: '#FDDD00',
+                                type: 'solid',
+                                lineStyle: { type: "solid", color: "#FDDD00", width: 2 },
+                                borderWidth: 1,
+                                borderColor: "#FFFFFF",
+                                // shadowColor: 'rgba(0, 0, 0, 0.32)',
+                                // shadowBlur: 6
+                            }
+                        },
+                        symbol: 'circle',
+                        showSymbol: false,
+                        symbolSize: 7
                     },
                     {
                         name: "B相电流",
                         type: "line",
-                        stack: "Total",
-                        data: this.electricDatasB,
+                        data: [45, 38, 62, 51, 56, 71, 58],
+                        itemStyle: {
+                            normal: {
+                                color: "#02E437",
+                                lineStyle: { color: "#02E437", width: 2 },
+                                borderWidth: 1,
+                                borderColor: "#FFFFFF",
+                                label: { show: false },
+                                // shadowColor: 'rgba(0, 0, 0, 0.32)',
+                                // shadowBlur: 6,
+                            }
+                        },
+                        symbol: 'circle',
+                        showSymbol: false,
+                        symbolSize: 7
                     },
                     {
-                        name: "C相电流",
                         type: "line",
-                        stack: "Total",
-                        data: this.electricDatasC,
-                    },
-                ],
+                        name: "C相电流",
+                        data: [56, 56, 67, 34, 45, 23, 23],
+                        itemStyle: {
+                            normal: {
+                                color: "#FF1C43",
+                                lineStyle: { color: "#FF1C43", width: 2 },
+                                borderColor: "#FFFFFF",
+                                borderWidth: 1,
+                                // shadowColor: 'rgba(0, 0, 0, 0.32)',
+                                // shadowBlur: 6
+                            }
+                        },
+                        symbol: 'circle',
+                        showSymbol: false,
+                        symbolSize: 7
+                    }],
+                // series: [
+                //     {
+                //         name: "漏电电流",
+                //         type: "line",
+                //         stack: "Total",
+                //         data: this.electricDatas,
+                //     },
+                //     {
+                //         name: "A相电流",
+                //         type: "line",
+                //         stack: "Total",
+                //         data: this.electricDatasA,
+                //     },
+                //     {
+                //         name: "B相电流",
+                //         type: "line",
+                //         stack: "Total",
+                //         data: this.electricDatasB,
+                //     },
+                //     {
+                //         name: "C相电流",
+                //         type: "line",
+                //         stack: "Total",
+                //         data: this.electricDatasC,
+                //     },
+                // ],
+                // color: ["#ff7f50", "#87cefa", "#da70d6", "#32cd32", "#6495ed", "#ff69b4", "#ba55d3", "#cd5c5c", "#ffa500", "#40e0d0", "#1e90ff", "#ff6347", "#7b68ee", "#00fa9a", "#ffd700", "#6699FF", "#ff6666", "#3cb371", "#b8860b", "#30e0e0"],
+                grid: { x: 54 }
             };
             let clearOption = {
+                tooltip: { trigger: "axis" },
+                toolbox: {
+                    show: false,
+                    feature: {
+                        mark: { show: true },
+                        dataView: { show: true, readOnly: true },
+                        magicType: { show: false, type: ["line", "bar"] },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    },
+                    calculable: true,
+                },
                 xAxis: {
                     type: "category",
-                    data: this.dataTimes
+                    boundaryGap: false,
+                    data: ["-20", "0", "20", "40"],
+                    axisTick: { show: false },
+                    axisLine: { show: false },
+                    splitLine: { show: false },
+                    axisLabel: {
+                        textStyle: { color: "rgb(142, 149, 170)" }
+                    }
                 },
+                // xAxis: {
+                //     type: "category",
+                //     data: this.dataTimes
+                // },
                 yAxis: {
                     type: "value",
-                    name: "(mA)",
-                    nameTextStyle: {
-                        align: "right",
+                    // name: "°C",
+                    axisLine: { show: false },
+                    axisLabel: {
+                        textStyle: { color: "rgb(142, 149, 170)"}
                     },
+                    splitLine: {
+                        lineStyle: { color: "rgb(232, 234, 238)" }
+                    }
                 },
+                // yAxis: {
+                //     type: "value",
+                //     name: "(mA)",
+                //     nameTextStyle: {
+                //         align: "right",
+                //     },
+                // },
                 series: [
                     {
-                        data: this.clearDatas,
+                        name: "-",
                         type: "line",
-                    },
-                ],
+                        data: [11, 11, 15, 13],
+                        symbolSize: 2,
+                        itemStyle: {
+                            normal: {
+                                color: "rgb(59, 236, 242)",
+                                lineStyle: { color: "rgb(59, 236, 242)" },
+                                borderWidth: 2,
+                                borderColor: "rgb(59, 236, 242)"
+                            }
+                        }
+                    } ]
+                // series: [
+                //     {
+                //         data: this.clearDatas,
+                //         type: "line",
+                //     },
+                // ],
             };
 
             myErrorCharts.setOption(errorOption);
