@@ -28,6 +28,8 @@ export default {
             pageCount : 1,
             //页面大小
             pageSize : 14,
+            //翻页页数
+            pagerCountOffset:5,
             //可否向左翻页
             isMin : Boolean,
             //可否向右翻页
@@ -54,8 +56,6 @@ export default {
             let page=this.inputPage
             if(page < 1) this.inputPage = 1
             else this.inputPage = Math.min(this.inputPage,this.pageCount)
-            // const input = Number(val)
-            // this.inputPage = Math.min(this.inputPage,this.pageCount)
         }
         ,
         //输入页面跳转
@@ -70,7 +70,7 @@ export default {
                 let newPage = currentPage;
                 const pageCount = this.pageCount;
                 const currentPage = this.currentPage;
-                const pagerCountOffset = 5;
+                const pagerCountOffset = this.pagerCountOffset;
 
                 if (target.className.indexOf('left') !== -1) {
                     if (target.className.indexOf('d') !== -1) {
