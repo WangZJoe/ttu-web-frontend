@@ -83,12 +83,12 @@ export default {
         async getAlarmDatas(params) {
             if (params) {
                 let res = await GetAlarmEvent(params);
-                console.log(res.data)
-                if (res.data.code == 0) {
+                // console.log(res.data)
+                if (res.data.code != 0) {
                     this.$message.error('告警事件数据请求失败');
                 } else {
                     let data = res.data.data.alarm;
-                    console.log(data)
+                    // console.log(data)
                     this.tableData = data;
                 }
             }
@@ -107,6 +107,17 @@ export default {
             setTimeout(() => {
                 this.$emit('requstStatus', false);
             }, 500);
+        },
+        //查看按钮跳转故障波形界面
+        showDetail(scope) {
+            this.$parent.changeTopMenu('error-state');
+            // this.$router.push({
+            //     path: '/error-state?currentTabComponent=error-state',
+            //     query: {
+            //         dev: this.curveDev,
+            //         time: scope.row.time,
+            //     }
+	        // });
         },
         //切换页面
         onPagerClick(event){

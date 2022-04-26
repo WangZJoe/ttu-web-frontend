@@ -43,9 +43,16 @@ async function GetAlarmEvent(params) {
     return res;
 }
 
+//获取设备故障波形数据
+async function GetErrorState(params) {
+    let res = await httppost('http://127.0.0.1:4523/mock/908535/api/base/faultWaveform', params)
+    return res;
+}
+
 export {
     GetDeviceList,
     GetDeviceData,
     GetDeviceHistoryData,
-    GetAlarmEvent
+    GetAlarmEvent,
+    GetErrorState
 };

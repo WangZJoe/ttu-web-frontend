@@ -44,6 +44,12 @@
                 flex:1;
                 padding: 10px 30px 5px 30px;
                 text-align: center;
+                font-size: 14px;
+                font-family: 'Source Han Sans CN-Normal, Source Han Sans CN';
+                .el-table__body tr.current-row>td {
+                    background-color: #189E99 !important;
+                    color: #FFFFFF !important;
+                }
             }
         }
 

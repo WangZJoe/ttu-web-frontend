@@ -22,10 +22,9 @@
             .el-table {
                 border-color: #E9E9E9;
             }
-
-            // .el-table__body tr:hover > td{
-            //     background-color: #F0F7FD !important;
-            // }
+            .el-table__body tr:hover>td{
+                background-color: #F0F7FD !important;
+            }
 
             .el-button {
                 color: #19807C;

@@ -4,11 +4,15 @@
         <div class="layout">
             <div class="card-box card-table">
                 <div class="table-body">
-                    <el-table :data="tableData" border height="100%" :header-cell-style="{background:'#F0F7FD'}">
-                        <el-table-column prop="number" label="序号">
-                        </el-table-column>
-                        <el-table-column prop="time" label="时间">
-                        </el-table-column>
+                    <el-table ref="eventTable" :data="tableData" border height="100%"
+                              :header-cell-style="{background:'#FBFBFD', 'text-align':'center', color:'#333333'}"
+                              :cell-style="{'text-align':'center', color:'#585858'}"
+                              highlight-current-row @current-change="handleCurrentChange">
+                    <el-table-column label="序号">
+                        <template slot-scope="scope"> {{scope.$index+1}} </template>
+                    </el-table-column>
+                    <el-table-column prop="time" label="时间">
+                    </el-table-column>
                     </el-table>
                 </div>
             </div>
@@ -33,7 +37,7 @@
 <script>
 import * as echarts from "echarts";
 import DatePickSearch from "../../../components/DatePickSearch.vue";
-import { GetDeviceHistoryData } from "../../../api/api"
+import { GetAlarmEvent, GetErrorState } from "../../../api/api"
 
 export default {
     components: { DatePickSearch },
@@ -42,11 +46,13 @@ export default {
         return {
             //表格数据
             tableData: [],
+            //事件时间
+            eventTime: "",
             //数据时间
             dataTimes: [],
-            //漏电电流 时间
-            electricDatas: [],
-            //x相电流 时间
+            //漏电电流 数据
+            leakageDatas: [],
+            //x相电流 数据
             electricDatasA: [],
             electricDatasB: [],
             electricDatasC: [],
@@ -56,56 +62,80 @@ export default {
             start_time: "2022-04-04",
             // end_time: this.$moment().format('YYYY-MM-DD'),
             end_time: "2022-04-24",
-            //间隔周期 间隔数
-            time_span_unit: "min",
-            time_span_number: 60,
         };
     },
     methods: {
-        //获取历史设备数据参数
-        getHistoryDataParams(dev) {
+        //获取表格数据参数
+        getTableDataParams(dev) {
             let params = {
                 dev: dev,
                 start_time: this.start_time,
                 end_time: this.end_time,
-                time_span_unit: this.time_span_unit,
-                time_span_number: this.time_span_number,
             }
             this.rest();
             return params
         },
-        //请求历史台账数据
-        async getHistoryDatas(params) {
+        //请求表格数据
+        async getTableDatas(params) {
             if (params) {
-                let res = await GetDeviceHistoryData(params);
+                let res = await GetAlarmEvent(params);
                 if (res.data.code != 0) {
-                    this.$message.error('设备数据请求失败');
-                    this.setDataCensusCharts();
+                    this.$message.error('告警事件数据请求失败');
                 } else {
-                    let data = res.data.data;
-                    data.record.forEach(item => {
+                    let data = res.data.data.alarm;
+                    this.tableData = data;
+                    this.eventTime = data[0].time
+                    this.$refs.eventTable.setCurrentRow(data[0]);
+                }
+            }
+        },
+        //获取图表数据参数
+        getChartDataParams(dev) {
+            let params = {
+                dev: dev,
+                time: this.eventTime
+            }
+            this.restChart();
+            return params
+        },
+        //请求图表数据
+        async getChartDatas(params) {
+            if (params) {
+                let res = await GetErrorState(params);
+                if (res.data.code != 0) {
+                    this.$message.error('故障波形数据请求失败');
+                } else {
+                    let data = res.data.data.waveform;
+                    data.forEach(item => {
                         this.dataTimes.push(item.time);
-                        this.electricDatas.push(item.In_Avg);
+                        this.leakageDatas.push(item.In);
                         this.electricDatasA.push(item.Ia);
                         this.electricDatasB.push(item.Ib);
                         this.electricDatasC.push(item.Ic);
                     });
-                    this.tableData = data.record;
-                    this.setDataCensusCharts();
+                    this.setErrorStateCharts();
                 }
             }
         },
-        //初始化数据
+        //初始化全部数据
         rest() {
+            this.restTable();
+            this.restChart();
+        },
+        //初始化表格数据
+        restTable() {
             this.tableData = [];
+        },
+        //初始化图表数据
+        restChart() {
             this.dataTimes = [];
-            this.electricDatas = [];
+            this.leakageDatas = [];
             this.electricDatasA = [];
             this.electricDatasB = [];
             this.electricDatasC = [];
         },
-        //设置数据统计图表
-        setDataCensusCharts() {
+        //设置故障波形图表
+        setErrorStateCharts() {
             let errorCharts = document.getElementById("errorCharts");
             let clearCharts = document.getElementById("clearCharts");
 
@@ -148,8 +178,8 @@ export default {
                     x: "center",
                     y: "top",
                     textStyle: { color: "rgb(153, 153, 153)" },
-                    itemWidth: 8,
-                    itemHeighth: 8,
+                    // itemWidth: 8,
+                    itemHeight: 8
                     // padding: 10
                 },
                 toolbox: {
@@ -166,11 +196,13 @@ export default {
                 calculable: true,
                  xAxis: { 
                     type: "category", 
+                    name: "(mS)",
+                    nameTextStyle: {
+                        color: "rgb(142, 149, 170)"
+                    },
                     boundaryGap: false, 
-                    // 测试数据
-                    data: ["01", "02", "03", "04", "05", "06", "07"], 
-                    // 实际接口
-                    // data: this.dataTimes,
+                    // 数据
+                    data: this.dataTimes, 
                     axisLine: {
                         show: true,
                         lineStyle: { color: "rgb(232, 234, 238)", width: 1 }
@@ -221,7 +253,7 @@ export default {
                     {
                         type: "line",
                         name: "漏电电流",
-                        data: [45, 78, 79, 34, 56, 78, 34],
+                        data: this.leakageDatas,
                         itemStyle: {
                             normal: {
                                 color: '#3BECF2',
@@ -239,8 +271,7 @@ export default {
                     {
                         name: "A相电流",
                         type: "line",
-                        // 测试数据
-                        data: [56, 65, 67, 67, 56, 68, 89],
+                        data: this.electricDatasA,
                         itemStyle: {
                             normal: {
                                 color: '#FDDD00',
@@ -259,7 +290,7 @@ export default {
                     {
                         name: "B相电流",
                         type: "line",
-                        data: [45, 38, 62, 51, 56, 71, 58],
+                        data: this.electricDatasB,
                         itemStyle: {
                             normal: {
                                 color: "#02E437",
@@ -278,7 +309,7 @@ export default {
                     {
                         type: "line",
                         name: "C相电流",
-                        data: [56, 56, 67, 34, 45, 23, 23],
+                        data: this.electricDatasC,
                         itemStyle: {
                             normal: {
                                 color: "#FF1C43",
@@ -293,50 +324,27 @@ export default {
                         showSymbol: false,
                         symbolSize: 7
                     }],
-                // series: [
-                //     {
-                //         name: "漏电电流",
-                //         type: "line",
-                //         stack: "Total",
-                //         data: this.electricDatas,
-                //     },
-                //     {
-                //         name: "A相电流",
-                //         type: "line",
-                //         stack: "Total",
-                //         data: this.electricDatasA,
-                //     },
-                //     {
-                //         name: "B相电流",
-                //         type: "line",
-                //         stack: "Total",
-                //         data: this.electricDatasB,
-                //     },
-                //     {
-                //         name: "C相电流",
-                //         type: "line",
-                //         stack: "Total",
-                //         data: this.electricDatasC,
-                //     },
-                // ],
-                // color: ["#ff7f50", "#87cefa", "#da70d6", "#32cd32", "#6495ed", "#ff69b4", "#ba55d3", "#cd5c5c", "#ffa500", "#40e0d0", "#1e90ff", "#ff6347", "#7b68ee", "#00fa9a", "#ffd700", "#6699FF", "#ff6666", "#3cb371", "#b8860b", "#30e0e0"],
                 grid: { x: 54 }
             };
             let clearOption = {
                 tooltip: { trigger: "axis" },
-                toolbox: {
-                    show: false,
-                    feature: {
-                        mark: { show: true },
-                        dataView: { show: true, readOnly: true },
-                        magicType: { show: false, type: ["line", "bar"] },
-                        restore: { show: true },
-                        saveAsImage: { show: true }
-                    },
-                    calculable: true,
-                },
+                // toolbox: {
+                //     show: false,
+                //     feature: {
+                //         mark: { show: true },
+                //         dataView: { show: true, readOnly: true },
+                //         magicType: { show: false, type: ["line", "bar"] },
+                //         restore: { show: true },
+                //         saveAsImage: { show: true }
+                //     },
+                //     calculable: true,
+                // },
                 xAxis: {
                     type: "category",
+                    name: "(mS)",
+                    nameTextStyle: {
+                        color: "rgb(142, 149, 170)"
+                    },
                     boundaryGap: false,
                     data: ["-20", "0", "20", "40"],
                     axisTick: { show: false },
@@ -399,11 +407,20 @@ export default {
             this.start_time = val[0];
             this.end_time = val[1];
             this.$emit('requstStatus', true);
-            let params = this.getHistoryDataParams(this.curveDev);
-            this.getHistoryDatas(params);
+            let params = this.getTableDataParams(this.curveDev);
+            this.getTableDatas(params);
+            let paramsChart = this.getChartDataParams(this.curveDev);
+            this.getChartDatas(paramsChart);
             setTimeout(() => {
                 this.$emit('requstStatus', false);
             }, 500);
+        },
+        //表格行切换查询故障波形数据
+        handleCurrentChange(val) {
+            this.currentRow = val;
+            this.eventTime = val.time
+            let params = this.getChartDataParams(this.curveDev);
+            this.getChartDatas(params)
         }
     },
     watch: {
@@ -412,8 +429,10 @@ export default {
             immediate: true,
             handler(newVal) {
                 this.$emit('requstStatus', true);
-                let params = this.getHistoryDataParams(newVal);
-                this.getHistoryDatas(params);
+                let params = this.getTableDataParams(newVal);
+                this.getTableDatas(params);
+                let paramsChart = this.getChartDataParams(newVal);
+                this.getChartDatas(paramsChart);
                 setTimeout(() => {
                     this.$emit('requstStatus', false);
                 }, 500);
