@@ -44,6 +44,7 @@
                     <el-table-column prop="In_Max" label="H(%rh)">
                     </el-table-column>
                 </el-table>
+                <pagination :currentPage="currentPage" :pagerCount="200" @changePager="changePager"></pagination>
             </div>
         </div>
     </div>
@@ -53,14 +54,17 @@
 import * as echarts from "echarts";
 import DatePickSearch from "../../../components/DatePickSearch.vue";
 import { GetDeviceHistoryData } from "../../../api/api"
+import Pagination from "../../../components/Pagination.vue"
 
 export default {
-    components: { DatePickSearch },
+    components: { DatePickSearch , Pagination},
     props: ["curveDev"],
     data() {
         return {
             //表格数据
             tableData: [],
+            //表格当前页面
+            currentPage:1,
             //数据时间
             dataTimes: [],
             //漏电电流 时间
@@ -595,6 +599,11 @@ export default {
             setTimeout(() => {
                 this.$emit('requstStatus', false);
             }, 500);
+        },
+        //切换页面
+        changePager(newPage){
+            this.currentPage=newPage
+            //数据逻辑
         }
     },
     watch: {
