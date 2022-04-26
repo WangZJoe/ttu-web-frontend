@@ -2,19 +2,7 @@
     <div class="warn-events-book">
         <date-pick-search @getTime="getTime"></date-pick-search>
         <div class="card-box">
-            <ul @click="onPagerClick" class="table-pager">
-                <li class="el-icon-d-arrow-left"></li>
-                <li class="el-icon-arrow-left"></li>
-                <span>第</span>
-                <input class="pager-input" 
-                v-model="currentPage"
-                type="number"
-                >
-                <span>共{{pageCount}}页</span>
-                <li class="el-icon-arrow-right"></li>
-                <li class="el-icon-d-arrow-right"></li>
-                <span>共<span style="color:#19807C">{{pagerCount}}</span>条记录</span>
-            </ul>
+            <pagination :currentPage="currentPage" :pagerCount="200" @changePager="changePager"></pagination>
             <div class="table-body">
                 <el-table :data="tableData" border height="100%" :header-cell-style="{background:'#FBFBFD', 'text-align':'center', color:'#333333'}"
                           :cell-style="{'text-align':'center', color:'#585858'}">
@@ -43,9 +31,10 @@
 <script>
 import DatePickSearch from "../../../components/DatePickSearch.vue";
 import { GetAlarmEvent } from "../../../api/api"
+import Pagination from "../../../components/Pagination.vue"
 
 export default {
-    components: { DatePickSearch },
+    components: { DatePickSearch , Pagination},
     props: ["curveDev"],
     data() {
         return {
@@ -54,12 +43,6 @@ export default {
 
             //表格当前页面
             currentPage:1,
-            //总页数
-            pageCount:3,
-            //总条数
-            pagerCount:10,
-            //输入页数
-            input:1,
 
             //开始 结束时间
             // start_time: this.$moment().format('YYYY-MM-DD'),
@@ -109,44 +92,9 @@ export default {
             }, 500);
         },
         //切换页面
-        onPagerClick(event){
-            const target = event.target;
-            if(target.tagName == 'LI'){
-                    let newPage = currentPage;
-                const pageCount = this.pageCount;
-                const currentPage = this.currentPage;
-                const pagerCountOffset = 5;
-
-                if (target.className.indexOf('left') !== -1) {
-                    if (target.className.indexOf('d') !== -1) {
-                        newPage = currentPage - pagerCountOffset;
-                    } else {
-                        newPage = currentPage - 1;
-                    }
-                }else {
-                    if (target.className.indexOf('d') !== -1) {
-                        newPage = currentPage + pagerCountOffset;
-                    } else {
-                        newPage = currentPage + 1;
-                    }
-                }
-
-                /* istanbul ignore if */
-                if (!isNaN(newPage)) {
-                    if (newPage < 1) {
-                        newPage = 1;
-                    }
-
-                if (newPage > pageCount) {
-                    newPage = pageCount;
-                    }
-                }
-
-                if (newPage !== currentPage) {
-                alert('change to'+newPage)
-                this.currentPage=newPage
-            }
-            }
+        changePager(newPage){
+            this.currentPage=newPage
+            //数据逻辑
         }
     },
     watch: {
