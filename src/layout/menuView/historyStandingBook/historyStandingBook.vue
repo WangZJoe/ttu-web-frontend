@@ -18,7 +18,8 @@
                 <h3>历史数据</h3>
             </div>
             <div class="card-content table-content">
-                <el-table :data="tableData" border height="100%" :header-cell-style="{background:'#F0F7FD'}">
+                <el-table :data="tableData" border height="100%" :header-cell-style="{background:'#FBFBFD', 'text-align':'center', color:'#333333'}"
+                          :cell-style="{'text-align':'center', color:'#585858'}">
                     <el-table-column prop="time" label="时间">
                     </el-table-column>
                     <el-table-column prop="In_Avg" label="In Avg(mA)">
@@ -145,6 +146,18 @@ export default {
             // let myLeakageCharts = echarts.init(leakageCharts);
             let myElectricCharts = echarts.init(electricCharts);
             let myVoltageCharts = echarts.init(voltageCharts);
+
+            //计算y轴最大最小值
+            let max1 = Math.max(this.calMax(this.electricDatasA), this.calMax(this.electricDatasB), this.calMax(this.electricDatasC))
+            let min1 = Math.min(this.calMin(this.electricDatasA), this.calMin(this.electricDatasB), this.calMin(this.electricDatasC))
+            let max2 = this.calMax(this.leakageDatas)
+            let min2 = this.calMin(this.leakageDatas)
+            let splitNum = 5
+
+            console.log(max1)
+            console.log(max2)
+            console.log(min1)
+            console.log(min2)
 
             // let leakageOption = {
             //     title: {
@@ -276,7 +289,11 @@ export default {
                             lineStyle: {
                                 color: "rgb(232, 234, 238)"
                             }
-                        }
+                        },
+                        max:max1,
+                        min:min1,
+                        splitNumber: splitNum,
+                        interval: (min1!=undefined && max1!=undefined)?((max1-min1)/splitNum):'auto'
                     },
                     {
                         type: "value", 
@@ -309,23 +326,28 @@ export default {
                             lineStyle: {
                                 color: "rgb(232, 234, 238)"
                             }
-                        }
+                        },
+                        max:max2,
+                        min:min2,
+                        splitNumber: splitNum,
+                        interval: (min2!=undefined && max2!=undefined)?((max2-min2)/splitNum):'auto'
                     }
                 ], 
                 series: [
                     {
                         name: "A相电流", 
                         type: "line", 
-                        // data:this.electricDatasA,
-                        data: [
-                            56,
-                            65,
-                            67,
-                            67,
-                            56,
-                            68,
-                            89
-                        ], 
+                        yAxisIndex: 0,
+                        data:this.electricDatasA,
+                        // data: [
+                        //     56,
+                        //     65,
+                        //     67,
+                        //     67,
+                        //     56,
+                        //     68,
+                        //     89
+                        // ], 
                         itemStyle: {
                             normal: {
                                 color: '#FDDD00',
@@ -344,16 +366,17 @@ export default {
                     {
                         name: "B相电流", 
                         type: "line", 
-                        // data:this.electricDatasB,
-                        data: [
-                            45,
-                            38,
-                            62,
-                            51,
-                            56,
-                            71,
-                            58
-                        ], 
+                        yAxisIndex: 0,
+                        data:this.electricDatasB,
+                        // data: [
+                        //     45,
+                        //     38,
+                        //     62,
+                        //     51,
+                        //     56,
+                        //     71,
+                        //     58
+                        // ], 
                        itemStyle: {
                             normal: {
                                 color: "#02E437",
@@ -372,16 +395,17 @@ export default {
                     {
                         type: "line", 
                         name: "C相电流", 
-                        // data:this.electricDatasC,
-                        data: [
-                            56,
-                            56,
-                            67,
-                            34,
-                            45,
-                            23,
-                            23
-                        ], 
+                        yAxisIndex: 0,
+                        data:this.electricDatasC,
+                        // data: [
+                        //     56,
+                        //     56,
+                        //     67,
+                        //     34,
+                        //     45,
+                        //     23,
+                        //     23
+                        // ], 
                       itemStyle: {
                             normal: {
                                 color: "#FF1C43",
@@ -399,16 +423,17 @@ export default {
                     {
                         type: "line", 
                         name: "漏电电流", 
-                        // data: this.leakageDatas,
-                        data: [
-                            45,
-                            78,
-                            79,
-                            34,
-                            56,
-                            78,
-                            34
-                        ], 
+                        yAxisIndex: 1,
+                        data: this.leakageDatas,
+                        // data: [
+                        //     45,
+                        //     78,
+                        //     79,
+                        //     34,
+                        //     56,
+                        //     78,
+                        //     34
+                        // ], 
                         itemStyle: {
                             normal: {
                                 color: '#3BECF2',
@@ -531,8 +556,8 @@ export default {
                         name: "A相电压",
                         type: "line",
                         stack: "Total",
-                        // data: this.voltageDatasA,
-                        data: [123, 156, 178, 121, 123, 124, 126],
+                        data: this.voltageDatasA,
+                        // data: [123, 156, 178, 121, 123, 124, 126],
                         itemStyle: {
                             normal: {
                                 color: '#FDDD00',
@@ -550,8 +575,8 @@ export default {
                         name: "B相电压",
                         type: "line",
                         stack: "Total",
-                        // data: this.voltageDatasB,
-                        data: [178, 146, 178, 189, 198, 156, 159],
+                        data: this.voltageDatasB,
+                        // data: [178, 146, 178, 189, 198, 156, 159],
                         itemStyle: {
                             normal: {
                                 color: "#02E437",
@@ -569,8 +594,8 @@ export default {
                         name: "C相电压",
                         type: "line",
                         stack: "Total",
-                        // data: this.voltageDatasC,
-                        data:[156, 187, 176, 169, 180, 189, 209],
+                        data: this.voltageDatasC,
+                        // data:[156, 187, 176, 169, 180, 189, 209],
                         itemStyle: {
                             normal: {
                                 color: "#FF1C43",
@@ -589,6 +614,45 @@ export default {
             myElectricCharts.setOption(electricOption);
             myVoltageCharts.setOption(voltageOption);
         },
+          //计算最大值
+        calMax(arr) {
+            let max = Math.max(...arr);
+            let log;
+            if(max<0) {
+                log = Math.log10(-max);
+            } else if(max>0) {
+                log = Math.log10(max);
+            } else {
+                log = 0;
+            }
+            log = Math.floor(log);
+            log = Math.pow(10, log);
+            //console.log(log);
+            let maxint = Math.ceil(max / (0.95*log)); // 不让最高的值超过最上面的刻度
+            let maxval = maxint * log; // 让显示的刻度是整数
+            
+            // 为了防止数据为0时，Y轴不显示，给个最大值
+            if(maxval == 0){ maxval = 1 } 
+            return maxval;
+        },
+        //计算最小值
+        calMin(arr) {
+            let min = Math.min(...arr);
+            let log;
+            if(min<0) {
+                log = Math.log10(-min);
+            } else if(min>0) {
+                log = Math.log10(min);
+            } else {
+                log = 0;
+            }
+            log = Math.floor(log);
+            log = Math.pow(10, log);
+            let minint = Math.floor(min / (1.05*log));
+            let minval = minint * log;//让显示的刻度是整数
+            return minval;
+        },
+
         //日期选择切换查询历史数据
         getTime(val) {
             this.start_time = val[0];

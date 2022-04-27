@@ -13,7 +13,7 @@
         .title {
             display: flex;
             align-items: center;
-            padding: 5px 10px;
+            padding: 18px 17px;
             height: 2.3rem;
 
             .tip-color {
@@ -25,10 +25,11 @@
 
             h3 {
                 font-size: 20px;
-                font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                font-family: "Source Han Sans CN-Medium, Source Han Sans CN";
                 font-weight: 500;
                 color: #333333;
                 line-height: 0px;
+                padding: 0 0 0 5px;
             }
         }
 
@@ -48,6 +49,13 @@
         .table-content {
             width: 83vw;
             padding: 0 30px 5px 30px;
+
+            .el-table {
+                border-color: #E9E9E9;
+            }
+            .el-table__body tr:hover>td{
+                background-color: #F0F7FD !important;
+            }
         }
     }
 
@@ -57,6 +65,7 @@
     }
 
     .table-body {
-        flex: 1;
+        // flex: 1;
+        flex-grow: 1;
     }
 }
