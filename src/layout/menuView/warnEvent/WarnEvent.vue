@@ -2,7 +2,7 @@
     <div class="warn-events-book">
         <date-pick-search @getTime="getTime"></date-pick-search>
         <div class="card-box">
-            <pagination :currentPage="currentPage" :pagerCount="200" @changePager="changePager"></pagination>
+            
             <div class="table-body">
                 <el-table :data="tableData" border height="100%" :header-cell-style="{background:'#FBFBFD', 'text-align':'center', color:'#333333'}"
                           :cell-style="{'text-align':'center', color:'#585858'}">
@@ -24,6 +24,8 @@
                     </el-table-column>
                 </el-table>
             </div>
+
+            <pagination :currentPage="currentPage" :pagerCount="200" @changePager="changePager"></pagination>
         </div>
     </div>
 </template>
