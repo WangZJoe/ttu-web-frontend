@@ -45,8 +45,9 @@
                     <el-table-column prop="In_Max" label="H(%rh)">
                     </el-table-column>
                 </el-table>
-                <pagination :currentPage="currentPage" :pagerCount="200" @changePager="changePager"></pagination>
+                
             </div>
+            <pagination :currentPage="currentPage" :pagerCount="200" @changePager="changePager"></pagination>
         </div>
     </div>
 </template>
