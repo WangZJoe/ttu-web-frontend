@@ -251,9 +251,13 @@ export default {
             this.rated_protection_current_threshold = 0,
             this.threshold_protection_action_time = 0,
             this.rated_leakage_protection_difference = 0,
-            this.interpolation_protection_action_time = 0
-        },
-        
+            this.interpolation_protection_action_time = 0,
+            this.input_leakage_protection_statu = '' ,
+            this.input_rated_leakage_protection_difference = null,
+            this.input_rated_protection_current_threshold = null,
+            this.input_interpolation_protection_action_time = null,
+            this.input_threshold_protection_action_time = null
+        }
     },
     watch: {
         //设备切换重新请求数据
