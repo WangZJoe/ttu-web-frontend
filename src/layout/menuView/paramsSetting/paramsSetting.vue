@@ -191,7 +191,7 @@ export default {
             let params = {
                 dev: dev,
              }
-            this.rest();
+            this.restRead();
             return params
         },
         getNumber(str){
@@ -208,6 +208,7 @@ export default {
                 threshold_protection_action_time: this.getNumber(this.input_threshold_protection_action_time)
 
             }
+            this.restPush()
             return params
         },
         //请求设备参数
@@ -245,13 +246,16 @@ export default {
             }
             this.pushLoading = false
         },
-        //初始化数据
-        rest() {
+        //初始化读取数据
+        restRead() {
             this.leakage_protection_status = 0,
             this.rated_protection_current_threshold = 0,
             this.threshold_protection_action_time = 0,
             this.rated_leakage_protection_difference = 0,
-            this.interpolation_protection_action_time = 0,
+            this.interpolation_protection_action_time = 0
+        },
+        //初始化上传数据
+        restPush(){
             this.input_leakage_protection_statu = '' ,
             this.input_rated_leakage_protection_difference = null,
             this.input_rated_protection_current_threshold = null,
@@ -266,6 +270,7 @@ export default {
             handler(newVal) {
                 this.$emit('requstStatus', true);
                 let params = this.getReadParams(newVal);
+                this.restPush()
                 this.getDevParams(params);
                 setTimeout(() => {
                     this.$emit('requstStatus', false);
