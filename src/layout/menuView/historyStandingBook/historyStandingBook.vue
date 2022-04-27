@@ -154,6 +154,11 @@ export default {
             let min2 = this.calMin(this.leakageDatas)
             let splitNum = 5
 
+            console.log(max1)
+            console.log(max2)
+            console.log(min1)
+            console.log(min2)
+
             // let leakageOption = {
             //     title: {
             //         left: "center",
@@ -285,6 +290,8 @@ export default {
                                 color: "rgb(232, 234, 238)"
                             }
                         },
+                        max:max1,
+                        min:min1,
                         splitNumber: splitNum,
                         interval: (min1!=undefined && max1!=undefined)?((max1-min1)/splitNum):'auto'
                     },
@@ -320,6 +327,8 @@ export default {
                                 color: "rgb(232, 234, 238)"
                             }
                         },
+                        max:max2,
+                        min:min2,
                         splitNumber: splitNum,
                         interval: (min2!=undefined && max2!=undefined)?((max2-min2)/splitNum):'auto'
                     }
