@@ -54,7 +54,7 @@
                 </el-menu>
             </div>
             <div class="right-body" v-loading="requstLoading">
-                <component :is="currentTabComponent" :curveDev="curveDev" @requstStatus="requstStatus"></component>
+                <component :is="currentTabComponent" :curveDev="curveDev" :eventData="eventData" @requstStatus="requstStatus" @changeToErrorStatus="changeToErrorStatus"></component>
             </div>
         </div>
     </div>
@@ -176,6 +176,8 @@ export default {
             paramsSetting: require("../../assets/img/params-off.png"),
             //漏电分析
             leakageAnalysis: require("../../assets/img/leakage-off.png"),
+            //故障波形选中表格参数
+            eventData: 0
         };
     },
     methods: {
@@ -240,6 +242,11 @@ export default {
         //组件请求状态loading
         requstStatus(val) {
             this.requstLoading = val;
+        },
+        //跳转故障波形界面
+        changeToErrorStatus(val) {
+            this.eventData = val
+            this.changeTopMenu('error-state');
         }
     },
     destroyed() {

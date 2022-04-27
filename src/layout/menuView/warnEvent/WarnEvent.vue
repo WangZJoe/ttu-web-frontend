@@ -93,7 +93,7 @@ export default {
         },
         //查看按钮跳转故障波形界面
         showDetail(scope) {
-            this.$parent.changeTopMenu('error-state');
+            this.$emit('changeToErrorStatus', scope.$index)
             // this.$router.push({
             //     path: '/error-state?currentTabComponent=error-state',
             //     query: {

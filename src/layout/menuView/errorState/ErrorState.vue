@@ -41,7 +41,7 @@ import { GetAlarmEvent, GetErrorState } from "../../../api/api"
 
 export default {
     components: { DatePickSearch },
-    props: ["curveDev"],
+    props: ["curveDev", "eventData"],
     data() {
         return {
             //表格数据
@@ -84,16 +84,21 @@ export default {
                 } else {
                     let data = res.data.data.alarm;
                     this.tableData = data;
-                    this.eventTime = data[0].time
-                    this.$refs.eventTable.setCurrentRow(data[0]);
+                    if(data!==undefined && data!==null && this.eventData<data.length) {
+                        this.eventTime = data[this.eventData].time
+                        this.$refs.eventTable.setCurrentRow(data[this.eventData]);
+                    } else {
+                        this.eventTime = data[0].time
+                        this.$refs.eventTable.setCurrentRow(data[0]);
+                    }
                 }
             }
         },
         //获取图表数据参数
-        getChartDataParams(dev) {
+        getChartDataParams(dev, time) {
             let params = {
                 dev: dev,
-                time: this.eventTime
+                time: time
             }
             this.restChart();
             return params
@@ -409,7 +414,7 @@ export default {
             this.$emit('requstStatus', true);
             let params = this.getTableDataParams(this.curveDev);
             this.getTableDatas(params);
-            let paramsChart = this.getChartDataParams(this.curveDev);
+            let paramsChart = this.getChartDataParams(this.curveDev, this.eventTime);
             this.getChartDatas(paramsChart);
             setTimeout(() => {
                 this.$emit('requstStatus', false);
@@ -419,7 +424,7 @@ export default {
         handleCurrentChange(val) {
             this.currentRow = val;
             this.eventTime = val.time
-            let params = this.getChartDataParams(this.curveDev);
+            let params = this.getChartDataParams(this.curveDev, this.eventTime);
             this.getChartDatas(params)
         }
     },
@@ -431,13 +436,13 @@ export default {
                 this.$emit('requstStatus', true);
                 let params = this.getTableDataParams(newVal);
                 this.getTableDatas(params);
-                let paramsChart = this.getChartDataParams(newVal);
+                let paramsChart = this.getChartDataParams(newVal, this.eventTime);
                 this.getChartDatas(paramsChart);
                 setTimeout(() => {
                     this.$emit('requstStatus', false);
                 }, 500);
             }
-        },
+        }
     }
 };
 </script>
