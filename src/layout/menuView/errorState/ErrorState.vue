@@ -147,6 +147,12 @@ export default {
             let myErrorCharts = echarts.init(errorCharts);
             let myClearCharts = echarts.init(clearCharts);
 
+            //计算y轴最大最小值
+            let max1 = Math.max(this.calMax(this.electricDatasA), this.calMax(this.electricDatasB), this.calMax(this.electricDatasC))
+            let min1 = Math.min(this.calMin(this.electricDatasA), this.calMin(this.electricDatasB), this.calMin(this.electricDatasC))
+            let max2 = this.calMax(this.leakageDatas)
+            let min2 = this.calMin(this.leakageDatas)
+            let splitNum = 5
 
             let errorOption = {
                 tooltip: {
@@ -221,7 +227,7 @@ export default {
                     },
                     axisTick: { show: false }
                 },
-                 yAxis: {
+                 yAxis: [{
                     type: "value",
                     name: "(A)",
                     nameTextStyle: {
@@ -245,8 +251,49 @@ export default {
                     splitLine: {
                         show: true,
                         lineStyle: { color: "rgb(232, 234, 238)" }
-                    }
+                    },
+                    max:max1,
+                    min:min1,
+                    splitNumber: splitNum,
+                    interval: (min1!=undefined && max1!=undefined)?((max1-min1)/splitNum):'auto'
                 },
+                {
+                    type: "value", 
+                    name: "(mA)", 
+                    position: "right",
+                    nameTextStyle: {
+                        color: "rgb(142, 149, 170)"
+                    }, 
+                    axisLine: {
+                        show: true, 
+                        lineStyle: {
+                            color: "rgb(232, 234, 238)", 
+                            width: 1
+                        }
+                    }, 
+                    axisLabel: {
+                        show: true, 
+                        textStyle: {
+                            color: "rgb(142, 149, 170)"
+                        }
+                    }, 
+                    splitArea: {
+                        show: false
+                    }, 
+                    axisTick: {
+                        show: false
+                    }, 
+                    splitLine: {
+                        show: true, 
+                        lineStyle: {
+                            color: "rgb(232, 234, 238)"
+                        }
+                    },
+                    max:max2,
+                    min:min2,
+                    splitNumber: splitNum,
+                    interval: (min2!=undefined && max2!=undefined)?((max2-min2)/splitNum):'auto'
+                }],
                 // yAxis: {
                 //     type: "value",
                 //     name: "(A)",
@@ -271,7 +318,8 @@ export default {
                         },
                         symbol: 'circle',
                         showSymbol: false,
-                        symbolSize: 7
+                        symbolSize: 7,
+                        yAxisIndex: 1,
                     },
                     {
                         name: "A相电流",
@@ -290,7 +338,8 @@ export default {
                         },
                         symbol: 'circle',
                         showSymbol: false,
-                        symbolSize: 7
+                        symbolSize: 7,
+                        yAxisIndex: 0,
                     },
                     {
                         name: "B相电流",
@@ -309,7 +358,8 @@ export default {
                         },
                         symbol: 'circle',
                         showSymbol: false,
-                        symbolSize: 7
+                        symbolSize: 7,
+                        yAxisIndex: 0,
                     },
                     {
                         type: "line",
@@ -327,7 +377,8 @@ export default {
                         },
                         symbol: 'circle',
                         showSymbol: false,
-                        symbolSize: 7
+                        symbolSize: 7,
+                        yAxisIndex: 0,
                     }],
                 grid: { x: 54 }
             };
@@ -406,6 +457,44 @@ export default {
 
             myErrorCharts.setOption(errorOption);
             myClearCharts.setOption(clearOption);
+        },
+        //计算最大值
+        calMax(arr) {
+            let max = Math.max(...arr);
+            let log;
+            if(max<0) {
+                log = Math.log10(-max);
+            } else if(max>0) {
+                log = Math.log10(max);
+            } else {
+                log = 0;
+            }
+            log = Math.floor(log);
+            log = Math.pow(10, log);
+            //console.log(log);
+            let maxint = Math.ceil(max / (0.95*log)); // 不让最高的值超过最上面的刻度
+            let maxval = maxint * log; // 让显示的刻度是整数
+            
+            // 为了防止数据为0时，Y轴不显示，给个最大值
+            if(maxval == 0){ maxval = 1 } 
+            return maxval;
+        },
+        //计算最小值
+        calMin(arr) {
+            let min = Math.min(...arr);
+            let log;
+            if(min<0) {
+                log = Math.log10(-min);
+            } else if(min>0) {
+                log = Math.log10(min);
+            } else {
+                log = 0;
+            }
+            log = Math.floor(log);
+            log = Math.pow(10, log);
+            let minint = Math.floor(min / (1.05*log));
+            let minval = minint * log;//让显示的刻度是整数
+            return minval;
         },
         //日期选择切换查询历史数据
         getTime(val) {
