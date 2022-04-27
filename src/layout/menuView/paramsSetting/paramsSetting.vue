@@ -14,8 +14,10 @@
                         </div>
                         <div class="right-text">
                             <div class="fill"></div>
-                            <div class="off-gap"></div>
-                            <p class="gap-comp">关闭</p>
+                            <div class="off-gap" v-if="leakage_protection_status == 0"></div>
+                            <p class="gap-comp"  v-if="leakage_protection_status == 0">关闭</p>
+                            <div class="on-gap" v-if="leakage_protection_status == 1"></div>
+                            <p class="gap-comp"  v-if="leakage_protection_status == 1">开启</p>
                         </div>
                     </div>
                     <div class="row-params-status">
@@ -25,7 +27,7 @@
                         </div>
                         <div class="right-text">
                             <div class="fill"></div>
-                            <div class="value">300</div>
+                            <div class="value">{{rated_protection_current_threshold}}</div>
                             <p class="comp">mA</p>
                         </div>
                     </div>
@@ -36,7 +38,7 @@
                         </div>
                         <div class="right-text">
                             <div class="fill"></div>
-                            <div class="value">50</div>
+                            <div class="value">{{threshold_protection_action_time}}</div>
                             <p class="comp">mS</p>
                         </div>
                     </div>
@@ -47,7 +49,7 @@
                         </div>
                         <div class="right-text">
                             <div class="fill"></div>
-                            <div class="value">200</div>
+                            <div class="value">{{rated_leakage_protection_difference}}</div>
                             <p class="comp">mA</p>
                         </div>
                     </div>
@@ -58,7 +60,7 @@
                         </div>
                         <div class="right-text">
                             <div class="fill"></div>
-                            <div class="value">250</div>
+                            <div class="value">{{interpolation_protection_action_time}}</div>
                             <p class="comp">mS</p>
                         </div>
                     </div>
@@ -82,7 +84,10 @@
                             <p class="text">漏电保护状态 : </p>
                         </div>
                         <div class="right-text">
-                            <el-input placeholder="请输入"></el-input>
+                            <!-- <el-input placeholder="请输入"></el-input> -->
+                            <el-select v-model="input_leakage_protection_statu" placeholder="请选择">
+                                <el-option v-for="item in options" :label="item.label" :key="item.item" :value="item.value"></el-option>
+                            </el-select>
                         </div>
                     </div>
                     <div class="row-params-status">
@@ -91,7 +96,7 @@
                             <p class="text">额定漏电保护阈值 : </p>
                         </div>
                         <div class="right-text">
-                            <el-input placeholder="请输入"></el-input>
+                            <el-input placeholder="请输入" type="number" v-model="input_rated_protection_current_threshold"></el-input>
                             <p class="comp">mA</p>
                         </div>
                     </div>
@@ -101,7 +106,7 @@
                             <p class="text">阈值保护动作时间 : </p>
                         </div>
                         <div class="right-text">
-                            <el-input placeholder="请输入"></el-input>
+                            <el-input placeholder="请输入" type="number" v-model="input_threshold_protection_action_time"></el-input>
                             <p class="comp">mS</p>
                         </div>
                     </div>
@@ -111,7 +116,7 @@
                             <p class="text">额定漏电保护差值 : </p>
                         </div>
                         <div class="right-text">
-                            <el-input placeholder="请输入"></el-input>
+                            <el-input placeholder="请输入" type="number" v-model="input_rated_leakage_protection_difference"></el-input>
                             <p class="comp">mA</p>
                         </div>
                     </div>
@@ -121,7 +126,7 @@
                             <p class="text">插值保护动作时间 : </p>
                         </div>
                         <div class="right-text">
-                            <el-input placeholder="请输入"></el-input>
+                            <el-input placeholder="请输入" type="number" v-model="input_interpolation_protection_action_time"></el-input>
                             <p class="comp">mS</p>
                         </div>
                     </div>
@@ -135,33 +140,39 @@
 </template>
 
 <script>
-// import { GetDeviceHistoryData } from "../../../api/api"
+import {GetDevParams,SetDevParams} from "../../../api/api"
 
 export default {
     props: ["curveDev"],
     data() {
         return {
-            //表格数据
-            tableData: [],
-            //页面loading
-            getLoading: false,
-            pushLoading: false,
-            //漏电电流 时间
-            leakageDatas: [],
-            //x相电流 时间
-            electricDatasA: [],
-            electricDatasB: [],
-            electricDatasC: [],
-            //x相电压 时间
-            voltageDatasA: [],
-            voltageDatasB: [],
-            voltageDatasC: [],
+            //漏电保护状态
+            leakage_protection_status : '',
+            //额定漏电保护阈值
+            rated_protection_current_threshold : 0,
+            //阈值保护动作时间
+            threshold_protection_action_time : 0,
+            //额定漏电保护差值
+            rated_leakage_protection_difference : 0,
+            //插值保护动作时间
+            interpolation_protection_action_time: 0,
+            //输入参数
+            options:[{value:'1',label:'开启'},{value:'0',label:'关闭'}],
+            input_leakage_protection_statu : '',
+            input_rated_leakage_protection_difference: null,
+            input_rated_protection_current_threshold : null,
+            input_interpolation_protection_action_time : null,
+            input_threshold_protection_action_time : null,
+            getLoading : false,
+            pushLoading : false
         };
     },
     methods: {
         //参数读取
         getParams() {
             this.getLoading = true;
+            let params = this.getReadParams(this.curveDev)
+            this.getDevParams(params)
             setTimeout(() => {
                 this.getLoading = false;
             }, 1000);
@@ -169,58 +180,80 @@ export default {
         //上传
         pushParams() {
             this.pushLoading = true;
+            let params = this.getPushParams(this.curveDev)
+            this.setDevParams(params)
             setTimeout(() => {
                 this.pushLoading = false;
             }, 1000);
-        }
-        //获取历史设备数据参数
-        // getHistoryDataParams(dev) {
-        //     let params = {
-        //         dev: dev,
-        //         start_time: this.start_time,
-        //         end_time: this.end_time,
-        //         time_span_unit: this.time_span_unit,
-        //         time_span_number: this.time_span_number,
-        //     }
-        //     this.rest();
-        //     return params
-        // },
-        //请求历史台账数据
-        // async getHistoryDatas(params) {
-        //     if (params) {
-        //         let res = await GetDeviceHistoryData(params);
-        //         if (res.data.code != 0) {
-        //             this.$message.error('设备数据请求失败');
-        //             this.setDataCensusCharts();
-        //         } else {
-        //             let data = res.data.data;
-        //             data.record.forEach(item => {
-        //                 this.dataTimes.push(item.time);
-        //                 this.leakageDatas.push(item.In_Avg);
-        //                 this.electricDatasA.push(item.Ia);
-        //                 this.electricDatasB.push(item.Ib);
-        //                 this.electricDatasC.push(item.Ic);
-        //                 this.voltageDatasA.push(item.Ua);
-        //                 this.voltageDatasB.push(item.Ub);
-        //                 this.voltageDatasC.push(item.Uc);
-        //             });
-        //             this.tableData = data.record;
-        //             this.setDataCensusCharts();
-        //         }
-        //     }
-        // },
+        },
+        //获取数据参数的参数
+        getReadParams(dev) {
+            let params = {
+                dev: dev,
+             }
+            this.rest();
+            return params
+        },
+        getNumber(str){
+            return Number(str)
+        },
+         //获取上传数据的参数
+        getPushParams(dev) {
+            let params = {
+                dev: dev,
+                leakage_protection_statu: this.input_leakage_protection_statu,
+                rated_leakage_protection_difference: this.getNumber(this.input_rated_leakage_protection_difference),
+                rated_protection_current_threshold: this.getNumber(this.input_rated_protection_current_threshold),
+                interpolation_protection_action_time: this.getNumber(this.input_interpolation_protection_action_time),
+                threshold_protection_action_time: this.getNumber(this.input_threshold_protection_action_time)
+
+            }
+            return params
+        },
+        //请求设备参数
+        async getDevParams(params) {
+            if(params){
+                let res = await GetDevParams(params);
+                if (res.data.code != 0) {
+                    this.$message.error('参数读取请求失败');
+                } else {
+                    let data = res.data.data;
+                    this.leakage_protection_status = data.leakage_protection_status,
+                    this.rated_protection_current_threshold = data.rated_protection_current_threshold,
+                    this.threshold_protection_action_time = data.threshold_protection_action_time,
+                    this.rated_leakage_protection_difference = data.rated_leakage_protection_difference,
+                    this.interpolation_protection_action_time = data.interpolation_protection_action_time
+                }
+            }
+            this.getLoading = false
+        },
+        //设置设备参数
+        async setDevParams(params) {
+            if(params){
+                let res = await SetDevParams(params);
+                if (res.data.code != 0) {
+                    this.$message.error('上传请求失败');
+                } else {
+                    console.log(res.data)
+                    // let data = res.data.data;
+                    // this.leakage_protection_status = data.leakage_protection_status,
+                    // this.rated_protection_current_threshold = data.rated_protection_current_threshold,
+                    // this.threshold_protection_action_time = data.threshold_protection_action_time,
+                    // this.rated_leakage_protection_difference = data.rated_leakage_protection_difference,
+                    // this.interpolation_protection_action_time = data.interpolation_protection_action_time
+                }
+            }
+            this.pushLoading = false
+        },
         //初始化数据
-        // rest() {
-        //     this.tableData = [];
-        //     this.leakageDatas = [];
-        //     this.dataTimes = [];
-        //     this.electricDatasA = [];
-        //     this.electricDatasB = [];
-        //     this.electricDatasC = [];
-        //     this.voltageDatasA = [];
-        //     this.voltageDatasB = [];
-        //     this.voltageDatasC = [];
-        // },
+        rest() {
+            this.leakage_protection_status = 0,
+            this.rated_protection_current_threshold = 0,
+            this.threshold_protection_action_time = 0,
+            this.rated_leakage_protection_difference = 0,
+            this.interpolation_protection_action_time = 0
+        },
+        
     },
     watch: {
         //设备切换重新请求数据
@@ -228,8 +261,8 @@ export default {
             immediate: true,
             handler(newVal) {
                 this.$emit('requstStatus', true);
-                // let params = this.getHistoryDataParams(newVal);
-                // this.getHistoryDatas(params);
+                let params = this.getReadParams(newVal);
+                this.getDevParams(params);
                 setTimeout(() => {
                     this.$emit('requstStatus', false);
                 }, 500);
@@ -237,6 +270,7 @@ export default {
         },
     }
 };
+
 </script>
 <style lang="scss">
 @import "./paramsSetting.scss";

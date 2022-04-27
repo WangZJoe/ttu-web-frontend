@@ -49,10 +49,24 @@ async function GetErrorState(params) {
     return res;
 }
 
+//获取设备参数
+async function GetDevParams(params) {
+    let res = await httppost('base/getConfig', params)
+    return res;
+}
+
+//上传设备参数
+async function SetDevParams(params) {
+    let res = await httppost('base/setConfig', params)
+    return res;
+}
+
 export {
     GetDeviceList,
     GetDeviceData,
     GetDeviceHistoryData,
     GetAlarmEvent,
-    GetErrorState
+    GetErrorState,
+    GetDevParams,
+    SetDevParams
 };
