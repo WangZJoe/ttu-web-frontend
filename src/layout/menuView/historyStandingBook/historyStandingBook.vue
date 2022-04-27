@@ -154,10 +154,10 @@ export default {
             let min2 = this.calMin(this.leakageDatas)
             let splitNum = 5
 
-            console.log(max1)
-            console.log(max2)
-            console.log(min1)
-            console.log(min2)
+            // console.log(max1)
+            // console.log(max2)
+            // console.log(min1)
+            // console.log(min2)
 
             // let leakageOption = {
             //     title: {
@@ -260,7 +260,7 @@ export default {
                 ], yAxis: [
                     {
                         type: "value", 
-                        name: "A", 
+                        name: "(A)", 
                         position: "left",
                         nameTextStyle: {
                             color: "rgb(142, 149, 170)"
@@ -297,7 +297,7 @@ export default {
                     },
                     {
                         type: "value", 
-                        name: "mA", 
+                        name: "(mA)", 
                         position: "right",
                         nameTextStyle: {
                             color: "rgb(142, 149, 170)"
@@ -522,7 +522,7 @@ export default {
                 yAxis: [
                         {
                         type: "value",
-                        name: "V",
+                        name: "(V)",
                         position: "left",
                         nameTextStyle: {
                             color: "rgb(142, 149, 170)",

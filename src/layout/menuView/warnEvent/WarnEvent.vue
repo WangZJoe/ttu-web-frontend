@@ -11,11 +11,17 @@
                     </el-table-column>
                     <el-table-column prop="time" label="时间">
                     </el-table-column>
-                    <el-table-column prop="alarm_type" label="事件类型">
+                    <el-table-column prop="alarm_type" label="事件类型" :filters="typeList" :filter-method="handlerFilterChange">
                     </el-table-column>
                     <el-table-column prop="remark" label="事件说明">
                     </el-table-column>
                     <el-table-column prop="status" label="状态">
+                        <template slot-scope="scope">
+                            <div class="status">
+                                <div :style="readed(scope.row.status)" class="fill"></div>
+                                <p class="gap-comp">{{["未读", "已读"][scope.row.status]}}</p>
+                            </div>
+                        </template>
                     </el-table-column>
                     <el-table-column label="故障波形">
                         <template slot-scope="scope">
@@ -42,6 +48,8 @@ export default {
         return {
             //表格数据
             tableData: [],
+            //类型过滤器
+            typeList: [],
 
             //表格当前页面
             currentPage:1,
@@ -75,6 +83,7 @@ export default {
                     let data = res.data.data.alarm;
                     // console.log(data)
                     this.tableData = data;
+                    this.typeFilter();
                 }
             }
         },
@@ -92,6 +101,43 @@ export default {
             setTimeout(() => {
                 this.$emit('requstStatus', false);
             }, 500);
+        },
+        //事件类型列过滤器
+        typeFilter() {
+            var list = [
+                ...new Set(this.tableData.map((item) => item.alarm_type))
+            ]
+            this.typeList = list.reduce((types, item, index)=>{
+                types.push({
+                    text: item,
+                    value: index
+                })
+                return types
+            },[])
+        },
+        handlerFilterChange(value, row, column) {
+            const property = column['property']
+            return row[property] === value
+        },
+        //状态列格式
+        readed(status) {
+            if(status==="1") {
+                return {
+                    'width': '10px',
+                    'height': '10px',
+                    'background': '#C8C8C8',
+                    'border-radius': '50%',
+                    margin: 'auto 20px auto 0'
+                }
+            } else {
+                return {
+                    'width': '10px',
+                    'height': '10px',
+                    'background': '#FFC95D',
+                    'border-radius': '50%',
+                    margin: 'auto 20px auto 0'
+                }
+            }
         },
         //查看按钮跳转故障波形界面
         showDetail(scope) {
