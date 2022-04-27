@@ -6,7 +6,7 @@
                 <span class="main-title">低压台区漏电管家</span>
             </div>
             <div class="tabs">
-                <el-menu default-active="real-time-monitoring" class="el-menu-demo" mode="horizontal" active-text-color="#19807C" @select="changeTopMenu">
+                <el-menu :default-active="currentTabComponent" class="el-menu-demo" mode="horizontal" active-text-color="#19807C" @select="changeTopMenu">
                     <el-menu-item index="real-time-monitoring"><img :src="realWatch" alt=""><span>实时监测</span></el-menu-item>
                     <el-menu-item index="history-standing-book"><img :src="historyData" alt=""><span>历史台账</span></el-menu-item>
                     <el-menu-item index="warn-event"><img :src="warningEvent" alt=""><span>告警事件</span></el-menu-item>
