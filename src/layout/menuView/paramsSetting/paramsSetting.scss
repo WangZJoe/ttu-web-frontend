@@ -64,8 +64,33 @@
                         align-items: center;
                         flex: 1;
 
-                        .el-input {
-                            flex-basis: 70%;
+
+                        input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+                            font-size: 14px;
+                            font-family: Source Han Sans CN-Normal, Source Han Sans CN ;
+                            font-weight: 400;
+                            color:#C9C9C9
+                        }
+
+
+                        .el-input__inner{
+                            width: 15rem;
+                            border-radius: 2px 2px 2px 2px;
+                            border: 1px solid #CCD5DE;
+                        }
+
+                        input::-webkit-outer-spin-button,
+                        input::-webkit-inner-spin-button {
+                        -webkit-appearance: none;}
+
+                        .el-dropdown-link {
+                            width: 5rem;
+                            cursor: pointer;
+                            color: #006F6B;
+                        }
+
+                        .el-icon-arrow-down {
+                            font-size: 12px;
                         }
 
                         .fill {
@@ -84,6 +109,13 @@
                             width: 6px;
                             height: 6px;
                             background: #C1C1C1;
+                            border-radius: 50%;
+                        }
+
+                        .on-gap {
+                            width: 6px;
+                            height: 6px;
+                            background: #006F6B;
                             border-radius: 50%;
                         }
 
