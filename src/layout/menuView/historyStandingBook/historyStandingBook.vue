@@ -18,7 +18,7 @@
                 <h3>历史数据</h3>
             </div>
             <div class="card-content table-content">
-                <el-table :data="tableData" border height="100%" :header-cell-style="{background:'#FBFBFD', 'text-align':'center', color:'#333333'}"
+                <el-table :data="showData" border height="100%" :header-cell-style="{background:'#FBFBFD', 'text-align':'center', color:'#333333'}"
                           :cell-style="{'text-align':'center', color:'#585858'}">
                     <el-table-column prop="time" label="时间">
                     </el-table-column>
@@ -47,7 +47,7 @@
                 </el-table>
                 
             </div>
-            <pagination :currentPage="currentPage" :pagerCount="200" @changePager="changePager"></pagination>
+            <pagination :currentPage="currentPage" :pagerCount="tableData.length" :pageSize="pageSize" @changePager="changePager"></pagination>
         </div>
     </div>
 </template>
@@ -65,8 +65,12 @@ export default {
         return {
             //表格数据
             tableData: [],
+            //展示数据
+            showData : [],
             //表格当前页面
             currentPage:1,
+            //表格大小
+            pageSize : 5,
             //数据时间
             dataTimes: [],
             //漏电电流 时间
@@ -125,12 +129,14 @@ export default {
                     });
                     this.tableData = data.record;
                     this.setDataCensusCharts();
+                    this.showData = this.tableData.slice(0,this.pageSize)
                 }
             }
         },
         //初始化数据
         rest() {
             this.tableData = [];
+            this.showData = [];
             this.leakageDatas = [];
             this.dataTimes = [];
             this.electricDatasA = [];
@@ -670,7 +676,9 @@ export default {
         //切换页面
         changePager(newPage){
             this.currentPage=newPage
-            //数据逻辑
+            let min=(newPage-1)*this.pageSize,
+            max=newPage*this.pageSize > this.tableData.length ? this.tableData.length : newPage*this.pageSize
+            this.showData = this.tableData.slice(min,max)
         }
     },
     watch: {
