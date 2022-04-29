@@ -1,7 +1,7 @@
 <template>
     <div @click="onPagerClick" class="table-pager">
-        <el-button class="arrow-left" type="button" :disabled="isMin"><i class="el-icon-d-arrow-left"></i></el-button>
-        <el-button class="d-arrow-left" type="button" :disabled="isMin"><i class="el-icon-arrow-left"></i></el-button>
+        <el-button class="d-arrow-left" type="button" :disabled="isMin"><i class="el-icon-d-arrow-left"></i></el-button>
+        <el-button class="arrow-left" type="button" :disabled="isMin"><i class="el-icon-arrow-left"></i></el-button>
         <span>第</span>
         <input class="pager-input" 
         v-model="inputPage"
@@ -19,15 +19,13 @@
 
 <script>
 export default {
-    props: [ "currentPage" , "pagerCount" ],
+    props: [ "currentPage" , "pagerCount" ,"pageSize" ],
     data() {
         return {
             //当前页面
             inputPage : 1,
             //页面总数
             pageCount : 1,
-            //页面大小
-            pageSize : 14,
             //翻页页数
             pagerCountOffset:5,
             //可否向左翻页
