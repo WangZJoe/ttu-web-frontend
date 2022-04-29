@@ -220,6 +220,7 @@ export default {
                 } else {
                     let data = res.data.data;
                     this.leakage_protection_status = data.leakage_protection_status,
+                    console.log(this.leakage_protection_status)
                     this.rated_protection_current_threshold = data.rated_protection_current_threshold,
                     this.threshold_protection_action_time = data.threshold_protection_action_time,
                     this.rated_leakage_protection_difference = data.rated_leakage_protection_difference,

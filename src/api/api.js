@@ -2,8 +2,8 @@ import axios from 'axios'
 
 // Vue.prototype.qs = qs
 
-// axios.defaults.baseURL = 'http://127.0.0.1:8002/api'
-axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/api'
+axios.defaults.baseURL = 'http://127.0.0.1:61660/api'
+// axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/api'
 // axios.defaults.baseURL = 'http://192.168.2.33:8002/api'
 // axios.defaults.baseURL = window.location.href + "api"
 //console.log(window.location.href)
@@ -39,13 +39,13 @@ async function GetDeviceHistoryData(params) {
 
 //获取设备告警事件数据
 async function GetAlarmEvent(params) {
-    let res = await httppost('http://127.0.0.1:4523/mock/908535/api/base/alarm', params)
+    let res = await httppost('base/alarm', params)
     return res;
 }
 
 //获取设备故障波形数据
 async function GetErrorState(params) {
-    let res = await httppost('http://127.0.0.1:4523/mock/908535/api/base/faultWaveform', params)
+    let res = await httppost('base/faultWaveform', params)
     return res;
 }
 

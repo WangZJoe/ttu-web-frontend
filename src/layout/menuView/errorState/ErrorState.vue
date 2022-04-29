@@ -58,10 +58,10 @@ export default {
             electricDatasC: [],
 
             //开始 结束时间
-            // start_time: this.$moment().format('YYYY-MM-DD'),
-            start_time: "2022-04-04",
-            // end_time: this.$moment().format('YYYY-MM-DD'),
-            end_time: "2022-04-24",
+            start_time: this.$moment().format('YYYY-MM-DD'),
+            // start_time: "2022-04-04",
+            end_time: this.$moment().add(1, 'days').format('YYYY-MM-DD'),
+            // end_time: "2022-04-24",
         };
     },
     methods: {
@@ -80,7 +80,7 @@ export default {
             if (params) {
                 let res = await GetAlarmEvent(params);
                 if (res.data.code != 0) {
-                    this.$message.error('告警事件数据请求失败');
+                    this.$message.error('故障波形表格数据请求失败');
                 } else {
                     let data = res.data.data.alarm;
                     this.tableData = data;
@@ -98,7 +98,7 @@ export default {
         getChartDataParams(dev, time) {
             let params = {
                 dev: dev,
-                time: time
+                timestamp: time
             }
             this.restChart();
             return params
@@ -108,7 +108,7 @@ export default {
             if (params) {
                 let res = await GetErrorState(params);
                 if (res.data.code != 0) {
-                    this.$message.error('故障波形数据请求失败');
+                    this.$message.error('故障波形图表数据请求失败');
                 } else {
                     let data = res.data.data.waveform;
                     data.forEach(item => {

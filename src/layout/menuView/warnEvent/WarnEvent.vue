@@ -19,7 +19,7 @@
                         <template slot-scope="scope">
                             <div class="status">
                                 <div :style="readed(scope.row.status)" class="fill"></div>
-                                <p class="gap-comp">{{["未读", "已读"][scope.row.status]}}</p>
+                                <p class="gap-comp">{{scope.row.status}}</p>
                             </div>
                         </template>
                     </el-table-column>
@@ -55,10 +55,10 @@ export default {
             currentPage:1,
 
             //开始 结束时间
-            // start_time: this.$moment().format('YYYY-MM-DD'),
-            start_time: "2022-04-04",
-            // end_time: this.$moment().format('YYYY-MM-DD'),
-            end_time: "2022-04-24"
+            start_time: this.$moment().format('YYYY-MM-DD'),
+            // start_time: "2022-04-04",
+            end_time: this.$moment().add(1, 'days').format('YYYY-MM-DD'),
+            // end_time: "2022-04-24"
         };
     },
     methods: {
@@ -121,7 +121,7 @@ export default {
         },
         //状态列格式
         readed(status) {
-            if(status==="1") {
+            if(status==="已读") {
                 return {
                     'width': '10px',
                     'height': '10px',

@@ -356,7 +356,6 @@ export default {
                 Math.floor(Math.random() * 1000)
                 ]);
             }
-            console.log(data[data.length - 1]);
             return data;
         },
 
