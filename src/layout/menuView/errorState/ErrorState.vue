@@ -106,9 +106,10 @@ export default {
         //请求图表数据
         async getChartDatas(params) {
             if (params) {
+                if(params.dev==='' || params.timestamp==='') return
                 let res = await GetErrorState(params);
                 if (res.data.code != 0) {
-                    this.$message.error('故障波形图表数据请求失败');
+                    this.$message.error('故障波形图数据请求失败');
                 } else {
                     let data = res.data.data.waveform;
                     data.forEach(item => {
@@ -189,7 +190,7 @@ export default {
                     x: "center",
                     y: "top",
                     textStyle: { color: "rgb(153, 153, 153)" },
-                    // itemWidth: 8,
+                    itemWidth: 8,
                     itemHeight: 8
                     // padding: 10
                 },
@@ -205,12 +206,13 @@ export default {
                     }
                 },
                 calculable: true,
-                 xAxis: { 
+                xAxis: { 
                     type: "category", 
                     name: "(mS)",
                     nameTextStyle: {
                         color: "rgb(142, 149, 170)"
                     },
+                    nameGap: 30,
                     boundaryGap: false, 
                     // 数据
                     data: this.dataTimes, 
