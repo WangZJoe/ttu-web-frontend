@@ -8,10 +8,12 @@
             <div class="left"></div>
             <div class="right"></div>
             <div class="main">
-                <span>您好，欢迎登录</span>
+                <div class="main-title"><span>您好，欢迎登陆！</span></div>
+                <div class="main-body">
                 <input type="text" class="user" v-model="user" placeholder="账号">
-                <input type="text" class="password" v-model="password" placeholder="密码">
-                <el-button class="button" @click="Login">登录</el-button>              
+                <input type="text" class="password" v-model="password" placeholder="密码"></div>
+                <div class="main-button">
+                <el-button class="button" @click="Login">登录</el-button></div>
             </div>
 
         </div>
