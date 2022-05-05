@@ -200,13 +200,13 @@ export default {
                     if (this.electricDatas.length == 12) {
                         this.electricDatas.shift();
                     }
-                    if (this.electricDatasA.length == 12) {
+                    if (this.electricDatasA.length == 24) {
                         this.electricDatasA.shift();
                     }
-                    if (this.electricDatasB.length == 12) {
+                    if (this.electricDatasB.length == 24) {
                         this.electricDatasB.shift();
                     }
-                    if (this.electricDatasC.length == 12) {
+                    if (this.electricDatasC.length == 24) {
                         this.electricDatasC.shift();
                     }
                     this.electricDatas.push(data.record[0].In_Max);

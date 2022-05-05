@@ -11,7 +11,7 @@
                     <el-menu-item index="history-standing-book"><img :src="historyData" alt=""><span>历史台账</span></el-menu-item>
                     <el-menu-item index="warn-event"><img :src="warningEvent" alt=""><span>告警事件</span></el-menu-item>
                     <el-menu-item index="error-state"><img :src="errorStatus" alt=""><span>故障波形</span></el-menu-item>
-                    <el-menu-item index="params-setting"><img :src="paramsSetting" alt=""><span>参数整定</span></el-menu-item>
+                    <el-menu-item index="params-setting" v-if="!curveDev.startsWith('LTU')"><img :src="paramsSetting" alt=""><span>参数整定</span></el-menu-item>
                     <el-menu-item index="leakage-analysis"><img :src="leakageAnalysis" alt=""><span>漏电分析</span></el-menu-item>
                 </el-menu>
             </div>
@@ -40,7 +40,7 @@
                 <div class="center-title">
                     <span class="position-title">{{station}}</span>
                 </div>
-                <el-menu background-color="#006F6B" text-color="#FFFFFF" :default-active="defaultActive" @select="handleSelect" active-text-color="#ffd04b">
+                <el-menu background-color="#006F6B" text-color="#FFFFFF" :default-active="curveDev" @select="handleSelect" active-text-color="#ffd04b">
                     <el-submenu v-for="menu in menuList" :key="menu.name" :index="menu.name + ''">
                         <template slot="title">
                             <i class="el-icon-document"></i>
@@ -83,7 +83,6 @@ export default {
                     return obj;
                 }
             });
-            this.defaultActive = obj.device[0].dev;
             this.curveDev = obj.device[0].dev;
             this.menuList = res.data.data.group;
             this.loading = false;
@@ -103,8 +102,6 @@ export default {
             station: "",
             //当前选择的组件
             currentTabComponent: "real-time-monitoring",
-            //设备列表默认打开的子菜单
-            defaultActive: "LTU_bb38620dc4e710b0",
             //当前选取设备
             curveDev: "",
             //侧边栏设备数据
