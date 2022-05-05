@@ -145,6 +145,9 @@ export default {
             electricMax: "",
             //漏电电流平均值
             average: "",
+            //时间
+            timeData: "",
+            timeDatas: [],
             //X相电流
             electricA: "",
             electricB: "",
@@ -188,6 +191,7 @@ export default {
                     let data = res.data.data;
                     this.electricMax = data.record[0].In_Max;
                     this.average = data.record[0].In_Avg;
+                    this.timeData = data.record[0].time;
                     this.electricA = data.record[0].Ia;
                     this.electricB = data.record[0].Ib;
                     this.electricC = data.record[0].Ic;
@@ -197,18 +201,22 @@ export default {
                     this.temperature = data.record[0].T;
                     this.maxTemperature = data.record[0].Tn;
                     this.humidity = data.record[0].H;
+                    if (this.timeDatas.length == 12) {
+                        this.timeDatas.shift();
+                    }
                     if (this.electricDatas.length == 12) {
                         this.electricDatas.shift();
                     }
-                    if (this.electricDatasA.length == 24) {
+                    if (this.electricDatasA.length == 12) {
                         this.electricDatasA.shift();
                     }
-                    if (this.electricDatasB.length == 24) {
+                    if (this.electricDatasB.length == 12) {
                         this.electricDatasB.shift();
                     }
-                    if (this.electricDatasC.length == 24) {
+                    if (this.electricDatasC.length == 12) {
                         this.electricDatasC.shift();
                     }
+                    this.timeDatas.push(data.record[0].time.substring(11));
                     this.electricDatas.push(data.record[0].In_Max);
                     this.electricDatasA.push(data.record[0].Ia);
                     this.electricDatasB.push(data.record[0].Ib);
@@ -222,12 +230,14 @@ export default {
         rest() {
             this.electricMax = "";
             this.average = "";
+            this.timeData = "";
             this.electricA = "";
             this.electricB = "";
             this.electricC = "";
             this.voltageA = "";
             this.voltageB = "";
             this.voltageC = "";
+            this.timeDatas = [];
             this.electricDatas = [];
             this.electricDatasA = [];
             this.electricDatasB = [];
@@ -286,7 +296,7 @@ export default {
                 xAxis: {
                     type: "category",
                     boundaryGap: false,
-                    data: ["01","02","03","04","05","06","07","08","09","10","11","12",],
+                    data: this.timeDatas,
                     axisLine: {
                         show: true, 
                         lineStyle: {
@@ -405,7 +415,7 @@ export default {
                         {
                             type: "category",
                             boundaryGap: false,
-                            data: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"],
+                            data: this.timeDatas,
                             axisLine: {
                                 show: true,
                                 lineStyle: {
