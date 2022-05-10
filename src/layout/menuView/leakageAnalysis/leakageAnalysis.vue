@@ -6,7 +6,7 @@
                     <div class="tip-color"></div>
                     <h3>日分析</h3>
                 </div>
-                <el-date-picker v-model="analysisDayStartTime" type="week" placeholder="选择日期">
+                <el-date-picker @change="getDayTime" v-model="analysisDayStartTime" format="yyyy 第 WW 周" type="week" placeholder="选择日期">
                 </el-date-picker>
             </div>
             <div class="card-content">
@@ -19,7 +19,7 @@
                     <div class="tip-color"></div>
                     <h3>周分析</h3>
                 </div>
-                <el-date-picker v-model="analysisWeekStartTime" type="week" placeholder="选择日期">
+                <el-date-picker @change="getWeekTime" v-model="analysisWeekStartTime" format="yyyy 第 WW 周" type="week" placeholder="选择日期">
                 </el-date-picker>
             </div>
             <div class="card-content params-content">
@@ -32,7 +32,7 @@
                     <div class="tip-color"></div>
                     <h3>月分析</h3>
                 </div>
-                <el-date-picker v-model="analysisMonthStartTime" type="month" placeholder="选择日期">
+                <el-date-picker @change="getMonthTime" v-model="analysisMonthStartTime" type="month" placeholder="选择日期">
                 </el-date-picker>
             </div>
             <div class="card-content params-content">
@@ -45,7 +45,7 @@
                     <div class="tip-color"></div>
                     <h3>湿度-漏电</h3>
                 </div>
-                <el-date-picker v-model="humidityStartTime" type="month" placeholder="选择日期">
+                <el-date-picker @change="getHumidityTime" v-model="humidityStartTime" type="month" placeholder="选择日期">
                 </el-date-picker>
             </div>
             <div class="card-content params-content">
@@ -123,12 +123,12 @@ export default {
                     this.$message.error('日分析数据请求失败');
                 } else {
                     let data = res.data.data;
-                    let i = 0, j = 0;
+                    let i = 6, j = 0;
                     data.record.forEach(item => {
                         this.analysisDayData.push(new Array(i,j,item.In_Avg));
                         j++;
                         if(j>=24) {
-                            i++;
+                            i--;
                             j=0;
                         }
                     });
@@ -144,12 +144,12 @@ export default {
                     this.$message.error('周分析数据请求失败');
                 } else {
                     let data = res.data.data;
-                    let i = 0, j = 0;
+                    let i = 6, j = 0;
                     data.record.forEach(item => {
-                        this.analysisWeekData.push(new Array(i,j,item.In_Avg));
+                        this.analysisWeekData.push(new Array(j,i,item.In_Avg));
                         j++;
-                        if(j>=24) {
-                            i++;
+                        if(j>=12) {
+                            i--;
                             j=0;
                         }
                     });
@@ -544,6 +544,61 @@ export default {
                 ]
             };
             myChart.setOption(option);
+        },
+        //日期选择切换查询日分析数据
+        getDayTime(val) {
+            // console.log(val.getFullYear())
+            this.analysisDayStartTime = val.getFullYear() + '-' + (val.getMonth()+1) + '-' + val.getDate();
+            val.setDate(val.getDate() + 7);
+            this.analysisDayEndTime = val.getFullYear() + '-' + (val.getMonth()+1) + '-' + val.getDate();
+            this.$emit('requstStatus', true);
+            let params = this.getAnalysisDataParams(this.curveDev, this.analysisDayStartTime, this.analysisDayEndTime, this.analysisDayTimeSpanUnit, this.analysisDayTimeSpanNumber);
+            this.getDayDatas(params);
+            setTimeout(() => {
+                this.$emit('requstStatus', false);
+            }, 500);
+        },
+        //日期选择切换查询周分析数据
+        getWeekTime(val) {
+            this.analysisWeekStartTime = val.getFullYear() + '-' + (val.getMonth()+1) + '-' + val.getDate();
+            val.setDate(val.getDate() + 7);
+            this.analysisWeekEndTime = val.getFullYear() + '-' + (val.getMonth()+1) + '-' + val.getDate();
+            this.$emit('requstStatus', true);
+            let params = this.getAnalysisDataParams(this.curveDev, this.analysisWeekStartTime, this.analysisWeekEndTime, this.analysisWeekTimeSpanUnit, this.analysisWeekTimeSpanNumber);
+            this.getWeekDatas(params);
+            setTimeout(() => {
+                this.$emit('requstStatus', false);
+            }, 500);
+        },
+        //日期选择切换查询月分析数据
+        getMonthTime(val) {
+            this.analysisMonthStartTime = val.getFullYear() + '-' + this.getMonthFormat(val.getMonth()+1) + '-' + val.getDate();
+            this.analysisMonthEndTime = val.getFullYear() + '-' + this.getMonthFormat(val.getMonth()+2) + '-' + val.getDate();
+            this.$emit('requstStatus', true);
+            let params = this.getAnalysisDataParams(this.curveDev, this.analysisMonthStartTime, this.analysisMonthEndTime, this.analysisMonthTimeSpanUnit, this.analysisMonthTimeSpanNumber);
+            this.getMonthDatas(params);
+            setTimeout(() => {
+                this.$emit('requstStatus', false);
+            }, 500);
+        },
+        //日期选择切换查询湿度-漏电数据
+        getHumidityTime(val) {
+            this.humidityStartTime = val.getFullYear() + '-' + this.getMonthFormat(val.getMonth()+1) + '-' + val.getDate();
+            this.humidityEndTime = val.getFullYear() + '-' + this.getMonthFormat(val.getMonth()+2) + '-' + val.getDate();
+            this.$emit('requstStatus', true);
+            let params = this.getAnalysisDataParams(this.curveDev, this.humidityStartTime, this.humidityEndTime, this.humidityTimeSpanUnit, this.humidityTimeSpanNumber);
+            this.getHumidityDatas(params);
+            setTimeout(() => {
+                this.$emit('requstStatus', false);
+            }, 500);
+        },
+        //返回月份
+        getMonthFormat(val) {
+            if((val+"").length===1) {
+                return "0"+val;
+            } else {
+                return val;
+            }
         }
     },
     watch: {
