@@ -313,6 +313,10 @@ export default {
                         }
                     }
                 },
+                grid:{
+                    y2:30,
+                    y:0
+	            },
                 xAxis: [
                     {
                         type: 'category',
@@ -404,7 +408,13 @@ export default {
                         nameMap: 'ZH',
                         color: "#8E95AA"
                     },
-                    cellSize: 40,
+                    // cellSize: 40,
+                    width: '80%',
+                    // height: '80%',
+                    top: 30,
+                    bottom: 10,
+                    left: '10%',
+                    right: '10%',
                     range: this.analysisMonthStartTime.substring(0, 7),
                     splitLine: {
                         lineStyle: {color: "#E8EAEE"}
@@ -479,6 +489,10 @@ export default {
                         }
                     }
                 },
+                grid:{
+                    y2:30,
+                    y:30
+	            },
                 xAxis: [
                     {
                         type: "value",
