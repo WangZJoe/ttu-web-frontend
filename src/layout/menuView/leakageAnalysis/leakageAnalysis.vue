@@ -453,11 +453,13 @@ export default {
             let end = +echarts.number.parseDate(this.analysisMonthEndTime);
             let dayTime = 3600 * 24 * 1000;
             let data = [];
+            let i = 0;
             for (let time = date; time < end; time += dayTime) {
                 data.push([
-                echarts.format.formatTime('yyyy-MM-dd', time),
-                Math.floor(Math.random() * 1000)
+                    echarts.format.formatTime('yyyy-MM-dd', time),
+                    (i<this.analysisMonthData.length)?this.analysisMonthData[i]:0
                 ]);
+                i++;
             }
             return data;
         },
