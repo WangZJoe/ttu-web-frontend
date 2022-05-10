@@ -280,6 +280,7 @@ export default {
         setWeekCharts() {
             let charts = document.getElementById("weekCharts");
             let myChart = echarts.init(charts);
+            let days = ['Sun','Sat','Fri','Thu','Wed','Tue','Mon'];
             let option = {
                 tooltip: {
                     trigger: "axis",
@@ -290,6 +291,15 @@ export default {
                             type: "dashed",
                             width: 1
                         }
+                    },
+                    formatter: function (params) {
+                        // console.log(params)
+                        let tip = ""
+                        params.forEach(item => {
+                            tip+=days[parseInt(item.data[1])] + " "
+                            tip+=item.data[2] + "<br>"
+                        })
+                        return tip;
                     }
                 },
                 toolbox: {
@@ -346,7 +356,7 @@ export default {
                 yAxis: [
                     {
                         type: 'category',
-                        data: ['Sun','Sat','Fri','Thu','Wed','Tue','Mon'],
+                        data: days,
                         // power: 1,
                         // splitNumber: 4,
                         // scale: true,
