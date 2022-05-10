@@ -10,7 +10,7 @@
             <div class="main">
                 <div class="main-title"><span>您好，欢迎登陆！</span></div>
                 <div class="main-body">
-                <input type="text" class="user" v-model="user" placeholder="账号">
+                <input type="text" class="user" v-model="username" placeholder="账号">
                 <input type="password" class="password" v-model="password" placeholder="密码"></div>
                 <div class="main-button">
                 <el-button class="button" @click="Login">登录</el-button></div>
@@ -22,22 +22,47 @@
 
 <script>
 //上传用户名和密码
-// import { GetDeviceList } from "../../api/api";
+import { LoginParams } from "../../api/api";
 export default {
     components: {  },
     data() {
         return {
-            user:'',
-            password:''
+            username:'',
+            password:'',
+            LoginLoading:false
         }
     },
     methods: {
         Login(){
-            //用户名和密码校验逻辑
-            if(this.user != '' && this.password != ''){
-                this.$emit('changeToView', true)
+            this.LoginLoading = true;
+            let params = {
+                usrname: this.username,
+                password:this.password
             }
-        }
+            this.$emit('changeToView', true)
+            // this.loginParams(params)
+            setTimeout(() => {
+                this.LoginLoading = false;
+            }, 1000);
+        },
+         //登录
+        async loginParams(params) {
+            if(params){
+                let res = await LoginParams(params);
+                if (res.data.code != 0) {
+                    this.$message.error('登录请求失败');
+                } else {
+                    let code = res.data.data.code,
+                    status=res.data.data.status
+                    if(code == '0'){
+                        this.$message.error(status);
+                    }else if(code == '1'){
+                        this.$emit('changeToView', true)
+                    }
+                }
+            }
+            this.pushLoading = false
+        },
     },
 };
 </script>
