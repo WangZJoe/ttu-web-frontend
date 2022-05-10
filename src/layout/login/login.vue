@@ -39,6 +39,7 @@ export default {
                 username: this.username,
                 password:this.password
             }
+            this.password = null
             // this.$emit('changeToView', true)
             this.loginParams(params)
             setTimeout(() => {

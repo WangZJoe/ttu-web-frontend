@@ -206,7 +206,6 @@ export default {
                 rated_protection_current_threshold: this.getNumber(this.input_rated_protection_current_threshold),
                 interpolation_protection_action_time: this.getNumber(this.input_interpolation_protection_action_time),
                 threshold_protection_action_time: this.getNumber(this.input_threshold_protection_action_time)
-
             }
             this.restPush()
             return params
