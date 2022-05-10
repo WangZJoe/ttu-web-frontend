@@ -27,6 +27,7 @@ export default {
 /* 页面初始化样式 */
 @import "./styles/reset.scss";
 @import "./assets/font/font.css";
+@import url("//unpkg.com/element-ui@2.15.6/lib/theme-chalk/index.css");
 #app {
     width: 100%;
     height: 100%;

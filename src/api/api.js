@@ -2,8 +2,8 @@ import axios from 'axios'
 
 // Vue.prototype.qs = qs
 
-// axios.defaults.baseURL = 'http://127.0.0.1:8002/api'
-axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/api'
+axios.defaults.baseURL = 'http://127.0.0.1:8002/api'
+// axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/api'
 // axios.defaults.baseURL = 'http://192.168.2.33:8002/api'
 // axios.defaults.baseURL = window.location.href + "api"
 //console.log(window.location.href)

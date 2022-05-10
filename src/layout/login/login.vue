@@ -7,7 +7,7 @@
         <div class="body">
             <div class="left"></div>
             <div class="right"></div>
-            <div class="main">
+            <div class="main" v-loading="LoginLoading">
                 <div class="main-title"><span>您好，欢迎登陆！</span></div>
                 <div class="main-body">
                 <input type="text" class="user" v-model="username" placeholder="账号">
@@ -36,11 +36,11 @@ export default {
         Login(){
             this.LoginLoading = true;
             let params = {
-                usrname: this.username,
+                username: this.username,
                 password:this.password
             }
-            this.$emit('changeToView', true)
-            // this.loginParams(params)
+            // this.$emit('changeToView', true)
+            this.loginParams(params)
             setTimeout(() => {
                 this.LoginLoading = false;
             }, 1000);
@@ -49,6 +49,7 @@ export default {
         async loginParams(params) {
             if(params){
                 let res = await LoginParams(params);
+                console.log(res)
                 if (res.data.code != 0) {
                     this.$message.error('登录请求失败');
                 } else {
@@ -61,7 +62,7 @@ export default {
                     }
                 }
             }
-            this.pushLoading = false
+            this.LoginLoading = false
         },
     },
 };
