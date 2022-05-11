@@ -69,13 +69,13 @@ export default {
             //日
             analysisDayStartTime: this.$moment().format('YYYY-MM-DD'),
             analysisDayEndTime: this.$moment().add(7, 'days').format('YYYY-MM-DD'),
-            analysisDayTimeSpanUnit: "min",
-            analysisDayTimeSpanNumber: 60,
+            analysisDayTimeSpanUnit: "hour",
+            analysisDayTimeSpanNumber: 1,
             //周
             analysisWeekStartTime: this.$moment().format('YYYY-MM-DD'),
             analysisWeekEndTime: this.$moment().add(7, 'days').format('YYYY-MM-DD'),
-            analysisWeekTimeSpanUnit: "min",
-            analysisWeekTimeSpanNumber: 120,
+            analysisWeekTimeSpanUnit: "hour",
+            analysisWeekTimeSpanNumber: 2,
             //月
             analysisMonthStartTime: this.$moment().format('YYYY-MM')+'-01',
             analysisMonthEndTime: this.$moment().add(30, 'days').format('YYYY-MM')+'-01',
@@ -83,7 +83,7 @@ export default {
             analysisMonthTimeSpanNumber: 1,
             //湿度
             humidityStartTime: this.$moment().format('YYYY-MM')+'-01',
-            humidityEndTime: this.$moment().add(30, 'days').format('YYYY-MM-DD')+'-01',
+            humidityEndTime: this.$moment().add(30, 'days').format('YYYY-MM')+'-01',
             humidityTimeSpanUnit: "day",
             humidityTimeSpanNumber: 1,
             //日分析数据
