@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="data-right card-box">
+                <div class="data-right card-box right-unset">
                     <div class="title">
                         <div class="tip-color"></div>
                         <h3>电压监测</h3>
@@ -113,8 +113,12 @@
                     <h3>实时曲线</h3>
                 </div>
                 <div class="line-charts">
-                    <div id="electricCharts" :style="{ height: '18rem', width: '30rem' }"></div>
-                    <div id="relativeCharts" :style="{ height: '18rem', width: '30rem' }"></div>
+                    <div class="charts-content">
+                        <div id="electricCharts" style="height:144px;width:100%"></div>
+                    </div>
+                    <div class="charts-content">
+                        <div id="relativeCharts" style="height:144px;width:100%"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,12 +126,20 @@
             <div class="temperature card-box">
                 <div class="title">
                     <div class="tip-color"></div>
+                    <h3>接点最高温度</h3>
+                </div>
+                <div class="bar-charts">
+                    <div id="maxTemperatureCharts" style="height:269px;width:100%"></div>
+                </div>
+            </div>
+            <div class="temperature card-box">
+                <div class="title">
+                    <div class="tip-color"></div>
                     <h3>环境监测</h3>
                 </div>
                 <div class="bar-charts">
-                    <div id="temperatureCharts" :style="{ height: '12rem', width: '15rem' }"></div>
-                    <div id="maxTemperatureCharts" :style="{ height: '12rem', width: '15rem' }"></div>
-                    <div id="humidityCharts" :style="{ height: '12rem', width: '15rem' }"></div>
+                    <div id="temperatureCharts" style="height:187px;width:100%"></div>
+                    <div id="humidityCharts" style="height:187px;width:100%"></div>
                 </div>
             </div>
         </div>
@@ -137,6 +149,7 @@
 <script>
 import * as echarts from "echarts";
 import { GetDeviceData } from "../../../api/api";
+import { chartssize } from "../../../utils/fn";
 export default {
     props: ["curveDev"],
     data() {
@@ -180,7 +193,24 @@ export default {
             }
         }, 5000)
     },
+    mounted() {
+        window.addEventListener("resize", this.handleResize, false);
+    },
     methods: {
+        handleResize() {
+            const _this = this;
+            const timer = setTimeout(() => {
+                _this.myElectricChart.resize();
+                _this.myRelativeChart.resize();
+                _this.myTemperatureCharts.resize();
+                _this.myRelativeChartmyMaxTemperatureCharts.resize();
+                _this.myRelativeChartmyHumidityCharts.resize();
+            }, 500);
+            // 清除定时器
+            this.$once("hook:beforeDestroy", () => {
+                setTimeout(timer);
+            });
+        },
         //请求设备实时数据
         async getRealDevDatas(params) {
             if (params) {
@@ -250,8 +280,8 @@ export default {
         setRealTimeCharts() {
             let electricCharts = document.getElementById("electricCharts");
             let relativeCharts = document.getElementById("relativeCharts");
-            let myElectricChart = echarts.init(electricCharts);
-            let myRelativeChart = echarts.init(relativeCharts);
+            this.myElectricChart = echarts.init(electricCharts);
+            this.myRelativeChart = echarts.init(relativeCharts);
             let electricOption = {
                 tooltip: {
                     trigger: "axis",
@@ -275,45 +305,45 @@ export default {
                     feature: {
                         mark: {
                             show: true
-                        }, 
+                        },
                         dataView: {
-                            show: true, 
+                            show: true,
                             readOnly: true
-                        }, 
+                        },
                         magicType: {
-                            show: false, 
-                            type: ["line","bar"]
-                        }, 
+                            show: false,
+                            type: ["line", "bar"]
+                        },
                         restore: {
                             show: true
-                        }, 
+                        },
                         saveAsImage: {
                             show: true
                         }
                     }
-                }, 
-                calculable: true, 
+                },
+                calculable: true,
                 xAxis: {
                     type: "category",
                     boundaryGap: false,
                     data: this.timeDatas,
                     axisLine: {
-                        show: true, 
+                        show: true,
                         lineStyle: {
-                            color: "rgb(232, 234, 238)", 
+                            color: "rgb(232, 234, 238)",
                             width: 1
                         }
-                    }, 
+                    },
                     axisLabel: {
                         textStyle: {
                             color: "rgb(142, 149, 170)",
                             fontSize: 12
-                        }, 
+                        },
                         show: true
-                    }, 
+                    },
                     splitLine: {
-                        show: false, 
-                    }, 
+                        show: false,
+                    },
                     axisTick: {
                         show: false
                     }
@@ -375,176 +405,176 @@ export default {
                 }
             };
             let relativeOption = {
-                   tooltip: {
-                        trigger: "axis",
-                        show: false
-                    },
-                    legend: {
-                        data: ["A相电流",,"B相电流","C相电流"],
-                        selectedMode: "multiple",
-                        x: "center",
-                        y: "top",
-                        textStyle: { color: "rgb(153, 153, 153)" },
-                        itemWidth: 8,
-                        itemHeighth: 8,
-                        padding: 10
-                    },
-                    toolbox: {
-                        show: false,
-                        feature: {
-                            mark: {
-                                show: true
-                            },
-                            dataView: {
-                                show: true,
-                                readOnly: true
-                            },
-                            magicType: {
-                                show: false,
-                                type: ["line", "bar"]
-                            },
-                            restore: {
-                                show: true
-                            },
-                            saveAsImage: {
-                                show: true
-                            }
-                        }
-                    },
-                    xAxis: [
-                        {
-                            type: "category",
-                            boundaryGap: false,
-                            data: this.timeDatas,
-                            axisLine: {
-                                show: true,
-                                lineStyle: {
-                                    width: 1,
-                                    color: "rgb(232, 234, 238)"
-                                }
-                            },
-                            axisLabel: {
-                                show: true,
-                                textStyle: {
-                                    color: "rgb(142, 149, 170)",
-                                    fontSize: 12
-                                }
-                            },
-                            axisTick: {
-                                show: false
-                            },
-                            splitLine: {
-                                show: false
-                            }
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            type: "value",
-                            name: "(A)",
-                            nameTextStyle: {
-                                color: "rgb(142, 149, 170)"
-                            },
-                            axisLine: {
-                                show: true,
-                                lineStyle: {
-                                    color: "rgb(232, 234, 238)",
-                                    width: 1
-                                }
-                            },
-                            axisLabel: {
-                                show: true,
-                                textStyle: {
-                                    color: "rgb(142, 149, 170)"
-                                }
-                            },
-                            splitLine: {
-                                show:true,
-                                lineStyle: {
-                                    color: "rgb(232, 234, 238)",
-                                    width: 1
-                                }
-                            },
-                            splitArea: {
-                                areaStyle: {
-                                    type: "default"
-                                }
-                            }
-                        }
-                    ],
-                    series: [
-                        {
-                            name: "A相电流",
-                            type: "line",
-                            data: this.electricDatasA,
-                            itemStyle: {
-                                normal: {
-                                    color: '#FDDD00',
-                                    type: 'solid',
-                                    lineStyle: { type: "solid", color: "#FDDD00", width: 2 },
-                                    borderWidth: 1,
-                                    borderColor: "#FFFFFF",
-                                    // shadowColor: 'rgba(0, 0, 0, 0.32)',
-                                    // shadowBlur: 6
-                                }
-                            },
-                            symbol: 'circle',
-                            showSymbol: false,
-                            symbolSize: 7
+                tooltip: {
+                    trigger: "axis",
+                    show: false
+                },
+                legend: {
+                    data: ["A相电流", , "B相电流", "C相电流"],
+                    selectedMode: "multiple",
+                    x: "center",
+                    y: "top",
+                    textStyle: { color: "rgb(153, 153, 153)" },
+                    itemWidth: 8,
+                    itemHeighth: 8,
+                    padding: 10
+                },
+                toolbox: {
+                    show: false,
+                    feature: {
+                        mark: {
+                            show: true
                         },
-                        {
-                            type: "line",
-                            name: "B相电流",
-                            data: this.electricDatasB,
-                            itemStyle: {
-                                normal: {
-                                    color: "#02E437",
-                                    type: 'solid',
-                                    lineStyle: { color: "#02E437", width: 2 },
-                                    borderWidth: 1,
-                                    borderColor: "#FFFFFF",
-                                }
-                            },
-                            symbol: 'circle',
-                            showSymbol: false,
-                            symbolSize: 7
+                        dataView: {
+                            show: true,
+                            readOnly: true
                         },
-                        {
-                            type: "line",
-                            name: "C相电流",
-                            data: this.electricDatasC,
-                            itemStyle: {
-                                normal: {
-                                    color: "#FF1C43",
-                                    type: 'solid',
-                                    lineStyle: { color: "#FF1C43", width: 2 },
-                                    borderWidth: 1,
-                                    borderColor: "#FFFFFF",
-                                }
-                            },
-                            symbol: 'circle',
-                            showSymbol: false,
-                            symbolSize: 7
+                        magicType: {
+                            show: false,
+                            type: ["line", "bar"]
+                        },
+                        restore: {
+                            show: true
+                        },
+                        saveAsImage: {
+                            show: true
                         }
-                    ],
-                    calculable: true,
-                    grid: {
-                        x: 71,
-                        borderWidth: 1,
-                        borderColor: "rgb(232, 234, 238)"
                     }
+                },
+                xAxis: [
+                    {
+                        type: "category",
+                        boundaryGap: false,
+                        data: this.timeDatas,
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                width: 1,
+                                color: "rgb(232, 234, 238)"
+                            }
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: "rgb(142, 149, 170)",
+                                fontSize: 12
+                            }
+                        },
+                        axisTick: {
+                            show: false
+                        },
+                        splitLine: {
+                            show: false
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: "value",
+                        name: "(A)",
+                        nameTextStyle: {
+                            color: "rgb(142, 149, 170)"
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgb(232, 234, 238)",
+                                width: 1
+                            }
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: "rgb(142, 149, 170)"
+                            }
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgb(232, 234, 238)",
+                                width: 1
+                            }
+                        },
+                        splitArea: {
+                            areaStyle: {
+                                type: "default"
+                            }
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name: "A相电流",
+                        type: "line",
+                        data: this.electricDatasA,
+                        itemStyle: {
+                            normal: {
+                                color: '#FDDD00',
+                                type: 'solid',
+                                lineStyle: { type: "solid", color: "#FDDD00", width: 2 },
+                                borderWidth: 1,
+                                borderColor: "#FFFFFF",
+                                // shadowColor: 'rgba(0, 0, 0, 0.32)',
+                                // shadowBlur: 6
+                            }
+                        },
+                        symbol: 'circle',
+                        showSymbol: false,
+                        symbolSize: 7
+                    },
+                    {
+                        type: "line",
+                        name: "B相电流",
+                        data: this.electricDatasB,
+                        itemStyle: {
+                            normal: {
+                                color: "#02E437",
+                                type: 'solid',
+                                lineStyle: { color: "#02E437", width: 2 },
+                                borderWidth: 1,
+                                borderColor: "#FFFFFF",
+                            }
+                        },
+                        symbol: 'circle',
+                        showSymbol: false,
+                        symbolSize: 7
+                    },
+                    {
+                        type: "line",
+                        name: "C相电流",
+                        data: this.electricDatasC,
+                        itemStyle: {
+                            normal: {
+                                color: "#FF1C43",
+                                type: 'solid',
+                                lineStyle: { color: "#FF1C43", width: 2 },
+                                borderWidth: 1,
+                                borderColor: "#FFFFFF",
+                            }
+                        },
+                        symbol: 'circle',
+                        showSymbol: false,
+                        symbolSize: 7
+                    }
+                ],
+                calculable: true,
+                grid: {
+                    x: 71,
+                    borderWidth: 1,
+                    borderColor: "rgb(232, 234, 238)"
+                }
             };
-            myElectricChart.setOption(electricOption);
-            myRelativeChart.setOption(relativeOption);
+            this.myElectricChart.setOption(electricOption);
+            this.myRelativeChart.setOption(relativeOption);
         },
         //设置环境监测图表
         setEnvironmentalCharts() {
             let temperatureCharts = document.getElementById("temperatureCharts");
             let maxTemperatureCharts = document.getElementById("maxTemperatureCharts");
             let humidityCharts = document.getElementById("humidityCharts");
-            let myTemperatureCharts = echarts.init(temperatureCharts);
-            let myMaxTemperatureCharts = echarts.init(maxTemperatureCharts);
-            let myHumidityCharts = echarts.init(humidityCharts);
+            this.myTemperatureCharts = echarts.init(temperatureCharts);
+            this.myRelativeChartmyMaxTemperatureCharts = echarts.init(maxTemperatureCharts);
+            this.myRelativeChartmyHumidityCharts = echarts.init(humidityCharts);
 
             let temperatureOption = {
                 title: {
@@ -774,9 +804,9 @@ export default {
                     },
                 ]
             };
-            myTemperatureCharts.setOption(temperatureOption);
-            myMaxTemperatureCharts.setOption(maxTemperatureOption);
-            myHumidityCharts.setOption(humidityOption);
+            this.myTemperatureCharts.setOption(temperatureOption);
+            this.myRelativeChartmyMaxTemperatureCharts.setOption(maxTemperatureOption);
+            this.myRelativeChartmyHumidityCharts.setOption(humidityOption);
         },
     },
     watch: {

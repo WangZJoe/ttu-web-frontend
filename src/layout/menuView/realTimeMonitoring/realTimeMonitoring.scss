@@ -6,11 +6,12 @@
     .card-box {
         display: flex;
         flex-direction: column;
+        border-radius: 10px;
 
         .title {
             display: flex;
             align-items: center;
-            padding: 18px 17px;
+            padding: 16px 17px;
 
             .tip-color {
                 width: 0.4rem;
@@ -31,19 +32,22 @@
     }
 
     .left-layout {
-        flex: 1;
+        width: 70.4%;
+        margin-right: 20px;
         display: flex;
         flex-direction: column;
 
         .data-show {
             margin-bottom: 10px;
             display: flex;
+            height: 51%;
 
             .data-left,
             .data-center,
             .data-right {
-                flex-basis: 50%;
-                margin-right: 10px;
+                width: 33.7%;
+                height: 96.9%;
+                margin-right: 20px;
                 background-color: #ffffff;
 
                 .card-content {
@@ -116,8 +120,8 @@
 
                     .max,
                     .average {
-                        width: 17rem;
-                        height: 7rem;
+                        width: 87.8%;
+                        height: 44.2%;
                         display: flex;
                         align-items: center;
                         justify-content: space-evenly;
@@ -147,6 +151,8 @@
                         .first-icon {
                             background: url(../../../assets/img/32959.png) no-repeat;
                             background-size: 100%;
+                            width: 29.7%;
+                            height: 47.2%;
                         }
                     }
 
@@ -158,31 +164,40 @@
                         .second-icon {
                             background: url(../../../assets/img/32911.png) no-repeat;
                             background-size: 100%;
+                            width: 29.7%;
+                            height: 47.2%;
                         }
                     }
                 }
+            }
+
+            .right-unset {
+                margin-right: unset;
             }
         }
 
         .charts-show {
             flex: 1;
-            margin-right: 10px;
+            width: 100%;
+            margin-right: 20px;
             background-color: #ffffff;
 
             .line-charts {
                 flex: 1;
                 display: flex;
-                justify-content: space-between;
+                flex-direction: column;
 
-                .charts-box {
-                    height: 15rem;
+                .charts-content {
+                    height: 50.7%;
+                    width: 100%;
                 }
             }
         }
     }
 
     .right-layout {
-        width: 15rem;
+        flex: 1;
+        border-radius: 10px;
         background-color: #ffffff;
     }
 }
