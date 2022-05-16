@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const url = require('url')
 const path = require('path')
 const publicPath = ''
-
+console.log(process.env.NODE_ENV);
 module.exports = (options = {}) => ({
     entry: {
         vendor: './src/vendor',
@@ -62,6 +62,10 @@ module.exports = (options = {}) => ({
         new HtmlWebpackPlugin({
             template: './public/index.html',
             favicon: path.resolve('./public/favicon.ico')
+        }),
+        new webpack.DefinePlugin({
+            IS_DEV: JSON.stringify(true),
+            curMode: JSON.stringify(process.env.NODE_ENV)
         })
     ],
     resolve: {

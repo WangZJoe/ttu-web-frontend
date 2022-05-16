@@ -4,8 +4,8 @@
 	"author": "Testyle Inc.",
 	"private": true,
 	"scripts": {
-		"dev": "webpack-dev-server --inline --hot --env.dev",
-		"build": "rimraf dist && webpack -p --progress --hide-modules"
+		"dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --env.dev",
+		"build": "cross-env NODE_ENV=production rimraf dist && webpack -p --progress --hide-modules"
 	},
 	"dependencies": {
 		"axios": "^0.26.1",
