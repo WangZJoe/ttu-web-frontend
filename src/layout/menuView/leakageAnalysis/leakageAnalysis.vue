@@ -436,7 +436,7 @@ export default {
                     // cellSize: 40,
                     width: '80%',
                     // height: '80%',
-                    top: 30,
+                    top: 40,
                     bottom: 10,
                     left: '10%',
                     right: '10%',
