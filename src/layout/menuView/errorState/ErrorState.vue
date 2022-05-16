@@ -4,30 +4,35 @@
         <div class="layout">
             <div class="card-box card-table">
                 <div class="table-body">
-                    <el-table ref="eventTable" :data="tableData" border height="100%"
-                              :header-cell-style="{background:'#FBFBFD', 'text-align':'center', color:'#333333'}"
-                              :cell-style="{'text-align':'center', color:'#585858'}"
-                              highlight-current-row @current-change="handleCurrentChange">
-                    <el-table-column label="序号">
-                        <template slot-scope="scope"> {{scope.$index+1}} </template>
-                    </el-table-column>
-                    <el-table-column prop="time" label="时间">
-                    </el-table-column>
+                    <el-table ref="eventTable" :data="tableData" border height="100%" :header-cell-style="{background:'#FBFBFD', 'text-align':'center', color:'#333333'}" :cell-style="{'text-align':'center', color:'#585858'}" highlight-current-row @current-change="handleCurrentChange">
+                        <el-table-column label="序号" width="60">
+                            <template slot-scope="scope"> {{scope.$index+1}} </template>
+                        </el-table-column>
+                        <el-table-column prop="time" label="时间">
+                        </el-table-column>
                     </el-table>
                 </div>
             </div>
             <div class="card-box card-charts">
                 <div class="card-content column-charts">
-                    <div class="title">
-                        <div class="tip-color"></div>
-                        <h3>故障波形</h3>
+                    <div class="err-charts">
+                        <div class="title">
+                            <div class="tip-color"></div>
+                            <h3>故障波形</h3>
+                        </div>
+                        <div class="err-container">
+                            <div id="errorCharts" :style="{ height: '14rem'}"></div>
+                        </div>
                     </div>
-                    <div id="errorCharts" :style="{ height: '14rem'}"></div>
-                    <div class="title">
-                        <div class="tip-color"></div>
-                        <h3>超清波形</h3>
+                    <div class="clear-charts">
+                        <div class="title">
+                            <div class="tip-color"></div>
+                            <h3>超清波形</h3>
+                        </div>
+                        <div class="clear-container">
+                            <div id="clearCharts" :style="{ height: '14rem'}"></div>
+                        </div>
                     </div>
-                    <div id="clearCharts" :style="{ height: '14rem'}"></div>
                 </div>
             </div>
         </div>
@@ -84,7 +89,7 @@ export default {
                 } else {
                     let data = res.data.data.alarm;
                     this.tableData = data;
-                    if(data!==undefined && data!==null && this.eventData<data.length) {
+                    if (data !== undefined && data !== null && this.eventData < data.length) {
                         this.eventTime = data[this.eventData].time
                         this.$refs.eventTable.setCurrentRow(data[this.eventData]);
                     } else {
@@ -106,7 +111,7 @@ export default {
         //请求图表数据
         async getChartDatas(params) {
             if (params) {
-                if(params.dev==='' || params.timestamp==='') return
+                if (params.dev === '' || params.timestamp === '') return
                 let res = await GetErrorState(params);
                 if (res.data.code != 0) {
                     this.$message.error('故障波形图数据请求失败');
@@ -142,9 +147,18 @@ export default {
         },
         //设置故障波形图表
         setErrorStateCharts() {
+            const errDom = document.querySelector('.err-container');
+            const clearDom = document.querySelector('.clear-container');
             let errorCharts = document.getElementById("errorCharts");
             let clearCharts = document.getElementById("clearCharts");
-
+            const errH = errDom.offsetHeight;
+            const errW = errDom.offsetWidth;
+            const clearH = errDom.offsetHeight;
+            const clearW = errDom.offsetWidth;
+            errorCharts.style.height = errH + 'px';
+            errorCharts.style.width = errW + 'px';
+            clearCharts.style.height = clearH + 'px';
+            clearCharts.style.width = clearW + 'px';
             let myErrorCharts = echarts.init(errorCharts);
             let myClearCharts = echarts.init(clearCharts);
 
@@ -195,7 +209,7 @@ export default {
                     // padding: 10
                 },
                 toolbox: {
-                    feature : {
+                    feature: {
                         mark: {
                             show: true
                         },
@@ -206,30 +220,30 @@ export default {
                     }
                 },
                 calculable: true,
-                xAxis: { 
-                    type: "category", 
+                xAxis: {
+                    type: "category",
                     name: "(mS)",
                     nameTextStyle: {
                         color: "rgb(142, 149, 170)"
                     },
                     nameGap: 30,
-                    boundaryGap: false, 
+                    boundaryGap: false,
                     // 数据
-                    data: this.dataTimes, 
+                    data: this.dataTimes,
                     axisLine: {
                         show: true,
                         lineStyle: { color: "rgb(232, 234, 238)", width: 1 }
                     },
                     axisLabel: {
                         textStyle: { color: "rgb(142, 149, 170)" }, show: true
-                    }, 
+                    },
                     splitLine: {
                         show: false,
                         lineStyle: { width: 1 }
                     },
                     axisTick: { show: false }
                 },
-                 yAxis: [{
+                yAxis: [{
                     type: "value",
                     name: "(A)",
                     nameTextStyle: {
@@ -254,47 +268,47 @@ export default {
                         show: true,
                         lineStyle: { color: "rgb(232, 234, 238)" }
                     },
-                    max:max1,
-                    min:min1,
+                    max: max1,
+                    min: min1,
                     splitNumber: splitNum,
-                    interval: (min1!=undefined && max1!=undefined)?((max1-min1)/splitNum):'auto'
+                    interval: (min1 != undefined && max1 != undefined) ? ((max1 - min1) / splitNum) : 'auto'
                 },
                 {
-                    type: "value", 
-                    name: "(mA)", 
+                    type: "value",
+                    name: "(mA)",
                     position: "right",
                     nameTextStyle: {
                         color: "rgb(142, 149, 170)"
-                    }, 
+                    },
                     axisLine: {
-                        show: true, 
+                        show: true,
                         lineStyle: {
-                            color: "rgb(232, 234, 238)", 
+                            color: "rgb(232, 234, 238)",
                             width: 1
                         }
-                    }, 
+                    },
                     axisLabel: {
-                        show: true, 
+                        show: true,
                         textStyle: {
                             color: "rgb(142, 149, 170)"
                         }
-                    }, 
+                    },
                     splitArea: {
                         show: false
-                    }, 
+                    },
                     axisTick: {
                         show: false
-                    }, 
+                    },
                     splitLine: {
-                        show: true, 
+                        show: true,
                         lineStyle: {
                             color: "rgb(232, 234, 238)"
                         }
                     },
-                    max:max2,
-                    min:min2,
+                    max: max2,
+                    min: min2,
                     splitNumber: splitNum,
-                    interval: (min2!=undefined && max2!=undefined)?((max2-min2)/splitNum):'auto'
+                    interval: (min2 != undefined && max2 != undefined) ? ((max2 - min2) / splitNum) : 'auto'
                 }],
                 // yAxis: {
                 //     type: "value",
@@ -421,7 +435,7 @@ export default {
                     // name: "°C",
                     axisLine: { show: false },
                     axisLabel: {
-                        textStyle: { color: "rgb(142, 149, 170)"}
+                        textStyle: { color: "rgb(142, 149, 170)" }
                     },
                     splitLine: {
                         lineStyle: { color: "rgb(232, 234, 238)" }
@@ -448,7 +462,7 @@ export default {
                                 borderColor: "rgb(59, 236, 242)"
                             }
                         }
-                    } ]
+                    }]
                 // series: [
                 //     {
                 //         data: this.clearDatas,
@@ -464,9 +478,9 @@ export default {
         calMax(arr) {
             let max = Math.max(...arr);
             let log;
-            if(max<0) {
+            if (max < 0) {
                 log = Math.log10(-max);
-            } else if(max>0) {
+            } else if (max > 0) {
                 log = Math.log10(max);
             } else {
                 log = 0;
@@ -474,27 +488,27 @@ export default {
             log = Math.floor(log);
             log = Math.pow(10, log);
             //console.log(log);
-            let maxint = Math.ceil(max / (0.95*log)); // 不让最高的值超过最上面的刻度
+            let maxint = Math.ceil(max / (0.95 * log)); // 不让最高的值超过最上面的刻度
             let maxval = maxint * log; // 让显示的刻度是整数
-            
+
             // 为了防止数据为0时，Y轴不显示，给个最大值
-            if(maxval == 0){ maxval = 1 } 
+            if (maxval == 0) { maxval = 1 }
             return maxval;
         },
         //计算最小值
         calMin(arr) {
             let min = Math.min(...arr);
             let log;
-            if(min<0) {
+            if (min < 0) {
                 log = Math.log10(-min);
-            } else if(min>0) {
+            } else if (min > 0) {
                 log = Math.log10(min);
             } else {
                 log = 0;
             }
             log = Math.floor(log);
             log = Math.pow(10, log);
-            let minint = Math.floor(min / (1.05*log));
+            let minint = Math.floor(min / (1.05 * log));
             let minval = minint * log;//让显示的刻度是整数
             return minval;
         },

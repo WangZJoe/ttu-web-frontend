@@ -18,8 +18,7 @@
                 <h3>历史数据</h3>
             </div>
             <div class="card-content table-content">
-                <el-table :data="showData" border height="100%" :header-cell-style="{background:'#FBFBFD', 'text-align':'center', color:'#333333'}"
-                          :cell-style="{'text-align':'center', color:'#585858'}">
+                <el-table :data="showData" border height="100%" :header-cell-style="{background:'#FBFBFD', 'text-align':'center', color:'#333333'}" :cell-style="{'text-align':'center', color:'#585858'}">
                     <el-table-column prop="time" label="时间">
                     </el-table-column>
                     <el-table-column prop="In_Avg" label="In Avg(mA)">
@@ -45,7 +44,6 @@
                     <el-table-column prop="In_Max" label="H(%rh)">
                     </el-table-column>
                 </el-table>
-                
             </div>
             <pagination :currentPage="currentPage" :pagerCount="tableData.length" :pageSize="pageSize" @changePager="changePager"></pagination>
         </div>
@@ -59,18 +57,18 @@ import { GetDeviceHistoryData } from "../../../api/api"
 import Pagination from "../../../components/Pagination.vue"
 
 export default {
-    components: { DatePickSearch , Pagination},
+    components: { DatePickSearch, Pagination },
     props: ["curveDev"],
     data() {
         return {
             //表格数据
             tableData: [],
             //展示数据
-            showData : [],
+            showData: [],
             //表格当前页面
-            currentPage:1,
+            currentPage: 1,
             //表格大小
-            pageSize : 5,
+            pageSize: 5,
             //数据时间
             dataTimes: [],
             //漏电电流 时间
@@ -129,7 +127,7 @@ export default {
                     });
                     this.tableData = data.record;
                     this.setDataCensusCharts();
-                    this.showData = this.tableData.slice(0,this.pageSize)
+                    this.showData = this.tableData.slice(0, this.pageSize)
                 }
             }
         },
@@ -148,10 +146,16 @@ export default {
         },
         //设置数据统计图表
         setDataCensusCharts() {
+            const dom = document.querySelector('.row-charts');
             // let leakageCharts = document.getElementById("leakageCharts");
             let electricCharts = document.getElementById("electricCharts");
             let voltageCharts = document.getElementById("voltageCharts");
-
+            const h = dom.offsetHeight;
+            const w = dom.offsetWidth;
+            electricCharts.style.height = h + 'px';
+            electricCharts.style.width = w / 2 + 'px';
+            voltageCharts.style.height = h + 'px';
+            voltageCharts.style.width = w / 2 + 'px';
             // let myLeakageCharts = echarts.init(leakageCharts);
             let myElectricCharts = echarts.init(electricCharts);
             let myVoltageCharts = echarts.init(voltageCharts);
@@ -194,160 +198,160 @@ export default {
             let electricOption = {
                 tooltip: {
                     trigger: "axis"
-                }, 
+                },
                 legend: {
                     data: [
                         "A相电流",
                         "B相电流",
                         "C相电流",
                         "漏电电流"
-                    ], 
-                    selectedMode: "multiple", 
-                    x: "center", 
-                    y: "top", 
+                    ],
+                    selectedMode: "multiple",
+                    x: "center",
+                    y: "top",
                     textStyle: {
                         color: "rgb(153, 153, 153)"
-                    }, 
+                    },
                     itemWidth: 8,
                     itemHeighth: 8,
-                    borderColor: "rgb(204, 204, 204)", 
+                    borderColor: "rgb(204, 204, 204)",
                     padding: 10
-                }, 
+                },
                 toolbox: {
                     show: false,
                     feature: {
                         mark: {
                             show: true
-                        }, 
+                        },
                         dataView: {
-                            show: true, 
+                            show: true,
                             readOnly: true
-                        }, 
+                        },
                         magicType: {
-                            show: false, 
+                            show: false,
                             type: [
                                 "line",
                                 "bar"
                             ]
-                        }, 
+                        },
                         restore: {
                             show: true
-                        }, 
+                        },
                         saveAsImage: {
                             show: true
                         }
                     }
-                }, 
-                calculable: true, 
+                },
+                calculable: true,
                 xAxis: [
                     {
-                        type: "category", 
-                        boundaryGap: false, 
-                        data: this.dataTimes, 
+                        type: "category",
+                        boundaryGap: false,
+                        data: this.dataTimes,
                         axisLine: {
-                            show: true, 
+                            show: true,
                             lineStyle: {
                                 color: "rgb(232, 234, 238)", width: 1
                             }
-                        }, 
+                        },
                         axisLabel: {
                             textStyle: {
                                 color: "rgb(142, 149, 170)"
-                            }, 
+                            },
                             show: true
-                        }, 
+                        },
                         splitLine: {
-                            show: false, 
+                            show: false,
                             lineStyle: {
                                 width: 1
                             }
-                        }, 
+                        },
                         axisTick: {
                             show: false
                         }
                     }
                 ], yAxis: [
                     {
-                        type: "value", 
-                        name: "(A)", 
+                        type: "value",
+                        name: "(A)",
                         position: "left",
                         nameTextStyle: {
                             color: "rgb(142, 149, 170)"
-                        }, 
+                        },
                         axisLine: {
-                            show: true, 
+                            show: true,
                             lineStyle: {
-                                color: "rgb(232, 234, 238)", 
+                                color: "rgb(232, 234, 238)",
                                 width: 1
                             }
-                        }, 
+                        },
                         axisLabel: {
-                            show: true, 
+                            show: true,
                             textStyle: {
                                 color: "rgb(142, 149, 170)"
                             }
-                        }, 
+                        },
                         splitArea: {
                             show: false
-                        }, 
+                        },
                         axisTick: {
                             show: false
-                        }, 
+                        },
                         splitLine: {
-                            show: true, 
+                            show: true,
                             lineStyle: {
                                 color: "rgb(232, 234, 238)"
                             }
                         },
-                        max:max1,
-                        min:min1,
+                        max: max1,
+                        min: min1,
                         splitNumber: splitNum,
-                        interval: (min1!=undefined && max1!=undefined)?((max1-min1)/splitNum):'auto'
+                        interval: (min1 != undefined && max1 != undefined) ? ((max1 - min1) / splitNum) : 'auto'
                     },
                     {
-                        type: "value", 
-                        name: "(mA)", 
+                        type: "value",
+                        name: "(mA)",
                         position: "right",
                         nameTextStyle: {
                             color: "rgb(142, 149, 170)"
-                        }, 
+                        },
                         axisLine: {
-                            show: true, 
+                            show: true,
                             lineStyle: {
-                                color: "rgb(232, 234, 238)", 
+                                color: "rgb(232, 234, 238)",
                                 width: 1
                             }
-                        }, 
+                        },
                         axisLabel: {
-                            show: true, 
+                            show: true,
                             textStyle: {
                                 color: "rgb(142, 149, 170)"
                             }
-                        }, 
+                        },
                         splitArea: {
                             show: false
-                        }, 
+                        },
                         axisTick: {
                             show: false
-                        }, 
+                        },
                         splitLine: {
-                            show: true, 
+                            show: true,
                             lineStyle: {
                                 color: "rgb(232, 234, 238)"
                             }
                         },
-                        max:max2,
-                        min:min2,
+                        max: max2,
+                        min: min2,
                         splitNumber: splitNum,
-                        interval: (min2!=undefined && max2!=undefined)?((max2-min2)/splitNum):'auto'
+                        interval: (min2 != undefined && max2 != undefined) ? ((max2 - min2) / splitNum) : 'auto'
                     }
-                ], 
+                ],
                 series: [
                     {
-                        name: "A相电流", 
-                        type: "line", 
+                        name: "A相电流",
+                        type: "line",
                         yAxisIndex: 0,
-                        data:this.electricDatasA,
+                        data: this.electricDatasA,
                         // data: [
                         //     56,
                         //     65,
@@ -373,10 +377,10 @@ export default {
                         symbolSize: 7
                     },
                     {
-                        name: "B相电流", 
-                        type: "line", 
+                        name: "B相电流",
+                        type: "line",
                         yAxisIndex: 0,
-                        data:this.electricDatasB,
+                        data: this.electricDatasB,
                         // data: [
                         //     45,
                         //     38,
@@ -386,7 +390,7 @@ export default {
                         //     71,
                         //     58
                         // ], 
-                       itemStyle: {
+                        itemStyle: {
                             normal: {
                                 color: "#02E437",
                                 lineStyle: { color: "#02E437", width: 2 },
@@ -402,10 +406,10 @@ export default {
                         symbolSize: 7
                     },
                     {
-                        type: "line", 
-                        name: "C相电流", 
+                        type: "line",
+                        name: "C相电流",
                         yAxisIndex: 0,
-                        data:this.electricDatasC,
+                        data: this.electricDatasC,
                         // data: [
                         //     56,
                         //     56,
@@ -415,7 +419,7 @@ export default {
                         //     23,
                         //     23
                         // ], 
-                      itemStyle: {
+                        itemStyle: {
                             normal: {
                                 color: "#FF1C43",
                                 lineStyle: { color: "#FF1C43", width: 2 },
@@ -430,8 +434,8 @@ export default {
                         symbolSize: 7
                     },
                     {
-                        type: "line", 
-                        name: "漏电电流", 
+                        type: "line",
+                        name: "漏电电流",
                         yAxisIndex: 1,
                         data: this.leakageDatas,
                         // data: [
@@ -529,7 +533,7 @@ export default {
                     }
                 },
                 yAxis: [
-                        {
+                    {
                         type: "value",
                         name: "(V)",
                         position: "left",
@@ -623,13 +627,13 @@ export default {
             myElectricCharts.setOption(electricOption);
             myVoltageCharts.setOption(voltageOption);
         },
-          //计算最大值
+        //计算最大值
         calMax(arr) {
             let max = Math.max(...arr);
             let log;
-            if(max<0) {
+            if (max < 0) {
                 log = Math.log10(-max);
-            } else if(max>0) {
+            } else if (max > 0) {
                 log = Math.log10(max);
             } else {
                 log = 0;
@@ -637,27 +641,27 @@ export default {
             log = Math.floor(log);
             log = Math.pow(10, log);
             //console.log(log);
-            let maxint = Math.ceil(max / (0.95*log)); // 不让最高的值超过最上面的刻度
+            let maxint = Math.ceil(max / (0.95 * log)); // 不让最高的值超过最上面的刻度
             let maxval = maxint * log; // 让显示的刻度是整数
-            
+
             // 为了防止数据为0时，Y轴不显示，给个最大值
-            if(maxval == 0){ maxval = 1 } 
+            if (maxval == 0) { maxval = 1 }
             return maxval;
         },
         //计算最小值
         calMin(arr) {
             let min = Math.min(...arr);
             let log;
-            if(min<0) {
+            if (min < 0) {
                 log = Math.log10(-min);
-            } else if(min>0) {
+            } else if (min > 0) {
                 log = Math.log10(min);
             } else {
                 log = 0;
             }
             log = Math.floor(log);
             log = Math.pow(10, log);
-            let minint = Math.floor(min / (1.05*log));
+            let minint = Math.floor(min / (1.05 * log));
             let minval = minint * log;//让显示的刻度是整数
             return minval;
         },
@@ -674,11 +678,11 @@ export default {
             }, 500);
         },
         //切换页面
-        changePager(newPage){
-            this.currentPage=newPage
-            let min=(newPage-1)*this.pageSize,
-            max=newPage*this.pageSize > this.tableData.length ? this.tableData.length : newPage*this.pageSize
-            this.showData = this.tableData.slice(min,max)
+        changePager(newPage) {
+            this.currentPage = newPage
+            let min = (newPage - 1) * this.pageSize,
+                max = newPage * this.pageSize > this.tableData.length ? this.tableData.length : newPage * this.pageSize
+            this.showData = this.tableData.slice(min, max)
         }
     },
     watch: {

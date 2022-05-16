@@ -44,7 +44,7 @@
 
     .view-body {
         display: flex;
-        flex: 1;
+        height: calc(100vh - 60px);
 
         .left-menu {
             font-family: Source Han Sans CN;
@@ -127,7 +127,7 @@
         }
 
         .right-body {
-            flex: 1;
+            width: calc(100vw - 200px);
             box-sizing: border-box;
             display: flex;
             padding: 20px;

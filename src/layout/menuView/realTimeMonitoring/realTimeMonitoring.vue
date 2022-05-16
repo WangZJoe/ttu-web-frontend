@@ -39,31 +39,37 @@
                         <div class="electric-A electric">
                             <div class="tip">
                                 <div class="Ia icon"></div>
-                                <p class="text">A相电流</p>
                             </div>
                             <div class="value">
-                                <p class="num">{{ electricA }}</p>
-                                <p class="comp">A</p>
+                                <p class="text">A相电流</p>
+                                <div class="bottom-value">
+                                    <p class="num">{{ electricA }}</p>
+                                    <p class="comp">A</p>
+                                </div>
                             </div>
                         </div>
                         <div class="electric-B electric">
                             <div class="tip">
                                 <div class="Ib icon"></div>
-                                <p class="text">B相电流</p>
                             </div>
                             <div class="value">
-                                <p class="num">{{ electricB }}</p>
-                                <p class="comp">A</p>
+                                <p class="text">B相电流</p>
+                                <div class="bottom-value">
+                                    <p class="num">{{ electricB }}</p>
+                                    <p class="comp">A</p>
+                                </div>
                             </div>
                         </div>
                         <div class="electric-C electric">
                             <div class="tip">
                                 <div class="Ic icon"></div>
-                                <p class="text">C相电流</p>
                             </div>
                             <div class="value">
-                                <p class="num">{{ electricC }}</p>
-                                <p class="comp">A</p>
+                                <p class="text">C相电流</p>
+                                <div class="bottom-value">
+                                    <p class="num">{{ electricC }}</p>
+                                    <p class="comp">A</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -77,31 +83,37 @@
                         <div class="electric-A electric">
                             <div class="tip">
                                 <div class="Va icon"></div>
-                                <p class="text">A相电压</p>
                             </div>
                             <div class="value">
-                                <p class="num">{{ voltageA }}</p>
-                                <p class="comp">V</p>
+                                <p class="text">A相电压</p>
+                                <div class="bottom-value">
+                                    <p class="num">{{ voltageA }}</p>
+                                    <p class="comp">V</p>
+                                </div>
                             </div>
                         </div>
                         <div class="electric-B electric">
                             <div class="tip">
                                 <div class="Vb icon"></div>
-                                <p class="text">B相电压</p>
                             </div>
                             <div class="value">
-                                <p class="num">{{ voltageB }}</p>
-                                <p class="comp">V</p>
+                                <p class="text">B相电压</p>
+                                <div class="bottom-value">
+                                    <p class="num">{{ voltageB }}</p>
+                                    <p class="comp">V</p>
+                                </div>
                             </div>
                         </div>
                         <div class="electric-C electric">
                             <div class="tip">
                                 <div class="Vc icon"></div>
-                                <p class="text">C相电压</p>
                             </div>
                             <div class="value">
-                                <p class="num">{{ voltageC }}</p>
-                                <p class="comp">V</p>
+                                <p class="text">C相电压</p>
+                                <div class="bottom-value">
+                                    <p class="num">{{ voltageC }}</p>
+                                    <p class="comp">V</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -113,31 +125,27 @@
                     <h3>实时曲线</h3>
                 </div>
                 <div class="line-charts">
-                    <div class="charts-content">
-                        <div id="electricCharts" style="height:144px;width:100%"></div>
-                    </div>
-                    <div class="charts-content">
-                        <div id="relativeCharts" style="height:144px;width:100%"></div>
-                    </div>
+                    <div id="electricCharts" style="height:288px;width:100%"></div>
+                    <div id="relativeCharts" style="height:288px;width:100%"></div>
                 </div>
             </div>
         </div>
         <div class="right-layout">
-            <div class="temperature card-box">
+            <div class="max-temperature card-box">
                 <div class="title">
                     <div class="tip-color"></div>
                     <h3>接点最高温度</h3>
                 </div>
-                <div class="bar-charts">
-                    <div id="maxTemperatureCharts" style="height:269px;width:100%"></div>
+                <div class="bar-charts-max">
+                    <div id="maxTemperatureCharts" style="height:220px;width:100%"></div>
                 </div>
             </div>
-            <div class="temperature card-box">
+            <div class="environmental card-box">
                 <div class="title">
                     <div class="tip-color"></div>
                     <h3>环境监测</h3>
                 </div>
-                <div class="bar-charts">
+                <div class="bar-charts-environmental">
                     <div id="temperatureCharts" style="height:187px;width:100%"></div>
                     <div id="humidityCharts" style="height:187px;width:100%"></div>
                 </div>
@@ -192,6 +200,16 @@ export default {
                 }, 0)
             }
         }, 5000)
+    },
+    computed: {
+        maxTemperatureWH() {
+            debugger;
+            const w = document.querySelector('.bar-charts-max');
+            return {
+                width: 264 + 'px',
+                height: 100 + '%'
+            }
+        }
     },
     mounted() {
         window.addEventListener("resize", this.handleResize, false);
@@ -278,8 +296,16 @@ export default {
         },
         //设置实时曲线图表
         setRealTimeCharts() {
+            const dom = document.querySelector('.line-charts');
             let electricCharts = document.getElementById("electricCharts");
             let relativeCharts = document.getElementById("relativeCharts");
+            const h = dom.offsetHeight;
+            const w = dom.offsetWidth;
+            electricCharts.style.width = w + 'px';
+            electricCharts.style.height = h + 'px';
+            relativeCharts.style.width = w + 'px';
+            relativeCharts.style.height = h + 'px';
+
             this.myElectricChart = echarts.init(electricCharts);
             this.myRelativeChart = echarts.init(relativeCharts);
             let electricOption = {
@@ -569,9 +595,21 @@ export default {
         },
         //设置环境监测图表
         setEnvironmentalCharts() {
+            const maxDom = document.querySelector('.bar-charts-max');
+            const environmentalDom = document.querySelector('.bar-charts-environmental');
             let temperatureCharts = document.getElementById("temperatureCharts");
             let maxTemperatureCharts = document.getElementById("maxTemperatureCharts");
             let humidityCharts = document.getElementById("humidityCharts");
+            const maxH = maxDom.offsetHeight;
+            const maxW = maxDom.offsetWidth;
+            const envH = environmentalDom.offsetHeight;
+            const envW = environmentalDom.offsetWidth;
+            maxTemperatureCharts.style.width = maxW + 'px';
+            maxTemperatureCharts.style.height = maxH - 20 + 'px';
+            temperatureCharts.style.width = envW + 'px';
+            temperatureCharts.style.height = envH / 2 + 'px';
+            humidityCharts.style.height = envH / 2 + 'px';
+            humidityCharts.style.width = envW + 'px';
             this.myTemperatureCharts = echarts.init(temperatureCharts);
             this.myRelativeChartmyMaxTemperatureCharts = echarts.init(maxTemperatureCharts);
             this.myRelativeChartmyHumidityCharts = echarts.init(humidityCharts);
@@ -579,8 +617,8 @@ export default {
             let temperatureOption = {
                 title: {
                     text: "环境温度",
-                    left: 80,
-                    bottom: 30
+                    left: 'center',
+                    top: 'bottom'
                 },
                 series: [
                     {
@@ -655,8 +693,8 @@ export default {
             let maxTemperatureOption = {
                 title: {
                     text: "接点最高温度",
-                    left: 60,
-                    bottom: 20
+                    left: 'center',
+                    top: 'bottom'
                 },
                 series: [
                     {
@@ -731,8 +769,8 @@ export default {
             let humidityOption = {
                 title: {
                     text: "环境湿度",
-                    left: 80,
-                    bottom: 20
+                    left: 'center',
+                    top: 'bottom'
                 },
                 series: [
                     {

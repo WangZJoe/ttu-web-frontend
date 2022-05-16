@@ -1,19 +1,19 @@
 .params-setting {
     display: flex;
-    padding: 2rem;
+    width: 100%;
     flex: 1;
 
     .card-box {
-        flex: 1;
         background-color: #FFFFFF;
         display: flex;
         flex-direction: column;
+        width: 49%;
 
         .title {
             display: flex;
             align-items: center;
             padding: 18px 17px;
-            height: 2.3rem;
+            height: 50px;
 
             .tip-color {
                 width: 0.4rem;
@@ -33,13 +33,13 @@
         }
 
         .card-content {
-            padding: 3rem 8rem 5rem 6rem;
             flex: 1;
             display: flex;
             flex-direction: column;
 
             .params-msg {
                 flex: 1;
+                padding: 0px 2rem;
                 display: flex;
                 flex-direction: column;
 
@@ -65,15 +65,16 @@
                         flex: 1;
 
 
-                        input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+                        input::-webkit-input-placeholder,
+                        textarea::-webkit-input-placeholder {
                             font-size: 14px;
-                            font-family: Source Han Sans CN-Normal, Source Han Sans CN ;
+                            font-family: Source Han Sans CN-Normal, Source Han Sans CN;
                             font-weight: 400;
-                            color:#C9C9C9
+                            color: #C9C9C9
                         }
 
 
-                        .el-input__inner{
+                        .el-input__inner {
                             width: 15rem;
                             border-radius: 2px 2px 2px 2px;
                             border: 1px solid #CCD5DE;
@@ -81,7 +82,8 @@
 
                         input::-webkit-outer-spin-button,
                         input::-webkit-inner-spin-button {
-                        -webkit-appearance: none;}
+                            -webkit-appearance: none;
+                        }
 
                         .el-dropdown-link {
                             width: 5rem;
@@ -150,8 +152,6 @@
         }
 
         .params-content {
-            padding: 3rem 3rem 5rem 3rem;
-
             .params-msg {
                 .row-params-status {
                     .left-text {
@@ -159,9 +159,17 @@
                         margin-right: 0;
                     }
 
+                    // .loudian-status {
+                    //     flex-basis: 37%;
+                    // }
+
                     .right-text {
                         .el-input {
-                            flex-basis: 85%;
+                            flex-basis: 70%;
+
+                            .el-input__inner {
+                                width: 12rem;
+                            }
                         }
                     }
                 }
@@ -175,6 +183,6 @@
     }
 
     .clearance {
-        width: 2rem;
+        width: 20px;
     }
 }

@@ -15,9 +15,9 @@
                         <div class="right-text">
                             <div class="fill"></div>
                             <div class="off-gap" v-if="leakage_protection_status == 0"></div>
-                            <p class="gap-comp"  v-if="leakage_protection_status == 0">关闭</p>
+                            <p class="gap-comp" v-if="leakage_protection_status == 0">关闭</p>
                             <div class="on-gap" v-if="leakage_protection_status == 1"></div>
-                            <p class="gap-comp"  v-if="leakage_protection_status == 1">开启</p>
+                            <p class="gap-comp" v-if="leakage_protection_status == 1">开启</p>
                         </div>
                     </div>
                     <div class="row-params-status">
@@ -79,7 +79,7 @@
             <div class="card-content params-content">
                 <div class="params-msg">
                     <div class="row-params-status">
-                        <div class="left-text">
+                        <div class="left-text loudian-status">
                             <img src="../../../assets/img/loudianbaohu.png" alt="">
                             <p class="text">漏电保护状态 : </p>
                         </div>
@@ -140,31 +140,31 @@
 </template>
 
 <script>
-import {GetDevParams,SetDevParams} from "../../../api/api"
+import { GetDevParams, SetDevParams } from "../../../api/api"
 
 export default {
     props: ["curveDev"],
     data() {
         return {
             //漏电保护状态
-            leakage_protection_status : '',
+            leakage_protection_status: '',
             //额定漏电保护阈值
-            rated_protection_current_threshold : 0,
+            rated_protection_current_threshold: 0,
             //阈值保护动作时间
-            threshold_protection_action_time : 0,
+            threshold_protection_action_time: 0,
             //额定漏电保护差值
-            rated_leakage_protection_difference : 0,
+            rated_leakage_protection_difference: 0,
             //插值保护动作时间
             interpolation_protection_action_time: 0,
             //输入参数
-            options:[{value:'1',label:'开启'},{value:'0',label:'关闭'}],
-            input_leakage_protection_statu : '',
+            options: [{ value: '1', label: '开启' }, { value: '0', label: '关闭' }],
+            input_leakage_protection_statu: '',
             input_rated_leakage_protection_difference: null,
-            input_rated_protection_current_threshold : null,
-            input_interpolation_protection_action_time : null,
-            input_threshold_protection_action_time : null,
-            getLoading : false,
-            pushLoading : false
+            input_rated_protection_current_threshold: null,
+            input_interpolation_protection_action_time: null,
+            input_threshold_protection_action_time: null,
+            getLoading: false,
+            pushLoading: false
         };
     },
     methods: {
@@ -190,14 +190,14 @@ export default {
         getReadParams(dev) {
             let params = {
                 dev: dev,
-             }
+            }
             this.restRead();
             return params
         },
-        getNumber(str){
+        getNumber(str) {
             return Number(str)
         },
-         //获取上传数据的参数
+        //获取上传数据的参数
         getPushParams(dev) {
             let params = {
                 dev: dev,
@@ -212,25 +212,25 @@ export default {
         },
         //请求设备参数
         async getDevParams(params) {
-            if(params){
+            if (params) {
                 let res = await GetDevParams(params);
                 if (res.data.code != 0) {
                     this.$message.error('参数读取请求失败');
                 } else {
                     let data = res.data.data;
                     this.leakage_protection_status = data.leakage_protection_status,
-                    console.log(this.leakage_protection_status)
+                        console.log(this.leakage_protection_status)
                     this.rated_protection_current_threshold = data.rated_protection_current_threshold,
-                    this.threshold_protection_action_time = data.threshold_protection_action_time,
-                    this.rated_leakage_protection_difference = data.rated_leakage_protection_difference,
-                    this.interpolation_protection_action_time = data.interpolation_protection_action_time
+                        this.threshold_protection_action_time = data.threshold_protection_action_time,
+                        this.rated_leakage_protection_difference = data.rated_leakage_protection_difference,
+                        this.interpolation_protection_action_time = data.interpolation_protection_action_time
                 }
             }
             this.getLoading = false
         },
         //设置设备参数
         async setDevParams(params) {
-            if(params){
+            if (params) {
                 let res = await SetDevParams(params);
                 if (res.data.code != 0) {
                     this.$message.error('上传请求失败');
@@ -249,18 +249,18 @@ export default {
         //初始化读取数据
         restRead() {
             this.leakage_protection_status = 0,
-            this.rated_protection_current_threshold = 0,
-            this.threshold_protection_action_time = 0,
-            this.rated_leakage_protection_difference = 0,
-            this.interpolation_protection_action_time = 0
+                this.rated_protection_current_threshold = 0,
+                this.threshold_protection_action_time = 0,
+                this.rated_leakage_protection_difference = 0,
+                this.interpolation_protection_action_time = 0
         },
         //初始化上传数据
-        restPush(){
-            this.input_leakage_protection_statu = '' ,
-            this.input_rated_leakage_protection_difference = null,
-            this.input_rated_protection_current_threshold = null,
-            this.input_interpolation_protection_action_time = null,
-            this.input_threshold_protection_action_time = null
+        restPush() {
+            this.input_leakage_protection_statu = '',
+                this.input_rated_leakage_protection_difference = null,
+                this.input_rated_protection_current_threshold = null,
+                this.input_interpolation_protection_action_time = null,
+                this.input_threshold_protection_action_time = null
         }
     },
     watch: {

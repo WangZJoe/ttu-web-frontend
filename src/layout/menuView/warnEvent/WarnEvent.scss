@@ -1,5 +1,6 @@
 .warn-events-book {
     height: 100%;
+    width: 100%;
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -22,7 +23,8 @@
             .el-table {
                 border-color: #E9E9E9;
             }
-            .el-table__body tr:hover>td{
+
+            .el-table__body tr:hover>td {
                 background-color: #F0F7FD !important;
             }
 
