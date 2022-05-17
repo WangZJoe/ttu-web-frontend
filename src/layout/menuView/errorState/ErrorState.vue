@@ -61,12 +61,9 @@ export default {
             electricDatasA: [],
             electricDatasB: [],
             electricDatasC: [],
-
             //开始 结束时间
             start_time: this.$moment().format('YYYY-MM-DD'),
-            // start_time: "2022-04-04",
             end_time: this.$moment().add(1, 'days').format('YYYY-MM-DD'),
-            // end_time: "2022-04-24",
         };
     },
     methods: {
@@ -153,8 +150,8 @@ export default {
             let clearCharts = document.getElementById("clearCharts");
             const errH = errDom.offsetHeight;
             const errW = errDom.offsetWidth;
-            const clearH = errDom.offsetHeight;
-            const clearW = errDom.offsetWidth;
+            const clearH = clearDom.offsetHeight;
+            const clearW = clearDom.offsetWidth;
             errorCharts.style.height = errH + 'px';
             errorCharts.style.width = errW + 'px';
             clearCharts.style.height = clearH + 'px';
@@ -487,10 +484,8 @@ export default {
             }
             log = Math.floor(log);
             log = Math.pow(10, log);
-            //console.log(log);
             let maxint = Math.ceil(max / (0.95 * log)); // 不让最高的值超过最上面的刻度
             let maxval = maxint * log; // 让显示的刻度是整数
-
             // 为了防止数据为0时，Y轴不显示，给个最大值
             if (maxval == 0) { maxval = 1 }
             return maxval;
@@ -513,9 +508,20 @@ export default {
             return minval;
         },
         //日期选择切换查询历史数据
-        getTime(val) {
-            this.start_time = val[0];
-            this.end_time = val[1];
+        getTime(time) {
+            if (time.type == '日') {
+                this.start_time = this.$moment(time.value).format('YYYY-MM-DD');
+                this.end_time = this.$moment(time.value).add(1, 'days').format('YYYY-MM-DD');
+            } else if (time.type == '周') {
+                this.start_time = this.$moment(time.value).format('YYYY-MM-DD');
+                this.end_time = this.$moment(time.value).add(1, 'weeks').format('YYYY-MM-DD');
+            } else if (time.type == '月') {
+                this.start_time = this.$moment(time.value).format('YYYY-MM-DD');
+                this.end_time = this.$moment(time.value).add(1, 'months').format('YYYY-MM-DD');
+            } else if (time.type == '年') {
+                this.start_time = this.$moment(time.value).format('YYYY-MM-DD');
+                this.end_time = this.$moment(time.value).add(1, 'years').format('YYYY-MM-DD');
+            }
             this.$emit('requstStatus', true);
             let params = this.getTableDataParams(this.curveDev);
             this.getTableDatas(params);

@@ -2,10 +2,8 @@
     <div class="warn-events-book">
         <date-pick-search @getTime="getTime"></date-pick-search>
         <div class="card-box">
-            
             <div class="table-body">
-                <el-table :data="showData" border height="100%" :header-cell-style="{background:'#FBFBFD', 'text-align':'center', color:'#333333'}"
-                          :cell-style="{'text-align':'center', color:'#585858'}">
+                <el-table :data="showData" border height="100%" :header-cell-style="{background:'#FBFBFD', 'text-align':'center', color:'#333333'}" :cell-style="{'text-align':'center', color:'#585858'}">
                     <el-table-column label="序号">
                         <template slot-scope="scope"> {{scope.$index + (currentPage-1) * pageSize +1}} </template>
                     </el-table-column>
@@ -30,7 +28,6 @@
                     </el-table-column>
                 </el-table>
             </div>
-
             <pagination :currentPage="currentPage" :pagerCount="tableData.length" :pageSize="pageSize" @changePager="changePager"></pagination>
         </div>
     </div>
@@ -42,7 +39,7 @@ import { GetAlarmEvent } from "../../../api/api"
 import Pagination from "../../../components/Pagination.vue"
 
 export default {
-    components: { DatePickSearch , Pagination},
+    components: { DatePickSearch, Pagination },
     props: ["curveDev"],
     data() {
         return {
@@ -52,17 +49,13 @@ export default {
             showData: [],
             //类型过滤器
             typeList: [],
-
             //表格当前页面
-            currentPage:1,
+            currentPage: 1,
             //页面大小
-            pageSize : 14,
-
+            pageSize: 14,
             //开始 结束时间
             start_time: this.$moment().format('YYYY-MM-DD'),
-            // start_time: "2022-04-04",
             end_time: this.$moment().add(1, 'days').format('YYYY-MM-DD'),
-            // end_time: "2022-04-24"
         };
     },
     methods: {
@@ -80,15 +73,13 @@ export default {
         async getAlarmDatas(params) {
             if (params) {
                 let res = await GetAlarmEvent(params);
-                // console.log(res.data)
                 if (res.data.code != 0) {
                     this.$message.error('告警事件数据请求失败');
                 } else {
                     let data = res.data.data.alarm;
-                    // console.log(data)
                     this.tableData = data;
                     this.typeFilter();
-                    this.showData = this.tableData.slice(0,this.pageSize)
+                    this.showData = this.tableData.slice(0, this.pageSize)
                 }
             }
         },
@@ -98,9 +89,20 @@ export default {
             this.showData = []
         },
         //日期选择切换查询历史数据
-        getTime(val) {
-            this.start_time = val[0];
-            this.end_time = val[1];
+        getTime(time) {
+            if (time.type == '日') {
+                this.start_time = this.$moment(time.value).format('YYYY-MM-DD');
+                this.end_time = this.$moment(time.value).add(1, 'days').format('YYYY-MM-DD');
+            } else if (time.type == '周') {
+                this.start_time = this.$moment(time.value).format('YYYY-MM-DD');
+                this.end_time = this.$moment(time.value).add(1, 'weeks').format('YYYY-MM-DD');
+            } else if (time.type == '月') {
+                this.start_time = this.$moment(time.value).format('YYYY-MM-DD');
+                this.end_time = this.$moment(time.value).add(1, 'months').format('YYYY-MM-DD');
+            } else if (time.type == '年') {
+                this.start_time = this.$moment(time.value).format('YYYY-MM-DD');
+                this.end_time = this.$moment(time.value).add(1, 'years').format('YYYY-MM-DD');
+            }
             this.$emit('requstStatus', true);
             let params = this.getAlarmDataParams(this.curveDev);
             this.getAlarmDatas(params);
@@ -113,13 +115,13 @@ export default {
             var list = [
                 ...new Set(this.tableData.map((item) => item.alarm_type))
             ]
-            this.typeList = list.reduce((types, item, index)=>{
+            this.typeList = list.reduce((types, item, index) => {
                 types.push({
                     text: item,
                     value: index
                 })
                 return types
-            },[])
+            }, [])
         },
         handlerFilterChange(value, row, column) {
             const property = column['property']
@@ -127,7 +129,7 @@ export default {
         },
         //状态列格式
         readed(status) {
-            if(status==="已读") {
+            if (status === "已读") {
                 return {
                     'width': '10px',
                     'height': '10px',
@@ -154,14 +156,14 @@ export default {
             //         dev: this.curveDev,
             //         time: scope.row.time,
             //     }
-	        // });
+            // });
         },
         //切换页面
-        changePager(newPage){
-            this.currentPage=newPage
-            let min=(newPage-1)*this.pageSize,
-            max=newPage*this.pageSize > this.tableData.length ? this.tableData.length : newPage*this.pageSize
-            this.showData = this.tableData.slice(min,max)
+        changePager(newPage) {
+            this.currentPage = newPage
+            let min = (newPage - 1) * this.pageSize,
+                max = newPage * this.pageSize > this.tableData.length ? this.tableData.length : newPage * this.pageSize
+            this.showData = this.tableData.slice(min, max)
         }
     },
     watch: {

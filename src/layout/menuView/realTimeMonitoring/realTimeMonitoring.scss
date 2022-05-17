@@ -103,7 +103,6 @@
                             display: flex;
                             align-items: center;
                             margin-left: 2rem;
-                            margin-bottom: 0.8rem;
                         }
 
                         .value {
@@ -114,14 +113,16 @@
                             .bottom-value {
                                 display: flex;
                                 align-items: baseline;
+                                margin-top: 1rem;
 
                                 .comp {
                                     margin-left: .6rem;
                                 }
 
                                 .num {
+                                    color: #189E99;
                                     font-size: 2rem;
-                                    font-family: font-demo;
+                                    font-family: serif;
                                 }
                             }
                         }
@@ -135,6 +136,7 @@
                         align-items: center;
                         justify-content: space-evenly;
                         border-radius: 8px 8px 8px 8px;
+                        color: #FFFFFF;
 
                         .icon {
                             width: 5rem;
@@ -144,10 +146,15 @@
                         .value {
                             display: flex;
                             align-items: baseline;
+                            margin-top: 1rem;
 
                             .num {
                                 font-size: 2rem;
-                                font-family: font-demo;
+                                font-family: serif;
+                            }
+
+                            .comp {
+                                margin-left: .5rem;
                             }
                         }
                     }

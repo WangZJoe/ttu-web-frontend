@@ -83,12 +83,10 @@ export default {
             voltageDatasC: [],
             //开始 结束时间
             start_time: this.$moment().format('YYYY-MM-DD'),
-            // start_time: "2022-04-04",
             end_time: this.$moment().add(1, 'days').format('YYYY-MM-DD'),
-            // end_time: "2022-04-24",
             //间隔周期 间隔数
             time_span_unit: "min",
-            time_span_number: 60,
+            time_span_number: 15,
         };
     },
     methods: {
@@ -667,9 +665,20 @@ export default {
         },
 
         //日期选择切换查询历史数据
-        getTime(val) {
-            this.start_time = val[0];
-            this.end_time = val[1];
+        getTime(time) {
+            if (time.type == '日') {
+                this.start_time = this.$moment(time.value).format('YYYY-MM-DD');
+                this.end_time = this.$moment(time.value).add(1, 'days').format('YYYY-MM-DD');
+            } else if (time.type == '周') {
+                this.start_time = this.$moment(time.value).format('YYYY-MM-DD');
+                this.end_time = this.$moment(time.value).add(1, 'weeks').format('YYYY-MM-DD');
+            } else if (time.type == '月') {
+                this.start_time = this.$moment(time.value).format('YYYY-MM-DD');
+                this.end_time = this.$moment(time.value).add(1, 'months').format('YYYY-MM-DD');
+            } else if (time.type == '年') {
+                this.start_time = this.$moment(time.value).format('YYYY-MM-DD');
+                this.end_time = this.$moment(time.value).add(1, 'years').format('YYYY-MM-DD');
+            }
             this.$emit('requstStatus', true);
             let params = this.getHistoryDataParams(this.curveDev);
             this.getHistoryDatas(params);

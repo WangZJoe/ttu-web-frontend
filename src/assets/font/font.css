@@ -1,6 +1,6 @@
 @font-face {
 	font-family: "font-demo";
-	src: url("LCD2-Bold.ttf") format("truetype");
+	src: url("./LCD2-Bold.ttf") format("truetype");
 }
 
 @font-face {
