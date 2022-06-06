@@ -1,24 +1,13 @@
 <template>
     <div id="app">
-        <login @changeToView=changeToView v-if="!LoggedOn"></login>
-        <mainView v-if="LoggedOn"></mainView>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-import login from "./layout/login/login.vue"
-import mainView from "./layout/mainView/mainView.vue";
 export default {
-    components: { mainView , login },
-    data(){
-        return{
-            LoggedOn:false
-        }
-    },
-    methods: {
-        changeToView(){
-            this.LoggedOn=true
-        }
+    data() {
+        return {};
     },
 };
 </script>
