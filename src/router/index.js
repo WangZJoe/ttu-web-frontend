@@ -27,6 +27,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     const token = window.sessionStorage.getItem('token');
+    console.log(token);
     if (token || to.path == '/login') {
         next()
     } else {

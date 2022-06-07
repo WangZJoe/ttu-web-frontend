@@ -40,6 +40,7 @@ export default {
         return {
             username: "",
             password: "",
+            LoginLoading: false,
         };
     },
     methods: {
@@ -48,6 +49,7 @@ export default {
                 username: this.username,
                 password: this.password,
             };
+            this.LoginLoading = true;
             this.password = null;
             window.sessionStorage.setItem("token", "1");
             this.$router.push("main");
@@ -64,9 +66,11 @@ export default {
                         status = res.data.data.status;
                     if (code == "0") {
                         this.$message.error(status);
+                        this.LoginLoading = false;
                     } else if (code == "1") {
                         window.sessionStorage.setItem("token", code);
                         this.$router.push("main");
+                        this.LoginLoading = false;
                     }
                 }
             }
