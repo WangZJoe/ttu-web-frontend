@@ -8,6 +8,7 @@ import moment from "moment"
 
 Vue.prototype.$moment = moment;
 Vue.use(ElementUI)
+
 new Vue({
     el: '#app',
     store,

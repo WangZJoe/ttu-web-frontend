@@ -6,26 +6,30 @@
         </div>
         <div class="body">
             <div class="left"></div>
-            <div class="right"></div>
+            <div class="bkg"></div>
             <div class="main" v-loading="LoginLoading">
-                <div class="main-title"><span>您好，欢迎登陆！</span></div>
-                <div class="main-body">
+                <p class="main-title">您好，欢迎登陆！</p>
+                <div class="user-input">
+                    <div class="user-icon"></div>
                     <input
                         type="text"
                         class="user"
                         v-model="username"
                         placeholder="账号"
                     />
+                    <div class="underline"></div>
+                </div>
+                <div class="password-input">
+                    <div class="password-icon"></div>
                     <input
                         type="password"
                         class="password"
                         v-model="password"
                         placeholder="密码"
                     />
+                    <div class="underline"></div>
                 </div>
-                <div class="main-button">
-                    <el-button class="button" @click="Login">登录</el-button>
-                </div>
+                <el-button class="main-button" @click="Login">登录</el-button>
             </div>
         </div>
     </div>
@@ -51,8 +55,8 @@ export default {
             };
             this.LoginLoading = true;
             this.password = null;
-            window.sessionStorage.setItem("token", "1");
-            this.$router.push("main");
+            // window.sessionStorage.setItem("token", "1");
+            // this.$router.push("main/realTime");
             this.loginParams(params);
         },
         //登录
@@ -69,7 +73,7 @@ export default {
                         this.LoginLoading = false;
                     } else if (code == "1") {
                         window.sessionStorage.setItem("token", code);
-                        this.$router.push("main");
+                        this.$router.push("main/realTime");
                         this.LoginLoading = false;
                     }
                 }

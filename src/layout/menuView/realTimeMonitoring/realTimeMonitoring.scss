@@ -110,18 +110,30 @@
                             align-items: baseline;
                             flex-direction: column;
 
+                            .text {
+                                font-size: 14px;
+                                font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                                font-weight: 500;
+                                color: #333333;
+                            }
+
                             .bottom-value {
                                 display: flex;
                                 align-items: baseline;
                                 margin-top: 1rem;
 
                                 .comp {
+                                    font-size: 16px;
+                                    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                                    font-weight: 500;
+                                    color: #333333;
                                     margin-left: .6rem;
                                 }
 
                                 .num {
+                                    font-size: 36px;
+                                    font-weight: 400;
                                     color: #189E99;
-                                    font-size: 2rem;
                                     font-family: serif;
                                 }
                             }
@@ -143,17 +155,32 @@
                             height: 5rem;
                         }
 
+                        .tip {
+                            font-size: 14px;
+                            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                            font-weight: 400;
+                            color: #FFFFFF;
+                            line-height: 0px;
+                        }
+
                         .value {
                             display: flex;
                             align-items: baseline;
                             margin-top: 1rem;
 
                             .num {
-                                font-size: 2rem;
+                                font-size: 36px;
                                 font-family: serif;
+                                font-weight: 400;
+                                color: #FFFFFF;
+                                line-height: 40px;
                             }
 
                             .comp {
+                                font-size: 16px;
+                                font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                                font-weight: 400;
+                                color: #FFFFFF;
                                 margin-left: .5rem;
                             }
                         }

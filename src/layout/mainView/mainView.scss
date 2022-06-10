@@ -31,6 +31,8 @@
 
         .tabs {
             li {
+                border-bottom-width: 4px !important;
+
                 span {
                     margin-left: 5px;
                 }
@@ -39,6 +41,55 @@
 
         .right-compoment {
             margin-right: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .time {
+                margin-right: 30px;
+                text-align: center;
+                font-size: 16px;
+                font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                font-weight: 400;
+                color: #666666;
+                line-height: 17px;
+            }
+
+            .msg {
+                width: 15px;
+                height: 15px;
+                cursor: pointer;
+                background: url('../../assets/img/msg-defalut.png') no-repeat;
+                background-size: 100%;
+
+                &:hover {
+                    background: url('../../assets/img/msg-hover.png') no-repeat;
+                    background-size: 100%;
+                }
+
+                &:active {
+                    background: url('../../assets/img/msg-click.png') no-repeat;
+                    background-size: 100%;
+                }
+            }
+
+            .setting {
+                width: 15px;
+                height: 15px;
+                cursor: pointer;
+                background: url('../../assets/img/setting-defalut.png') no-repeat;
+                background-size: 100%;
+
+                &:hover {
+                    background: url('../../assets/img/setting-hover.png') no-repeat;
+                    background-size: 100%;
+                }
+
+                &:active {
+                    background: url('../../assets/img/setting-click.png') no-repeat;
+                    background-size: 100%;
+                }
+            }
         }
     }
 

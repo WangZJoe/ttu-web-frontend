@@ -1,56 +1,63 @@
 .leakage-analysis {
     flex: 1;
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 49%);
-    grid-template-rows: repeat(2, 49%);
-    grid-row-gap: 1rem;
-    grid-column-gap: 1rem;
-    align-content: stretch;
-    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
 
-    .card-box {
-        background-color: #ffffff;
-        display: flex;
-        flex-direction: column;
+    .leakage-analysis-body {
+        flex: 1;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 100%);
+        grid-template-rows: repeat(2, 49%);
+        grid-row-gap: 1rem;
+        grid-column-gap: 1rem;
+        align-content: stretch;
+        justify-content: space-between;
 
-        .title {
+        .card-box {
+            background-color: #ffffff;
             display: flex;
-            align-items: center;
-            padding: 18px 17px;
-            height: 50px;
-            display: flex;
-            justify-content: space-between;
+            flex-direction: column;
 
-            .letf-tip {
+            .title {
                 display: flex;
                 align-items: center;
+                padding: 18px 17px;
+                height: 50px;
+                display: flex;
+                justify-content: space-between;
 
-                .tip-color {
-                    width: 0.4rem;
-                    height: 1.1rem;
-                    margin-right: 5px;
-                    background-color: #189E99;
+                .letf-tip {
+                    display: flex;
+                    align-items: center;
+
+                    .tip-color {
+                        width: 0.4rem;
+                        height: 1.1rem;
+                        margin-right: 5px;
+                        background-color: #189E99;
+                    }
+
+                    h3 {
+                        font-size: 20px;
+                        font-family: 'Source Han Sans CN-Medium, Source Han Sans CN';
+                        font-weight: 500;
+                        color: #333333;
+                        line-height: 0px;
+                        padding: 0 0 0 5px;
+                    }
                 }
 
-                h3 {
-                    font-size: 20px;
-                    font-family: 'Source Han Sans CN-Medium, Source Han Sans CN';
-                    font-weight: 500;
-                    color: #333333;
-                    line-height: 0px;
-                    padding: 0 0 0 5px;
-                }
             }
 
-        }
+            .card-content {
+                height: calc(100% - 50px);
+                display: flex;
 
-        .card-content {
-            height: calc(100% - 50px);
-            display: flex;
-
-            div {
-                flex: 1;
+                div {
+                    flex: 1;
+                }
             }
         }
     }
