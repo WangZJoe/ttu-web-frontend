@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 import App from './App.vue'
 import moment from "moment"
+import "./assets/font/font.css";
 
 Vue.prototype.$moment = moment;
 Vue.use(ElementUI)

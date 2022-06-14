@@ -657,6 +657,38 @@ export default {
                 this.end_time = this.$moment(time.value)
                     .add(1, "days")
                     .format("YYYY-MM-DD");
+            } else if (time.type == "周") {
+                this.start_time = this.$moment(time.value)
+                    .startOf("week")
+                    .add(1, "days")
+                    .format("YYYY-MM-DD");
+                this.end_time = this.$moment(time.value)
+                    .endOf("week")
+                    .add(2, "days")
+                    .format("YYYY-MM-DD");
+            } else if (time.type == "月") {
+                this.start_time = this.$moment(time.value)
+                    .startOf("month")
+                    .format("YYYY-MM-DD");
+                this.end_time = this.$moment(time.value)
+                    .add(1, "months")
+                    .startOf("month")
+                    .format("YYYY-MM-DD");
+            } else if (time.type == "年") {
+                this.start_time = this.$moment(time.value)
+                    .startOf("year")
+                    .format("YYYY-MM-DD");
+                this.end_time = this.$moment(time.value)
+                    .add(1, "years")
+                    .startOf("year")
+                    .format("YYYY-MM-DD");
+            }
+
+            if (time.type == "日") {
+                this.start_time = this.$moment(time.value).format("YYYY-MM-DD");
+                this.end_time = this.$moment(time.value)
+                    .add(1, "days")
+                    .format("YYYY-MM-DD");
                 this.time_span_unit = "day";
                 this.time_span_number = 1;
                 this.xAxis = [
@@ -689,9 +721,11 @@ export default {
             } else if (time.type == "周") {
                 this.start_time = this.$moment(time.value)
                     .startOf("week")
+                    .add(1, "days")
                     .format("YYYY-MM-DD");
                 this.end_time = this.$moment(time.value)
                     .endOf("week")
+                    .add(2, "days")
                     .format("YYYY-MM-DD");
                 this.time_span_unit = "week";
                 this.time_span_number = 2;
@@ -715,9 +749,12 @@ export default {
                 this.xAxis = arr;
                 this.xAxisName = "(天)";
             } else if (time.type == "月") {
-                this.start_time = this.$moment(time.value).format("YYYY-MM-DD");
+                this.start_time = this.$moment(time.value)
+                    .startOf("month")
+                    .format("YYYY-MM-DD");
                 this.end_time = this.$moment(time.value)
                     .add(1, "months")
+                    .startOf("month")
                     .format("YYYY-MM-DD");
                 this.time_span_unit = "mom";
                 this.time_span_number = 1;
@@ -743,9 +780,12 @@ export default {
                 }
                 this.xAxisName = "(周)";
             } else if (time.type == "年") {
-                this.start_time = this.$moment(time.value).format("YYYY-MM-DD");
+                this.start_time = this.$moment(time.value)
+                    .startOf("year")
+                    .format("YYYY-MM-DD");
                 this.end_time = this.$moment(time.value)
                     .add(1, "years")
+                    .startOf("year")
                     .format("YYYY-MM-DD");
                 this.time_span_unit = "year";
                 this.time_span_number = 1;

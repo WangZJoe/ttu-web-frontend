@@ -55,8 +55,8 @@ export default {
             };
             this.LoginLoading = true;
             this.password = null;
-            // window.sessionStorage.setItem("token", "1");
-            // this.$router.push("main/realTime");
+            window.sessionStorage.setItem("token", "1");
+            this.$router.push("main/realTime");
             this.loginParams(params);
         },
         //登录

@@ -5,6 +5,7 @@
             @change="changeTime"
             :type="rangeType"
             :format="dateFormat"
+            :picker-options="{ firstDayOfWeek: 1 }"
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
@@ -62,11 +63,12 @@ export default {
         changeTime(value) {
             this.startDate = this.$moment(this.dateVal)
                 .startOf("week")
+                .add(1, "days")
                 .format("YYYY年M月D日");
             this.endDate = this.$moment(this.dateVal)
                 .endOf("week")
+                .add(1, "days")
                 .format("YYYY年M月D日");
-            console.log(this.startDate, "startDate");
             let dates = {
                 value: value,
                 type: this.dateType,
@@ -79,7 +81,6 @@ export default {
                 type: value,
             };
             this.$emit("getTime", dates);
-            console.log(dates, "dates");
         },
     },
     watch: {
@@ -88,9 +89,11 @@ export default {
             if (newVal == "周") {
                 this.startDate = this.$moment(this.dateVal)
                     .startOf("week")
+                    .add(1, "days")
                     .format("YYYY年M月D日");
                 this.endDate = this.$moment(this.dateVal)
                     .endOf("week")
+                    .add(1, "days")
                     .format("YYYY年M月D日");
                 dom.style.width = 260 + "px";
             } else {

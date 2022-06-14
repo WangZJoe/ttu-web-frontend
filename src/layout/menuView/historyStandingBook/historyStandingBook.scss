@@ -41,13 +41,27 @@
             position: relative;
 
             .full {
-                // background: url('../../../assets/img/full-defalut.png')no-repeat;
+                background: url('../../../assets/img/full-defalut.png')no-repeat;
                 background-size: 100%;
+                z-index: 2000;
+                cursor: pointer;
                 position: absolute;
                 width: 15px;
                 height: 15px;
                 right: 57%;
-                top: 4%;
+                top: 3%;
+
+                &:hover {
+                    background: url('../../../assets/img/full-hover.png')no-repeat;
+                    background-size: 100%;
+                    z-index: 2000;
+                }
+
+                &:active {
+                    background: url('../../../assets/img/full-click.png')no-repeat;
+                    background-size: 100%;
+                    z-index: 2000;
+                }
             }
 
             #electricCharts,

@@ -43,13 +43,13 @@ module.exports = (options = {}) => ({
             loader: 'file-loader'
         },
         {
-            test: /\.(png|jpg|jpe`g|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+            test: /\.(png|jpg|jpe`g|gif|eot|woff|woff2|svg|svgz)(\?.+)?$/,
             use: [{
                 loader: 'url-loader',
                 options: {
                     esModule: false,
-                    limit: 10000,
-                    name: 'fonts/[name].[hash:7].[ext]',
+                    limit: 2,
+                    name: 'font/[name].[hash:7].[ext]',
                 }
             }]
         }
@@ -76,7 +76,7 @@ module.exports = (options = {}) => ({
     },
     devServer: {
         host: '127.0.0.1',
-        port: 8002,
+        port: 8080,
         proxy: {
             '/api/': {
                 target: 'http://127.0.0.1:8002',

@@ -126,15 +126,6 @@ export default {
                 }
             }
         },
-        //获取图表数据参数
-        getChartDataParams(dev, time) {
-            let params = {
-                dev: dev,
-                timestamp: time,
-            };
-            this.restChart();
-            return params;
-        },
         //请求图表数据
         async getChartDatas(params) {
             if (params) {
@@ -576,28 +567,37 @@ export default {
             } else if (time.type == "周") {
                 this.start_time = this.$moment(time.value)
                     .startOf("week")
+                    .add(1, "days")
                     .format("YYYY-MM-DD");
                 this.end_time = this.$moment(time.value)
                     .endOf("week")
+                    .add(2, "days")
                     .format("YYYY-MM-DD");
             } else if (time.type == "月") {
-                this.start_time = this.$moment(time.value).format("YYYY-MM-DD");
+                this.start_time = this.$moment(time.value)
+                    .startOf("month")
+                    .format("YYYY-MM-DD");
                 this.end_time = this.$moment(time.value)
                     .add(1, "months")
+                    .startOf("month")
                     .format("YYYY-MM-DD");
             } else if (time.type == "年") {
-                this.start_time = this.$moment(time.value).format("YYYY-MM-DD");
+                this.start_time = this.$moment(time.value)
+                    .startOf("year")
+                    .format("YYYY-MM-DD");
                 this.end_time = this.$moment(time.value)
                     .add(1, "years")
+                    .startOf("year")
                     .format("YYYY-MM-DD");
             }
             this.$emit("requstStatus", true);
             let params = this.getTableDataParams(this.curveDev);
             this.getTableDatas(params);
-            let paramsChart = this.getChartDataParams(
-                this.curveDev,
-                this.eventTime
-            );
+            let paramsChart = {
+                dev: this.curveDev,
+                timestamp: this.eventTime,
+            };
+            this.restChart();
             this.getChartDatas(paramsChart);
             setTimeout(() => {
                 this.$emit("requstStatus", false);
@@ -607,7 +607,11 @@ export default {
         handleCurrentChange(val) {
             this.currentRow = val;
             this.eventTime = val.time;
-            let params = this.getChartDataParams(this.curveDev, this.eventTime);
+            let params = {
+                dev: this.curveDev,
+                timestamp: this.eventTime,
+            };
+            this.restChart();
             this.getChartDatas(params);
         },
     },
@@ -619,10 +623,11 @@ export default {
                 this.$emit("requstStatus", true);
                 let params = this.getTableDataParams(newVal);
                 this.getTableDatas(params);
-                let paramsChart = this.getChartDataParams(
-                    newVal,
-                    this.eventTime
-                );
+                let paramsChart = {
+                    dev: newVal,
+                    timestamp: this.eventTime,
+                };
+                this.restChart();
                 this.getChartDatas(paramsChart);
                 setTimeout(() => {
                     this.$emit("requstStatus", false);

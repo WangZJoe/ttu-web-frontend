@@ -125,8 +125,14 @@
                     <h3>实时曲线</h3>
                 </div>
                 <div class="line-charts">
-                    <div id="electricCharts" style="height:288px;width:100%"></div>
-                    <div id="relativeCharts" style="height:288px;width:100%"></div>
+                    <div
+                        id="electricCharts"
+                        style="height: 288px; width: 100%"
+                    ></div>
+                    <div
+                        id="relativeCharts"
+                        style="height: 288px; width: 100%"
+                    ></div>
                 </div>
             </div>
         </div>
@@ -137,7 +143,10 @@
                     <h3>接点最高温度</h3>
                 </div>
                 <div class="bar-charts-max">
-                    <div id="maxTemperatureCharts" style="height:220px;width:100%"></div>
+                    <div
+                        id="maxTemperatureCharts"
+                        style="height: 220px; width: 100%"
+                    ></div>
                 </div>
             </div>
             <div class="environmental card-box">
@@ -146,8 +155,14 @@
                     <h3>环境监测</h3>
                 </div>
                 <div class="bar-charts-environmental">
-                    <div id="temperatureCharts" style="height:187px;width:100%"></div>
-                    <div id="humidityCharts" style="height:187px;width:100%"></div>
+                    <div
+                        id="temperatureCharts"
+                        style="height: 187px; width: 100%"
+                    ></div>
+                    <div
+                        id="humidityCharts"
+                        style="height: 187px; width: 100%"
+                    ></div>
                 </div>
             </div>
         </div>
@@ -188,7 +203,7 @@ export default {
             //接点最高温度
             maxTemperature: "",
             //环境湿度
-            humidity: ""
+            humidity: "",
         };
     },
     created() {
@@ -197,19 +212,19 @@ export default {
             if (this.curveDev) {
                 setTimeout(() => {
                     this.getRealDevDatas(this.curveDev);
-                }, 0)
+                }, 0);
             }
-        }, 5000)
+        }, 5000);
     },
     computed: {
         maxTemperatureWH() {
             debugger;
-            const w = document.querySelector('.bar-charts-max');
+            const w = document.querySelector(".bar-charts-max");
             return {
-                width: 264 + 'px',
-                height: 100 + '%'
-            }
-        }
+                width: 264 + "px",
+                height: 100 + "%",
+            };
+        },
     },
     mounted() {
         window.addEventListener("resize", this.handleResize, false);
@@ -234,7 +249,7 @@ export default {
             if (params) {
                 let res = await GetDeviceData(params);
                 if (res.data.code != 0) {
-                    this.$message.error('设备数据请求失败');
+                    this.$message.error("设备数据请求失败");
                 } else {
                     let data = res.data.data;
                     this.electricMax = data.record[0].In_Max;
@@ -296,57 +311,57 @@ export default {
         },
         //设置实时曲线图表
         setRealTimeCharts() {
-            const dom = document.querySelector('.line-charts');
+            const dom = document.querySelector(".line-charts");
             let electricCharts = document.getElementById("electricCharts");
             let relativeCharts = document.getElementById("relativeCharts");
             const h = dom.offsetHeight;
             const w = dom.offsetWidth;
-            electricCharts.style.width = w + 'px';
-            electricCharts.style.height = h + 'px';
-            relativeCharts.style.width = w + 'px';
-            relativeCharts.style.height = h + 'px';
+            electricCharts.style.width = w + "px";
+            electricCharts.style.height = h + "px";
+            relativeCharts.style.width = w + "px";
+            relativeCharts.style.height = h + "px";
 
             this.myElectricChart = echarts.init(electricCharts);
             this.myRelativeChart = echarts.init(relativeCharts);
             let electricOption = {
                 tooltip: {
                     trigger: "axis",
-                    show: false
+                    show: false,
                 },
                 legend: {
                     data: ["漏电电流"],
                     x: "center",
                     textStyle: {
                         color: "rgb(153, 153, 153)",
-                        fontSize: 14
+                        fontSize: 14,
                     },
                     borderWidth: 0,
                     selectedMode: "multiple",
                     y: "top",
                     orient: "horizontal",
-                    itemWidth: 16
+                    itemWidth: 16,
                 },
                 toolbox: {
                     show: false,
                     feature: {
                         mark: {
-                            show: true
+                            show: true,
                         },
                         dataView: {
                             show: true,
-                            readOnly: true
+                            readOnly: true,
                         },
                         magicType: {
                             show: false,
-                            type: ["line", "bar"]
+                            type: ["line", "bar"],
                         },
                         restore: {
-                            show: true
+                            show: true,
                         },
                         saveAsImage: {
-                            show: true
-                        }
-                    }
+                            show: true,
+                        },
+                    },
                 },
                 calculable: true,
                 xAxis: {
@@ -357,55 +372,55 @@ export default {
                         show: true,
                         lineStyle: {
                             color: "rgb(232, 234, 238)",
-                            width: 1
-                        }
+                            width: 1,
+                        },
                     },
                     axisLabel: {
                         textStyle: {
                             color: "rgb(142, 149, 170)",
-                            fontSize: 12
+                            fontSize: 12,
                         },
-                        show: true
+                        show: true,
                     },
                     splitLine: {
                         show: false,
                     },
                     axisTick: {
-                        show: false
-                    }
+                        show: false,
+                    },
                 },
                 yAxis: [
                     {
                         type: "value",
                         name: "(mA)",
                         nameTextStyle: {
-                            color: "rgb(142, 149, 170)"
+                            color: "rgb(142, 149, 170)",
                         },
                         axisLine: {
                             show: true,
                             lineStyle: {
                                 color: "rgb(232, 234, 238)",
-                                width: 1
-                            }
+                                width: 1,
+                            },
                         },
                         axisLabel: {
                             show: true,
                             textStyle: {
-                                color: "rgb(142, 149, 170)"
-                            }
+                                color: "rgb(142, 149, 170)",
+                            },
                         },
                         splitLine: {
                             lineStyle: {
                                 color: "rgb(232, 234, 238)",
-                                width: 1
-                            }
+                                width: 1,
+                            },
                         },
                         splitArea: {
                             areaStyle: {
-                                type: "default"
-                            }
-                        }
-                    }
+                                type: "default",
+                            },
+                        },
+                    },
                 ],
                 series: [
                     {
@@ -416,24 +431,24 @@ export default {
                             normal: {
                                 lineStyle: {
                                     color: "rgb(59, 236, 242)",
-                                    width: 3
-                                }
-                            }
+                                    width: 3,
+                                },
+                            },
                         },
-                        symbolSize: 0
+                        symbolSize: 0,
                     },
                 ],
                 calculable: true,
                 grid: {
                     x: 71,
                     borderWidth: 1,
-                    borderColor: "rgb(232, 234, 238)"
-                }
+                    borderColor: "rgb(232, 234, 238)",
+                },
             };
             let relativeOption = {
                 tooltip: {
                     trigger: "axis",
-                    show: false
+                    show: false,
                 },
                 legend: {
                     data: ["A相电流", , "B相电流", "C相电流"],
@@ -443,29 +458,29 @@ export default {
                     textStyle: { color: "rgb(153, 153, 153)" },
                     itemWidth: 8,
                     itemHeighth: 8,
-                    padding: 10
+                    padding: 10,
                 },
                 toolbox: {
                     show: false,
                     feature: {
                         mark: {
-                            show: true
+                            show: true,
                         },
                         dataView: {
                             show: true,
-                            readOnly: true
+                            readOnly: true,
                         },
                         magicType: {
                             show: false,
-                            type: ["line", "bar"]
+                            type: ["line", "bar"],
                         },
                         restore: {
-                            show: true
+                            show: true,
                         },
                         saveAsImage: {
-                            show: true
-                        }
-                    }
+                            show: true,
+                        },
+                    },
                 },
                 xAxis: [
                     {
@@ -476,57 +491,57 @@ export default {
                             show: true,
                             lineStyle: {
                                 width: 1,
-                                color: "rgb(232, 234, 238)"
-                            }
+                                color: "rgb(232, 234, 238)",
+                            },
                         },
                         axisLabel: {
                             show: true,
                             textStyle: {
                                 color: "rgb(142, 149, 170)",
-                                fontSize: 12
-                            }
+                                fontSize: 12,
+                            },
                         },
                         axisTick: {
-                            show: false
+                            show: false,
                         },
                         splitLine: {
-                            show: false
-                        }
-                    }
+                            show: false,
+                        },
+                    },
                 ],
                 yAxis: [
                     {
                         type: "value",
                         name: "(A)",
                         nameTextStyle: {
-                            color: "rgb(142, 149, 170)"
+                            color: "rgb(142, 149, 170)",
                         },
                         axisLine: {
                             show: true,
                             lineStyle: {
                                 color: "rgb(232, 234, 238)",
-                                width: 1
-                            }
+                                width: 1,
+                            },
                         },
                         axisLabel: {
                             show: true,
                             textStyle: {
-                                color: "rgb(142, 149, 170)"
-                            }
+                                color: "rgb(142, 149, 170)",
+                            },
                         },
                         splitLine: {
                             show: true,
                             lineStyle: {
                                 color: "rgb(232, 234, 238)",
-                                width: 1
-                            }
+                                width: 1,
+                            },
                         },
                         splitArea: {
                             areaStyle: {
-                                type: "default"
-                            }
-                        }
-                    }
+                                type: "default",
+                            },
+                        },
+                    },
                 ],
                 series: [
                     {
@@ -535,18 +550,22 @@ export default {
                         data: this.electricDatasA,
                         itemStyle: {
                             normal: {
-                                color: '#FDDD00',
-                                type: 'solid',
-                                lineStyle: { type: "solid", color: "#FDDD00", width: 2 },
+                                color: "#FDDD00",
+                                type: "solid",
+                                lineStyle: {
+                                    type: "solid",
+                                    color: "#FDDD00",
+                                    width: 2,
+                                },
                                 borderWidth: 1,
                                 borderColor: "#FFFFFF",
                                 // shadowColor: 'rgba(0, 0, 0, 0.32)',
                                 // shadowBlur: 6
-                            }
+                            },
                         },
-                        symbol: 'circle',
+                        symbol: "circle",
                         showSymbol: false,
-                        symbolSize: 7
+                        symbolSize: 7,
                     },
                     {
                         type: "line",
@@ -555,15 +574,15 @@ export default {
                         itemStyle: {
                             normal: {
                                 color: "#02E437",
-                                type: 'solid',
+                                type: "solid",
                                 lineStyle: { color: "#02E437", width: 2 },
                                 borderWidth: 1,
                                 borderColor: "#FFFFFF",
-                            }
+                            },
                         },
-                        symbol: 'circle',
+                        symbol: "circle",
                         showSymbol: false,
-                        symbolSize: 7
+                        symbolSize: 7,
                     },
                     {
                         type: "line",
@@ -572,278 +591,286 @@ export default {
                         itemStyle: {
                             normal: {
                                 color: "#FF1C43",
-                                type: 'solid',
+                                type: "solid",
                                 lineStyle: { color: "#FF1C43", width: 2 },
                                 borderWidth: 1,
                                 borderColor: "#FFFFFF",
-                            }
+                            },
                         },
-                        symbol: 'circle',
+                        symbol: "circle",
                         showSymbol: false,
-                        symbolSize: 7
-                    }
+                        symbolSize: 7,
+                    },
                 ],
                 calculable: true,
                 grid: {
                     x: 71,
                     borderWidth: 1,
-                    borderColor: "rgb(232, 234, 238)"
-                }
+                    borderColor: "rgb(232, 234, 238)",
+                },
             };
             this.myElectricChart.setOption(electricOption);
             this.myRelativeChart.setOption(relativeOption);
         },
         //设置环境监测图表
         setEnvironmentalCharts() {
-            const maxDom = document.querySelector('.bar-charts-max');
-            const environmentalDom = document.querySelector('.bar-charts-environmental');
-            let temperatureCharts = document.getElementById("temperatureCharts");
-            let maxTemperatureCharts = document.getElementById("maxTemperatureCharts");
+            const maxDom = document.querySelector(".bar-charts-max");
+            const environmentalDom = document.querySelector(
+                ".bar-charts-environmental"
+            );
+            let temperatureCharts =
+                document.getElementById("temperatureCharts");
+            let maxTemperatureCharts = document.getElementById(
+                "maxTemperatureCharts"
+            );
             let humidityCharts = document.getElementById("humidityCharts");
             const maxH = maxDom.offsetHeight;
             const maxW = maxDom.offsetWidth;
             const envH = environmentalDom.offsetHeight;
             const envW = environmentalDom.offsetWidth;
-            maxTemperatureCharts.style.width = maxW + 'px';
-            maxTemperatureCharts.style.height = maxH - 20 + 'px';
-            temperatureCharts.style.width = envW + 'px';
-            temperatureCharts.style.height = envH / 2 + 'px';
-            humidityCharts.style.height = envH / 2 + 'px';
-            humidityCharts.style.width = envW + 'px';
+            maxTemperatureCharts.style.width = maxW + "px";
+            maxTemperatureCharts.style.height = maxH - 20 + "px";
+            temperatureCharts.style.width = envW + "px";
+            temperatureCharts.style.height = envH / 2 + "px";
+            humidityCharts.style.height = envH / 2 + "px";
+            humidityCharts.style.width = envW + "px";
             this.myTemperatureCharts = echarts.init(temperatureCharts);
-            this.myRelativeChartmyMaxTemperatureCharts = echarts.init(maxTemperatureCharts);
+            this.myRelativeChartmyMaxTemperatureCharts =
+                echarts.init(maxTemperatureCharts);
             this.myRelativeChartmyHumidityCharts = echarts.init(humidityCharts);
 
             let temperatureOption = {
                 title: {
                     text: "环境温度",
-                    left: 'center',
-                    top: 'bottom'
+                    left: "center",
+                    top: "bottom",
                 },
                 series: [
                     {
-                        type: 'gauge',
-                        center: ['50%', '65%'],
+                        type: "gauge",
+                        center: ["50%", "65%"],
                         startAngle: 200,
                         endAngle: -20,
-                        min: 0,
-                        max: 250,
-                        splitNumber: 5,
+                        min: -40,
+                        max: 80,
+                        splitNumber: 6,
                         itemStyle: {
-                            color: '#0CD6B8'
+                            color: "#0CD6B8",
                         },
                         progress: {
                             show: true,
-                            width: 30
+                            width: 30,
                         },
                         pointer: {
-                            show: false
+                            show: false,
                         },
                         axisLine: {
                             lineStyle: {
-                                width: 30
-                            }
+                                width: 30,
+                            },
                         },
                         axisTick: {
                             distance: -30,
                             splitNumber: 5,
                             lineStyle: {
                                 width: 2,
-                                color: '#7F9CD4'
-                            }
+                                color: "#7F9CD4",
+                            },
                         },
                         splitLine: {
                             distance: -20,
                             length: 10,
                             lineStyle: {
                                 width: 3,
-                                color: '#7F9CD4'
-                            }
+                                color: "#7F9CD4",
+                            },
                         },
                         axisLabel: {
                             distance: -20,
-                            color: '#7F9CD4',
-                            fontSize: 20
+                            color: "#7F9CD4",
+                            fontSize: 20,
                         },
                         anchor: {
-                            show: false
+                            show: false,
                         },
                         title: {
-                            show: true
+                            show: true,
                         },
                         detail: {
                             valueAnimation: true,
-                            width: '60%',
+                            width: "60%",
                             lineHeight: 40,
                             borderRadius: 8,
-                            offsetCenter: [0, '-15%'],
+                            offsetCenter: [0, "-15%"],
                             fontSize: 20,
-                            fontWeight: '400',
-                            formatter: '{value} °C',
-                            color: 'auto'
+                            fontWeight: "400",
+                            formatter: "{value} °C",
+                            color: "auto",
                         },
                         data: [
                             {
-                                value: this.temperature
-                            }
-                        ]
+                                value: this.temperature,
+                            },
+                        ],
                     },
-                ]
+                ],
             };
             let maxTemperatureOption = {
                 title: {
                     text: "接点最高温度",
-                    left: 'center',
-                    top: 'bottom'
+                    left: "center",
+                    top: "bottom",
                 },
                 series: [
                     {
-                        type: 'gauge',
-                        center: ['50%', '65%'],
+                        type: "gauge",
+                        center: ["50%", "65%"],
                         startAngle: 200,
                         endAngle: -20,
-                        min: 0,
-                        max: 250,
-                        splitNumber: 5,
+                        min: -40,
+                        max: 150,
+                        splitNumber: 19,
                         itemStyle: {
-                            color: '#0CD6B8'
+                            color: "#0CD6B8",
                         },
                         progress: {
                             show: true,
-                            width: 30
+                            width: 30,
                         },
                         pointer: {
-                            show: false
+                            show: false,
                         },
                         axisLine: {
                             lineStyle: {
-                                width: 30
-                            }
+                                width: 30,
+                            },
                         },
                         axisTick: {
                             distance: -30,
                             splitNumber: 5,
                             lineStyle: {
                                 width: 2,
-                                color: '#7F9CD4'
-                            }
+                                color: "#7F9CD4",
+                            },
                         },
                         splitLine: {
                             distance: -20,
                             length: 10,
                             lineStyle: {
                                 width: 3,
-                                color: '#7F9CD4'
-                            }
+                                color: "#7F9CD4",
+                            },
                         },
                         axisLabel: {
                             distance: -20,
-                            color: '#7F9CD4',
-                            fontSize: 20
+                            color: "#7F9CD4",
+                            fontSize: 20,
                         },
                         anchor: {
-                            show: false
+                            show: false,
                         },
                         title: {
-                            show: true
+                            show: true,
                         },
                         detail: {
                             valueAnimation: true,
-                            width: '60%',
+                            width: "60%",
                             lineHeight: 40,
                             borderRadius: 8,
-                            offsetCenter: [0, '-15%'],
+                            offsetCenter: [0, "-15%"],
                             fontSize: 20,
-                            fontWeight: '400',
-                            formatter: '{value} °C',
-                            color: 'auto'
+                            fontWeight: "400",
+                            formatter: "{value} °C",
+                            color: "auto",
                         },
                         data: [
                             {
-                                value: this.maxTemperature
-                            }
-                        ]
+                                value: this.maxTemperature,
+                            },
+                        ],
                     },
-                ]
+                ],
             };
             let humidityOption = {
                 title: {
                     text: "环境湿度",
-                    left: 'center',
-                    top: 'bottom'
+                    left: "center",
+                    top: "bottom",
                 },
                 series: [
                     {
-                        type: 'gauge',
-                        center: ['50%', '65%'],
+                        type: "gauge",
+                        center: ["50%", "65%"],
                         startAngle: 200,
                         endAngle: -20,
                         min: 0,
-                        max: 250,
+                        max: 100,
                         splitNumber: 5,
                         itemStyle: {
-                            color: '#0CD6B8'
+                            color: "#0CD6B8",
                         },
                         progress: {
                             show: true,
-                            width: 30
+                            width: 30,
                         },
                         pointer: {
-                            show: false
+                            show: false,
                         },
                         axisLine: {
                             lineStyle: {
-                                width: 30
-                            }
+                                width: 30,
+                            },
                         },
                         axisTick: {
                             distance: -30,
                             splitNumber: 5,
                             lineStyle: {
                                 width: 2,
-                                color: '#7F9CD4'
-                            }
+                                color: "#7F9CD4",
+                            },
                         },
                         splitLine: {
                             distance: -20,
                             length: 10,
                             lineStyle: {
                                 width: 3,
-                                color: '#7F9CD4'
-                            }
+                                color: "#7F9CD4",
+                            },
                         },
                         axisLabel: {
                             distance: -20,
-                            color: '#7F9CD4',
-                            fontSize: 20
+                            color: "#7F9CD4",
+                            fontSize: 20,
                         },
                         anchor: {
-                            show: false
+                            show: false,
                         },
                         title: {
-                            show: true
+                            show: true,
                         },
                         detail: {
                             valueAnimation: true,
-                            width: '60%',
+                            width: "60%",
                             lineHeight: 40,
                             borderRadius: 8,
-                            offsetCenter: [0, '-15%'],
+                            offsetCenter: [0, "-15%"],
                             fontSize: 20,
-                            fontWeight: '400',
-                            formatter: '{value} °C',
-                            color: 'auto'
+                            fontWeight: "400",
+                            formatter: "{value} %",
+                            color: "auto",
                         },
                         data: [
                             {
-                                value: this.humidity
-                            }
-                        ]
+                                value: this.humidity,
+                            },
+                        ],
                     },
-                ]
+                ],
             };
             this.myTemperatureCharts.setOption(temperatureOption);
-            this.myRelativeChartmyMaxTemperatureCharts.setOption(maxTemperatureOption);
+            this.myRelativeChartmyMaxTemperatureCharts.setOption(
+                maxTemperatureOption
+            );
             this.myRelativeChartmyHumidityCharts.setOption(humidityOption);
         },
     },
@@ -852,18 +879,18 @@ export default {
         curveDev: {
             immediate: true,
             handler(newVal) {
-                this.$emit('requstStatus', true);
+                this.$emit("requstStatus", true);
                 this.rest();
                 this.getRealDevDatas(newVal);
                 setTimeout(() => {
-                    this.$emit('requstStatus', false);
+                    this.$emit("requstStatus", false);
                 }, 500);
-            }
+            },
         },
     },
     destroyed() {
-        window.clearInterval(this.timer)
-    }
+        window.clearInterval(this.timer);
+    },
 };
 </script>
 

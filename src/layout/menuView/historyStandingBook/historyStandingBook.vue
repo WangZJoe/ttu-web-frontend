@@ -33,37 +33,45 @@
                     :row-style="selectedRowStyle"
                     :cell-style="{ 'text-align': 'center', color: '#585858' }"
                 >
-                    <el-table-column prop="time" label="时间" width="166">
+                    <el-table-column prop="time" label="时间" min-width="17%">
                     </el-table-column>
                     <el-table-column
                         prop="In_Avg"
                         label="In Avg(mA)"
-                        width="110"
+                        min-width="13%"
                     >
                     </el-table-column>
                     <el-table-column
                         prop="In_Max"
                         label="In Max(mA)"
-                        width="110"
+                        min-width="13%"
                     >
                     </el-table-column>
-                    <el-table-column prop="Ia" label="Ia(A)" width="65">
+                    <el-table-column prop="Ia" label="Ia(A)" min-width="7%">
                     </el-table-column>
-                    <el-table-column prop="Ib" label="Ib(A)" width="65">
+                    <el-table-column prop="Ib" label="Ib(A)" min-width="7%">
                     </el-table-column>
-                    <el-table-column prop="Ic" label="Ic(A)" width="64">
+                    <el-table-column prop="Ic" label="Ic(A)" min-width="7%">
                     </el-table-column>
-                    <el-table-column prop="Ua" label="Ua(V)" width="71">
+                    <el-table-column prop="Ua" label="Ua(V)" min-width="7%">
                     </el-table-column>
-                    <el-table-column prop="Ub" label="Ub(V)" width="65">
+                    <el-table-column prop="Ub" label="Ub(V)" min-width="7%">
                     </el-table-column>
-                    <el-table-column prop="Uc" label="Uc(V)" width="64">
+                    <el-table-column prop="Uc" label="Uc(V)" min-width="7%">
                     </el-table-column>
-                    <el-table-column prop="In_Max" label="Tn(°C)" width="70">
+                    <el-table-column
+                        prop="In_Max"
+                        label="Tn(°C)"
+                        min-width="7%"
+                    >
                     </el-table-column>
-                    <el-table-column prop="In_Max" label="T(°C)" width="65">
+                    <el-table-column prop="In_Max" label="T(°C)" min-width="7%">
                     </el-table-column>
-                    <el-table-column prop="In_Max" label="H(%rh)" width="79">
+                    <el-table-column
+                        prop="In_Max"
+                        label="H(%rh)"
+                        min-width="7%"
+                    >
                     </el-table-column>
                 </el-table>
             </div>
