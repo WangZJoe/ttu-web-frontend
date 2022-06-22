@@ -4,7 +4,7 @@ import axios from 'axios'
 
 if (curMode == 'development') {
     axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/';
-} else if (curMode == 'production') {
+} else {
     axios.defaults.baseURL = 'https://mock.apifox.cn/m1/761759-0-default/';
 }
 
