@@ -5,11 +5,14 @@ import axios from 'axios'
 if (curMode == 'development') {
     axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/';
 } else if (curMode == 'production') {
-    axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/';
+    axios.defaults.baseURL = 'https://mock.apifox.cn/m1/761759-0-default/';
 }
 
-//apifox模拟数据
+//apifox本地模拟数据
 //axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/';
+
+//apifox云端模拟数据   
+//axios.defaults.baseURL = 'https://mock.apifox.cn/m1/761759-0-default/';
 
 //本地设备包数据
 //axios.defaults.baseURL = 'http://127.0.0.1:8002/api'
