@@ -638,8 +638,10 @@ export default {
             this.myRelativeChartmyMaxTemperatureCharts =
                 echarts.init(maxTemperatureCharts);
             this.myRelativeChartmyHumidityCharts = echarts.init(humidityCharts);
-
-            let temperatureOption = {
+            let maxTemperatureOption = {
+                tooltip: {
+                    trigger: "item",
+                },
                 title: {
                     text: "环境温度",
                     left: "center",
@@ -647,141 +649,63 @@ export default {
                 },
                 series: [
                     {
+                        name: "Pressure",
                         type: "gauge",
-                        center: ["50%", "65%"],
-                        startAngle: 200,
-                        endAngle: -20,
-                        min: -40,
-                        max: 80,
-                        splitNumber: 6,
-                        itemStyle: {
-                            color: "#0CD6B8",
-                        },
-                        progress: {
-                            show: true,
-                            width: 30,
-                        },
-                        pointer: {
-                            show: false,
-                        },
-                        axisLine: {
-                            lineStyle: {
-                                width: 30,
-                            },
-                        },
-                        axisTick: {
-                            distance: -30,
-                            splitNumber: 5,
-                            lineStyle: {
-                                width: 2,
-                                color: "#7F9CD4",
-                            },
-                        },
-                        splitLine: {
-                            distance: -20,
-                            length: 10,
-                            lineStyle: {
-                                width: 3,
-                                color: "#7F9CD4",
-                            },
-                        },
-                        axisLabel: {
-                            distance: -20,
-                            color: "#7F9CD4",
-                            fontSize: 20,
-                        },
-                        anchor: {
-                            show: false,
-                        },
-                        title: {
-                            show: true,
-                        },
-                        detail: {
-                            valueAnimation: true,
-                            width: "60%",
-                            lineHeight: 40,
-                            borderRadius: 8,
-                            offsetCenter: [0, "-15%"],
-                            fontSize: 20,
-                            fontWeight: "400",
-                            formatter: "{value} °C",
-                            color: "auto",
-                        },
-                        data: [
-                            {
-                                value: this.temperature,
-                            },
-                        ],
-                    },
-                ],
-            };
-            let maxTemperatureOption = {
-                title: {
-                    text: "接点最高温度",
-                    left: "center",
-                    top: "bottom",
-                },
-                series: [
-                    {
-                        type: "gauge",
-                        center: ["50%", "65%"],
-                        startAngle: 200,
-                        endAngle: -20,
                         min: -40,
                         max: 150,
                         splitNumber: 19,
-                        itemStyle: {
-                            color: "#0CD6B8",
+                        colorBy: "series",
+                        detail: {
+                            formatter: "{value}",
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                width: 10,
+                            },
                         },
                         progress: {
                             show: true,
-                            width: 30,
+                            width: 10,
+                            itemStyle: {
+                                color: "#0CD6B8FF",
+                            },
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "#7F9CD4FF",
+                            },
+                            length: 10,
+                            distance: 8,
+                        },
+                        axisTick: {
+                            show: true,
+                            length: 2,
+                            lineStyle: {
+                                color: "#AEC6F5FF",
+                            },
+                            distance: 3,
+                        },
+                        axisLabel: {
+                            show: true,
+                            distance: 15,
+                            fontSize: 7,
                         },
                         pointer: {
                             show: false,
                         },
-                        axisLine: {
-                            lineStyle: {
-                                width: 30,
-                            },
-                        },
-                        axisTick: {
-                            distance: -30,
-                            splitNumber: 5,
-                            lineStyle: {
-                                width: 2,
-                                color: "#7F9CD4",
-                            },
-                        },
-                        splitLine: {
-                            distance: -20,
-                            length: 10,
-                            lineStyle: {
-                                width: 3,
-                                color: "#7F9CD4",
-                            },
-                        },
-                        axisLabel: {
-                            distance: -20,
-                            color: "#7F9CD4",
-                            fontSize: 20,
-                        },
-                        anchor: {
-                            show: false,
-                        },
-                        title: {
-                            show: true,
-                        },
                         detail: {
+                            formatter: "{value}℃",
+                            fontSize: 20,
+                            fontFamily: "font-demo",
                             valueAnimation: true,
                             width: "60%",
                             lineHeight: 40,
                             borderRadius: 8,
-                            offsetCenter: [0, "-15%"],
-                            fontSize: 20,
+                            offsetCenter: [0, "-1%"],
                             fontWeight: "400",
-                            formatter: "{value} °C",
-                            color: "auto",
+                            color: "#189E99FF",
                         },
                         data: [
                             {
@@ -791,7 +715,87 @@ export default {
                     },
                 ],
             };
+            let temperatureOption = {
+                tooltip: {
+                    trigger: "item",
+                },
+                title: {
+                    text: "接点最高温度",
+                    left: "center",
+                    top: "bottom",
+                },
+                series: [
+                    {
+                        name: "Pressure",
+                        type: "gauge",
+                        min: -40,
+                        max: 150,
+                        splitNumber: 19,
+                        colorBy: "series",
+                        detail: {
+                            formatter: "{value}",
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                width: 10,
+                            },
+                        },
+                        progress: {
+                            show: true,
+                            width: 10,
+                            itemStyle: {
+                                color: "#0CD6B8FF",
+                            },
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "#7F9CD4FF",
+                            },
+                            length: 10,
+                            distance: 8,
+                        },
+                        axisTick: {
+                            show: true,
+                            length: 2,
+                            lineStyle: {
+                                color: "#AEC6F5FF",
+                            },
+                            distance: 3,
+                        },
+                        axisLabel: {
+                            show: true,
+                            distance: 15,
+                            fontSize: 7,
+                        },
+                        pointer: {
+                            show: false,
+                        },
+                        detail: {
+                            formatter: "{value}℃",
+                            fontSize: 20,
+                            fontFamily: "font-demo",
+                            valueAnimation: true,
+                            width: "60%",
+                            lineHeight: 40,
+                            borderRadius: 8,
+                            offsetCenter: [0, "-1%"],
+                            fontWeight: "400",
+                            color: "#189E99FF",
+                        },
+                        data: [
+                            {
+                                value: this.temperature,
+                            },
+                        ],
+                    },
+                ],
+            };
             let humidityOption = {
+                tooltip: {
+                    trigger: "item",
+                },
                 title: {
                     text: "环境湿度",
                     left: "center",
@@ -799,65 +803,63 @@ export default {
                 },
                 series: [
                     {
+                        name: "Pressure",
                         type: "gauge",
-                        center: ["50%", "65%"],
-                        startAngle: 200,
-                        endAngle: -20,
-                        min: 0,
-                        max: 100,
-                        splitNumber: 5,
-                        itemStyle: {
-                            color: "#0CD6B8",
+                        min: -40,
+                        max: 150,
+                        splitNumber: 19,
+                        colorBy: "series",
+                        detail: {
+                            formatter: "{value}",
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                width: 10,
+                            },
                         },
                         progress: {
                             show: true,
-                            width: 30,
+                            width: 10,
+                            itemStyle: {
+                                color: "#0CD6B8FF",
+                            },
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "#7F9CD4FF",
+                            },
+                            length: 10,
+                            distance: 8,
+                        },
+                        axisTick: {
+                            show: true,
+                            length: 2,
+                            lineStyle: {
+                                color: "#AEC6F5FF",
+                            },
+                            distance: 3,
+                        },
+                        axisLabel: {
+                            show: true,
+                            distance: 15,
+                            fontSize: 7,
                         },
                         pointer: {
                             show: false,
                         },
-                        axisLine: {
-                            lineStyle: {
-                                width: 30,
-                            },
-                        },
-                        axisTick: {
-                            distance: -30,
-                            splitNumber: 5,
-                            lineStyle: {
-                                width: 2,
-                                color: "#7F9CD4",
-                            },
-                        },
-                        splitLine: {
-                            distance: -20,
-                            length: 10,
-                            lineStyle: {
-                                width: 3,
-                                color: "#7F9CD4",
-                            },
-                        },
-                        axisLabel: {
-                            distance: -20,
-                            color: "#7F9CD4",
-                            fontSize: 20,
-                        },
-                        anchor: {
-                            show: false,
-                        },
-                        title: {
-                            show: true,
-                        },
                         detail: {
+                            formatter: "{value}℃",
+                            fontSize: 20,
+                            fontFamily: "font-demo",
                             valueAnimation: true,
                             width: "60%",
                             lineHeight: 40,
                             borderRadius: 8,
-                            offsetCenter: [0, "-15%"],
-                            fontSize: 20,
+                            offsetCenter: [0, "-1%"],
                             fontWeight: "400",
-                            formatter: "{value} %",
-                            color: "auto",
+                            color: "#189E99FF",
                         },
                         data: [
                             {

@@ -7,7 +7,7 @@
                 <h3>数据统计</h3>
             </div>
             <div class="card-content row-charts">
-                <div class="full"></div>
+                <div class="full" @click="full"></div>
                 <!-- <div id="leakageCharts" :style="{ height: '14rem'}"></div> -->
                 <div id="electricCharts" :style="{ height: '14rem' }"></div>
                 <div id="voltageCharts" :style="{ height: '14rem' }"></div>
@@ -82,6 +82,17 @@
                 @changePager="changePager"
             ></pagination>
         </div>
+        <el-dialog
+            title="三相电流及漏电电流统计"
+            :visible.sync="dialogVisible"
+            width="75%"
+            top="10vh"
+            @open="open"
+        >
+            <span slot="footer" class="dialog-footer">
+                <div id="dialogCharts" style="width: 100%; height: 70vh"></div>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -100,6 +111,8 @@ export default {
         return {
             //表格数据
             tableData: [],
+            //dialog
+            dialogVisible: false,
             //表格行索引值
             getRowIndex: null,
             //展示数据
@@ -129,6 +142,303 @@ export default {
         };
     },
     methods: {
+        //图表全屏
+        full() {
+            this.dialogVisible = true;
+        },
+        open() {
+            this.$nextTick(() => {
+                this.setDialogCharts();
+            });
+        },
+        //设置dialog图表
+        setDialogCharts() {
+            let charts = document.getElementById("dialogCharts");
+            let myCharts = echarts.init(charts);
+            //计算y轴最大最小值
+            let max1 = Math.max(
+                this.calMax(this.electricDatasA),
+                this.calMax(this.electricDatasB),
+                this.calMax(this.electricDatasC)
+            );
+            let min1 = Math.min(
+                this.calMin(this.electricDatasA),
+                this.calMin(this.electricDatasB),
+                this.calMin(this.electricDatasC)
+            );
+            let max2 = this.calMax(this.leakageDatas);
+            let min2 = this.calMin(this.leakageDatas);
+            let splitNum = 5;
+            let option = {
+                tooltip: {
+                    trigger: "axis",
+                },
+                legend: {
+                    data: ["A相电流", "B相电流", "C相电流", "漏电电流"],
+                    selectedMode: "multiple",
+                    x: "center",
+                    y: "top",
+                    textStyle: {
+                        color: "rgb(153, 153, 153)",
+                    },
+                    itemWidth: 8,
+                    itemHeighth: 8,
+                    borderColor: "rgb(204, 204, 204)",
+                    padding: 10,
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        myTool1: {
+                            show: true,
+                            title: "全屏",
+                            icon: "src/assets/img/full-defalut.png",
+                            onclick: function () {
+                                alert("full");
+                            },
+                        },
+                    },
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: "category",
+                        name: "(小时)",
+                        boundaryGap: false,
+                        data: this.dataTimes,
+                        nameTextStyle: {
+                            color: "rgb(142, 149, 170)",
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgb(232, 234, 238)",
+                                width: 1,
+                            },
+                        },
+                        axisLabel: {
+                            textStyle: {
+                                color: "rgb(142, 149, 170)",
+                            },
+                            show: true,
+                        },
+                        splitLine: {
+                            show: false,
+                            lineStyle: {
+                                width: 1,
+                            },
+                        },
+                        axisTick: {
+                            show: false,
+                        },
+                    },
+                ],
+                yAxis: [
+                    {
+                        type: "value",
+                        name: "(A)",
+                        position: "left",
+                        nameTextStyle: {
+                            color: "rgb(142, 149, 170)",
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgb(232, 234, 238)",
+                                width: 1,
+                            },
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: "rgb(142, 149, 170)",
+                            },
+                        },
+                        splitArea: {
+                            show: false,
+                        },
+                        axisTick: {
+                            show: false,
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgb(232, 234, 238)",
+                            },
+                        },
+                        max: max1,
+                        min: min1,
+                        splitNumber: splitNum,
+                        interval:
+                            min1 != undefined && max1 != undefined
+                                ? (max1 - min1) / splitNum
+                                : "auto",
+                    },
+                    {
+                        type: "value",
+                        name: "(mA)",
+                        position: "right",
+                        nameTextStyle: {
+                            color: "rgb(142, 149, 170)",
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgb(232, 234, 238)",
+                                width: 1,
+                            },
+                        },
+                        axisLabel: {
+                            show: true,
+                            textStyle: {
+                                color: "rgb(142, 149, 170)",
+                            },
+                        },
+                        splitArea: {
+                            show: false,
+                        },
+                        axisTick: {
+                            show: false,
+                        },
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "rgb(232, 234, 238)",
+                            },
+                        },
+                        max: max2,
+                        min: min2,
+                        splitNumber: splitNum,
+                        interval:
+                            min2 != undefined && max2 != undefined
+                                ? (max2 - min2) / splitNum
+                                : "auto",
+                    },
+                ],
+                series: [
+                    {
+                        name: "A相电流",
+                        type: "line",
+                        yAxisIndex: 0,
+                        data: this.electricDatasA,
+                        // data: [
+                        //     56,
+                        //     65,
+                        //     67,
+                        //     67,
+                        //     56,
+                        //     68,
+                        //     89
+                        // ],
+                        itemStyle: {
+                            normal: {
+                                color: "#FDDD00",
+                                type: "solid",
+                                lineStyle: {
+                                    type: "solid",
+                                    color: "#FDDD00",
+                                    width: 2,
+                                },
+                                borderWidth: 1,
+                                borderColor: "#FFFFFF",
+                                // shadowColor: 'rgba(0, 0, 0, 0.32)',
+                                // shadowBlur: 6
+                            },
+                        },
+                        symbol: "circle",
+                        showSymbol: false,
+                        symbolSize: 7,
+                    },
+                    {
+                        name: "B相电流",
+                        type: "line",
+                        yAxisIndex: 0,
+                        data: this.electricDatasB,
+                        // data: [
+                        //     45,
+                        //     38,
+                        //     62,
+                        //     51,
+                        //     56,
+                        //     71,
+                        //     58
+                        // ],
+                        itemStyle: {
+                            normal: {
+                                color: "#02E437",
+                                lineStyle: { color: "#02E437", width: 2 },
+                                borderWidth: 1,
+                                borderColor: "#FFFFFF",
+                                label: { show: false },
+                                // shadowColor: 'rgba(0, 0, 0, 0.32)',
+                                // shadowBlur: 6,
+                            },
+                        },
+                        symbol: "circle",
+                        showSymbol: false,
+                        symbolSize: 7,
+                    },
+                    {
+                        type: "line",
+                        name: "C相电流",
+                        yAxisIndex: 0,
+                        data: this.electricDatasC,
+                        // data: [
+                        //     56,
+                        //     56,
+                        //     67,
+                        //     34,
+                        //     45,
+                        //     23,
+                        //     23
+                        // ],
+                        itemStyle: {
+                            normal: {
+                                color: "#FF1C43",
+                                lineStyle: { color: "#FF1C43", width: 2 },
+                                borderColor: "#FFFFFF",
+                                borderWidth: 1,
+                                // shadowColor: 'rgba(0, 0, 0, 0.32)',
+                                // shadowBlur: 6
+                            },
+                        },
+                        symbol: "circle",
+                        showSymbol: false,
+                        symbolSize: 7,
+                    },
+                    {
+                        type: "line",
+                        name: "漏电电流",
+                        yAxisIndex: 1,
+                        data: this.leakageDatas,
+                        // data: [
+                        //     45,
+                        //     78,
+                        //     79,
+                        //     34,
+                        //     56,
+                        //     78,
+                        //     34
+                        // ],
+                        itemStyle: {
+                            normal: {
+                                color: "#3BECF2",
+                                lineStyle: { color: "#3BECF2", width: 2 },
+                                borderColor: "#FFFFFF",
+                                borderWidth: 1,
+                            },
+                        },
+                        symbol: "circle",
+                        showSymbol: false,
+                        symbolSize: 7,
+                    },
+                ],
+                grid: {
+                    x: 54,
+                },
+            };
+            myCharts.setOption(option);
+        },
         tableRowClassName({ row, rowIndex }) {
             row.rowIndex = rowIndex;
         },
@@ -160,13 +470,11 @@ export default {
         async getHistoryDatas(params) {
             if (params) {
                 let res = await GetDeviceHistoryData(params);
-                // console.log(res)
                 if (res.data.code != 0) {
                     this.$message.error("设备数据请求失败");
                     this.setDataCensusCharts();
                 } else {
                     let data = res.data.data;
-                    // console.log(data.record)
                     data.record.forEach((item) => {
                         this.dataTimes.push(item.time);
                         this.leakageDatas.push(item.In_Avg);
@@ -199,7 +507,6 @@ export default {
         //设置数据统计图表
         setDataCensusCharts() {
             const dom = document.querySelector(".row-charts");
-            // let leakageCharts = document.getElementById("leakageCharts");
             let electricCharts = document.getElementById("electricCharts");
             let voltageCharts = document.getElementById("voltageCharts");
             const h = dom.offsetHeight;
@@ -208,7 +515,6 @@ export default {
             electricCharts.style.width = w / 2 + "px";
             voltageCharts.style.height = h + "px";
             voltageCharts.style.width = w / 2 + "px";
-            // let myLeakageCharts = echarts.init(leakageCharts);
             let myElectricCharts = echarts.init(electricCharts);
             let myVoltageCharts = echarts.init(voltageCharts);
 
@@ -226,35 +532,6 @@ export default {
             let max2 = this.calMax(this.leakageDatas);
             let min2 = this.calMin(this.leakageDatas);
             let splitNum = 5;
-
-            // console.log(max1)
-            // console.log(max2)
-            // console.log(min1)
-            // console.log(min2)
-
-            // let leakageOption = {
-            //     title: {
-            //         left: "center",
-            //         text: "漏电电流",
-            //     },
-            //     xAxis: {
-            //         type: "category",
-            //         data: this.dataTimes
-            //     },
-            //     yAxis: {
-            //         type: "value",
-            //         name: "(mA)",
-            //         nameTextStyle: {
-            //             align: "right",
-            //         },
-            //     },
-            //     series: [
-            //         {
-            //             data: this.leakageDatas,
-            //             type: "line",
-            //         },
-            //     ],
-            // };
             let electricOption = {
                 tooltip: {
                     trigger: "axis",
@@ -678,7 +955,6 @@ export default {
                     },
                 ],
             };
-            // myLeakageCharts.setOption(leakageOption);
             myElectricCharts.setOption(electricOption);
             myVoltageCharts.setOption(voltageOption);
         },
@@ -695,7 +971,6 @@ export default {
             }
             log = Math.floor(log);
             log = Math.pow(10, log);
-            //console.log(log);
             let maxint = Math.ceil(max / (0.95 * log)); // 不让最高的值超过最上面的刻度
             let maxval = maxint * log; // 让显示的刻度是整数
 

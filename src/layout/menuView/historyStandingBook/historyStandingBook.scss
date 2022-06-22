@@ -6,6 +6,35 @@
     flex-direction: column;
     justify-content: space-between;
 
+    .el-dialog {
+        border-radius: 10px 10px 10px 10px;
+
+        .el-dialog__header {
+            padding: 20px 20px 20px !important;
+            background: #006F6BFF !important;
+            border-radius: 10px 10px 0px 0px;
+            position: relative !important;
+
+            .el-dialog__headerbtn {
+                font-size: 45px !important;
+                top: 15% !important;
+                right: 3% !important;
+
+                .el-icon {
+                    color: #ffffff !important;
+                }
+            }
+
+            .el-dialog__title {
+                color: #FFFFFFFF !important;
+            }
+        }
+
+        .el-dialog__body {
+            padding: 0 !important;
+        }
+    }
+
     .card-box {
         display: flex;
         flex-direction: column;
