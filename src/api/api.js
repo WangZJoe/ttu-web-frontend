@@ -3,13 +3,13 @@ import axios from 'axios'
 // Vue.prototype.qs = qs
 
 if (curMode == 'development') {
-    axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/';
+    axios.defaults.baseURL = '	http://127.0.0.1:4523/m1/761759-0-default/';
 } else {
     axios.defaults.baseURL = 'https://mock.apifox.cn/m1/761759-0-default/';
 }
 
 //apifox本地模拟数据
-//axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/';
+//axios.defaults.baseURL = 'http://127.0.0.1:8080/mock/908535/';
 
 //apifox云端模拟数据   
 //axios.defaults.baseURL = 'https://mock.apifox.cn/m1/761759-0-default/';
