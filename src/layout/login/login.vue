@@ -2,7 +2,7 @@
     <div class="login">
         <div class="header">
             <img src="../../assets/img/login-logo.png" alt="" />
-            <span class="title">低压台区漏电管家 云端mock数据</span>
+            <span class="title">低压台区漏电管家</span>
         </div>
         <div class="body">
             <div class="left"></div>
