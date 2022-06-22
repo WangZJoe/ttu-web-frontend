@@ -5,15 +5,22 @@ import axios from 'axios'
 if (curMode == 'development') {
     axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/';
 } else if (curMode == 'production') {
-    axios.defaults.baseURL = window.location.href + "api";
+    axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/';
 }
 
-//http://127.0.0.1:4523/mock/908535/
+//apifox模拟数据
+//axios.defaults.baseURL = 'http://127.0.0.1:4523/mock/908535/';
+
+//本地设备包数据
+//axios.defaults.baseURL = 'http://127.0.0.1:8002/api'
+
+//线上数据接口
+//axios.defaults.baseURL = window.location.href + "api";
+
+
 // axios.defaults.baseURL = 'http://127.0.0.1:8002/api'
 // axios.defaults.baseURL = 'http://192.168.2.33:8002/api'
 // axios.defaults.baseURL = window.location.href + "api"
-//console.log(window.location.href)
-//debugger
 
 async function httpget(url) {
     return axios.get(url)
