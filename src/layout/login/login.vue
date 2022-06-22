@@ -47,6 +47,9 @@ export default {
             LoginLoading: false,
         };
     },
+    created() {
+        console.log(curMode, "curMode");
+    },
     methods: {
         Login() {
             let params = {
