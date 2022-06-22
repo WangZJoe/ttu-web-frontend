@@ -90,5 +90,6 @@ module.exports = (options = {}) => ({
             index: url.parse(options.dev ? '/assets/' : publicPath).pathname
         }
     },
-    devtool: options.dev ? '#eval-source-map' : '#source-map'
+    //source-map启动影响初始化速度
+    // devtool: options.dev ? '#eval-source-map' : '#source-map'
 })
