@@ -43,6 +43,37 @@
                 display: flex;
                 flex-direction: column;
 
+                .el-form-item {
+                    margin: unset !important;
+                    padding: 1rem 0 !important;
+
+                    .el-form-item__content {
+                        display: flex !important;
+
+                        .comp {
+                            margin-left: 1rem;
+                            font-size: 16px;
+                        }
+                    }
+
+                    .el-form-item__label {
+                        &::before {
+                            content: none !important;
+                        }
+
+                        .form-left {
+                            display: flex;
+                            align-items: center;
+
+                            .text {
+                                font-size: 16px;
+                                color: #000000;
+                                margin-left: 1rem;
+                            }
+                        }
+                    }
+                }
+
                 .row-params-status {
                     display: flex;
                     padding: 1rem 0;
