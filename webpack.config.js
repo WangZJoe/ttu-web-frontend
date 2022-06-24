@@ -8,12 +8,13 @@ console.log(process.env.NODE_ENV);
 module.exports = (options = {}) => ({
     entry: {
         vendor: './src/vendor',
-        index: './src/main.js'
+        index: './src/main.js',
+        login: './src/main.login.js'
     },
     output: {
         path: resolve(__dirname, 'dist'),
-        filename: options.dev ? '[name].js' : '[name].js?[chunkhash]',
-        chunkFilename: '[id].js?[chunkhash]',
+        filename: options.dev ? 'static/[name].js' : 'static/[name].js?[chunkhash]',
+        chunkFilename: 'static/[id].js?[chunkhash]',
         publicPath: options.dev ? '/assets/' : publicPath
     },
     module: {
@@ -60,7 +61,13 @@ module.exports = (options = {}) => ({
             names: ['vendor', 'manifest']
         }),
         new HtmlWebpackPlugin({
+            filename: 'index.html',
             template: './public/index.html',
+            favicon: path.resolve('./public/favicon.ico')
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'login.html',
+            template: './public/login.html',
             favicon: path.resolve('./public/favicon.ico')
         }),
         new webpack.DefinePlugin({
@@ -70,7 +77,8 @@ module.exports = (options = {}) => ({
     ],
     resolve: {
         alias: {
-            '~': resolve(__dirname, 'src')
+            '~': resolve(__dirname, 'src'),
+            'src': resolve(__dirname, 'src')
         },
         extensions: ['.js', '.vue', '.json', '.css', '.scss']
     },
