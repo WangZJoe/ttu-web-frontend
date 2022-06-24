@@ -7,10 +7,10 @@ const routes = [
   // 路由列表，里面的每一个成员都是一个url地址和组件的映射关系
   {
     path: "/",
-    redirect: "/login",
+    redirect: "/login.html",
   },
   {
-    path: "/login",
+    path: "/login.html",
     component: () => import("../layout/login/the-login.vue"),
   },
   {
