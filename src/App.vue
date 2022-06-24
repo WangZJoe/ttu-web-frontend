@@ -1,14 +1,14 @@
 <template>
-    <div id="app">
-        <router-view></router-view>
-    </div>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {};
-    },
+  data() {
+    return {};
+  },
 };
 </script>
 
@@ -17,7 +17,7 @@ export default {
 @import "./styles/reset.scss";
 @import url("//unpkg.com/element-ui@2.15.6/lib/theme-chalk/index.css");
 #app {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 </style>
