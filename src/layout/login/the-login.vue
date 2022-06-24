@@ -29,7 +29,7 @@
           />
           <div class="underline"></div>
         </div>
-        <el-button class="main-button" @click="Login">登录</el-button>
+        <button class="main-button el-button" @click="Login">登录</button>
       </div>
     </div>
   </div>
@@ -73,7 +73,7 @@ export default {
             this.LoginLoading = false;
           } else if (code == "1") {
             window.sessionStorage.setItem("token", code);
-            this.$router.push("main/realTime");
+            location.href = "/";
             this.LoginLoading = false;
           }
         }

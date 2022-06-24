@@ -159,6 +159,9 @@
       }
 
       .main-button {
+        cursor: pointer;
+        height: 10%;
+        border: unset;
         position: absolute;
         bottom: 12.2%;
         left: 13%;

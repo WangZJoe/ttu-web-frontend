@@ -7,11 +7,7 @@ const routes = [
   // 路由列表，里面的每一个成员都是一个url地址和组件的映射关系
   {
     path: "/",
-    redirect: "/login.html",
-  },
-  {
-    path: "/login.html",
-    component: () => import("../layout/login/the-login.vue"),
+    redirect: "/main",
   },
   {
     path: "/main",
@@ -66,7 +62,7 @@ router.beforeEach((to, from, next) => {
     next();
     console.log("已跳转");
   } else {
-    next("/login");
+    location.href = "/login.html";
   }
 });
 

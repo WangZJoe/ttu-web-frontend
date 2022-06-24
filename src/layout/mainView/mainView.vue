@@ -261,7 +261,7 @@ export default {
     handleCommand(cmd) {
       if (cmd == "outLogin") {
         window.sessionStorage.removeItem("token");
-        this.$router.push("/login");
+        location.href = "/";
       }
     },
     //切换设备
