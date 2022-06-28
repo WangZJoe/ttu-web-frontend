@@ -101,12 +101,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.date-pick-search {
-  padding: 0 0 12px 12px;
+::v-deep.date-pick-search {
+  padding: 0 0 10px 12px;
   display: flex;
   flex-direction: row-reverse;
   .el-date-editor {
     margin-left: 18px;
+  }
+  .el-textarea__inner,
+  .el-input__inner {
+    background: transparent !important;
+  }
+  .el-radio-button__inner {
+    background: #00000000 !important;
+  }
+  .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+    color: #f7f7f7 !important;
+    background-color: rgb(25, 128, 124) !important;
+    border-color: rgb(25, 128, 124) !important;
   }
 }
 </style>

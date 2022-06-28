@@ -4,21 +4,23 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    // justify-content: space-between;
+    margin-top: -10px;
 
     .card-box {
         flex-grow: 1;
+        border-radius: 10px;
         display: flex;
         flex-direction: column;
         background-color: #ffffff;
 
-        // .card-content {
-        //     flex: 1;
-        // }
-
         .table-body {
             flex-grow: 1;
             padding: 10px 30px 5px 30px;
+            .el-table__header tr,
+            .el-table__header th {
+                padding: 0;
+                height: 40px;
+            }
 
             .el-table {
                 border-color: #E9E9E9;
@@ -38,8 +40,4 @@
             }
         }
     }
-
-    // .table-body {
-    //     flex: 1;
-    // }
 }

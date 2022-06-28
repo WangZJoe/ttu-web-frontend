@@ -171,7 +171,7 @@ export default {
           height: "10px",
           background: "#C8C8C8",
           "border-radius": "50%",
-          margin: "auto 20px auto 0",
+          margin: "auto 10px auto 0",
         };
       } else {
         return {
@@ -179,7 +179,7 @@ export default {
           height: "10px",
           background: "#FFC95D",
           "border-radius": "50%",
-          margin: "auto 20px auto 0",
+          margin: "auto 10px auto 0",
         };
       }
     },

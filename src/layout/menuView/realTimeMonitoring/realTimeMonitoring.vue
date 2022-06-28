@@ -632,7 +632,11 @@ export default {
         title: {
           text: "环境温度",
           left: "center",
-          top: "bottom",
+          bottom: 20,
+          textStyle: {
+            color: "#333333FF",
+            fontSize: 13,
+          },
         },
         series: [
           {
@@ -710,7 +714,11 @@ export default {
         title: {
           text: "接点最高温度",
           left: "center",
-          top: "bottom",
+          bottom: 20,
+          textStyle: {
+            color: "#333333FF",
+            fontSize: 13,
+          },
         },
         series: [
           {
@@ -788,7 +796,11 @@ export default {
         title: {
           text: "环境湿度",
           left: "center",
-          top: "bottom",
+          bottom: 20,
+          textStyle: {
+            color: "#333333FF",
+            fontSize: 13,
+          },
         },
         series: [
           {

@@ -2,6 +2,7 @@
     height: 100%;
     width: 100%;
     display: flex;
+    margin-top: -10px   ;
     flex: 1;
     flex-direction: column;
     // justify-content: space-between;
@@ -14,6 +15,7 @@
         .card-box {
             display: flex;
             flex-direction: column;
+            border-radius: 10px;
             background-color: #ffffff;
 
             .title {
@@ -61,7 +63,11 @@
                 text-align: center;
                 font-size: 14px;
                 font-family: 'Source Han Sans CN-Normal, Source Han Sans CN';
-
+                .el-table__header tr,
+                .el-table__header th {
+                    padding: 0;
+                    height: 40px;
+                }
                 .el-table__body tr.current-row>td {
                     background-color: #189E99 !important;
                     color: #FFFFFF !important;
@@ -71,6 +77,34 @@
 
         .card-table {
             width: 30%;
+            display: block;
+            .table-body{
+                height: 92.7%;
+                .el-table__header tr,
+                .el-table__header th {
+                    padding: 0;
+                    height: 40px;
+                }
+            }
+            .data-tip{
+                height: 7.3%;
+                div{
+                    height: 100%;
+                    line-height: 3;
+                    text-align: right;
+                    margin-right: 30px;
+                    font-size: 14px;
+                    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #333333;
+                }
+                span{
+                    font-size: 14px;
+                    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #189E99FF;
+                }
+            }
         }
 
         .card-charts {

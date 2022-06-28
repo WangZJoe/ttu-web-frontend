@@ -130,7 +130,7 @@ export default {
 <style lang="scss" scoped>
 .table-pager {
   padding: 3px 22px 5px 10px;
-  height: 35px;
+  height: 63px;
   display: flex;
   display: -webkit-flex;
   align-items: center;

@@ -116,6 +116,7 @@
                     width: 10px;
                     height: 10px;
                     border-radius: 50%;
+                    margin-right: 12px;
                     background-color: #00FFDC;
                 }
 
@@ -130,6 +131,7 @@
                     width: 10px;
                     height: 10px;
                     border-radius: 50%;
+                    margin-right: 12px;
                     background-color: #C4C4C4;
                 }
 
@@ -187,46 +189,16 @@
     }
 }
 
-.icon-1,
-.el-icon-document {
-    width: 18px;
-    height: 18px;
-    content: url(../../assets/img/1.png);
-}
-
-.icon-1-1,
-.el-icon-document {
+.el-icon-bianyaqi {
     width: 18px;
     height: 18px;
     content: url(../../assets/img/1-1.png);
 }
 
-.icon-2,
-.el-icon-document {
-    width: 18px;
-    height: 18px;
-    content: url(../../assets/img/2.png);
-}
-
-.icon-2-1,
-.el-icon-document {
+.el-icon-kaiguan{
     width: 18px;
     height: 18px;
     content: url(../../assets/img/2-1.png);
-}
-
-.icon-3,
-.el-icon-document {
-    width: 18px;
-    height: 18px;
-    content: url(../../assets/img/3.png);
-}
-
-.icon-3-1,
-.el-icon-document {
-    width: 18px;
-    height: 18px;
-    content: url(../../assets/img/3-1.png);
 }
 
 .tab-pane {

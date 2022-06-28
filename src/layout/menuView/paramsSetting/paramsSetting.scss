@@ -4,6 +4,7 @@
     flex: 1;
 
     .card-box {
+        border-radius: 10px;
         background-color: #FFFFFF;
         display: flex;
         flex-direction: column;
@@ -39,7 +40,7 @@
 
             .params-msg {
                 flex: 1;
-                padding: 0px 2rem;
+                padding: 0 29.4% 0 17.6%;
                 display: flex;
                 flex-direction: column;
 
@@ -51,12 +52,28 @@
                         display: flex !important;
 
                         .comp {
-                            margin-left: 1rem;
-                            font-size: 16px;
+                            margin-left: 0.4rem;
+                            font-size: 14px;
+                            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                            font-weight: 400;
+                            color: #333333;
+                        }
+
+                        .el-select{
+                            width: 90.5% !important;
+                            .el-input{
+                                width: 100% !important;
+                            }
+                        }
+
+                        .el-input{
+                            width: 90.5% !important;
+                            flex-shrink: 0;
                         }
                     }
 
                     .el-form-item__label {
+                        padding: 0 30px 0 0 !important;
                         &::before {
                             content: none !important;
                         }
@@ -64,11 +81,17 @@
                         .form-left {
                             display: flex;
                             align-items: center;
+                            p{
+                                font-size: 14px !important;
+                                font-family: Source Han Sans CN-Regular, Source Han Sans CN !important;
+                                font-weight: 400 !important;
+                                color: #333333 !important;
+                            }
 
                             .text {
                                 font-size: 16px;
                                 color: #000000;
-                                margin-left: 1rem;
+                                margin-left: 0.6rem;
                             }
                         }
                     }
@@ -81,20 +104,26 @@
                     .left-text {
                         display: flex;
                         align-items: center;
-                        margin-right: 3rem;
-                        flex-basis: 50%;
+                        flex-basis: 71%;
                         height: 2.6rem;
 
                         p {
-                            margin-left: 1rem;
+                            margin-left: 0.6rem;
+                            font-size: 14px;
+                            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                            font-weight: 400;
+                            color: #333333;
                         }
+                    }
+                    .switch-text{
+                        justify-content: flex-start !important;
                     }
 
                     .right-text {
                         display: flex;
                         align-items: center;
+                        justify-content: space-between;
                         flex: 1;
-
 
                         input::-webkit-input-placeholder,
                         textarea::-webkit-input-placeholder {
@@ -132,7 +161,7 @@
 
                         .value {
                             font-size: 24px;
-                            font-family: LcdD;
+                            font-family: font-demo;
                             font-weight: 400;
                             line-height: 0px;
                             color: #006F6B;
@@ -153,25 +182,35 @@
                         }
 
                         .comp {
-                            margin-left: 1rem;
+                            font-size: 14px;
+                            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                            font-weight: 400;
+                            color: #333333;
                         }
 
                         .gap-comp {
                             margin-left: .5rem;
+                            font-size: 14px;
+                            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                            font-weight: 400;
+                            color: #333333;
                         }
                     }
                 }
             }
 
+            .right-msg{
+                padding: 0 11% 0 11.8% !important;
+            }
             .params-button {
                 flex: 1;
                 padding-top: 4rem;
                 display: flex;
-                justify-content: center;
+                justify-content: flex-start;
 
                 .el-button {
-                    height: 4rem;
-                    width: 23rem;
+                    height: 3.2rem;
+                    width: 17.5rem;
                     background-color: #006F6B;
                     color: #FFFFFF;
 
@@ -179,6 +218,12 @@
                         opacity: .8;
                     }
                 }
+            }
+            .left-button{
+                margin: 0 27.2% 0 18.1% !important;
+            }
+            .right-button{
+                margin: 0 22.3% 0 22.9% !important;
             }
         }
 
@@ -190,10 +235,6 @@
                         margin-right: 0;
                     }
 
-                    // .loudian-status {
-                    //     flex-basis: 37%;
-                    // }
-
                     .right-text {
                         .el-input {
                             flex-basis: 70%;
@@ -204,11 +245,6 @@
                         }
                     }
                 }
-            }
-
-            .params-button {
-                padding-left: 4rem;
-                padding-right: 4rem;
             }
         }
     }

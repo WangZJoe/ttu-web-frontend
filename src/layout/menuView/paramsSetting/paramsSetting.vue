@@ -12,8 +12,7 @@
               <img src="../../../assets/img/loudianbaohu.png" alt="" />
               <p class="text">漏电保护状态 :</p>
             </div>
-            <div class="right-text">
-              <div class="fill"></div>
+            <div class="right-text switch-text">
               <div class="off-gap" v-if="leakage_protection_status == 0"></div>
               <p class="gap-comp" v-if="leakage_protection_status == 0">关闭</p>
               <div class="on-gap" v-if="leakage_protection_status == 1"></div>
@@ -26,7 +25,6 @@
               <p class="text">额定漏电保护阈值 :</p>
             </div>
             <div class="right-text">
-              <div class="fill"></div>
               <div class="value">
                 {{ rated_protection_current_threshold }}
               </div>
@@ -39,7 +37,6 @@
               <p class="text">阈值保护动作时间 :</p>
             </div>
             <div class="right-text">
-              <div class="fill"></div>
               <div class="value">
                 {{ threshold_protection_action_time }}
               </div>
@@ -52,7 +49,6 @@
               <p class="text">额定漏电保护差值 :</p>
             </div>
             <div class="right-text">
-              <div class="fill"></div>
               <div class="value">
                 {{ rated_leakage_protection_difference }}
               </div>
@@ -65,7 +61,6 @@
               <p class="text">插值保护动作时间 :</p>
             </div>
             <div class="right-text">
-              <div class="fill"></div>
               <div class="value">
                 {{ interpolation_protection_action_time }}
               </div>
@@ -73,7 +68,7 @@
             </div>
           </div>
         </div>
-        <div class="params-button">
+        <div class="params-button left-button">
           <el-button @click="getParams(true)">参数读取</el-button>
         </div>
       </div>
@@ -85,7 +80,7 @@
         <h3>参数写入</h3>
       </div>
       <div class="card-content params-content">
-        <div class="params-msg">
+        <div class="params-msg right-msg">
           <el-form
             :rules="rules"
             :model="ruleForm"
@@ -165,7 +160,7 @@
             </el-form-item>
           </el-form>
         </div>
-        <div class="params-button">
+        <div class="params-button right-button">
           <el-button @click="pushParams('ruleForm')">上传</el-button>
         </div>
       </div>

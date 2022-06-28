@@ -76,7 +76,7 @@
           text-color="#FFFFFF"
           :default-active="curveDev"
           @select="handleSelect"
-          active-text-color="#ffd04b"
+          active-text-color="#189E99FF"
         >
           <el-submenu
             v-for="menu in menuList"
@@ -84,7 +84,11 @@
             :index="menu.name + ''"
           >
             <template slot="title">
-              <i class="el-icon-document"></i>
+              <i
+                :class="[
+                  menu.icon == 0 ? 'el-icon-kaiguan' : 'el-icon-bianyaqi',
+                ]"
+              ></i>
               <span slot="title"
                 >{{ menu.name }}({{ menu.online }}/{{ menu.total }})</span
               >
@@ -114,23 +118,8 @@
 </template>
 
 <script>
-// import realTimeMonitoring from "../menuView/realTimeMonitoring/realTimeMonitoring.vue";
-// import historyStandingBook from "../menuView/historyStandingBook/historyStandingBook.vue";
-// import WarnEvent from "../menuView/warnEvent/WarnEvent.vue";
-// import ErrorState from "../menuView/errorState/ErrorState.vue";
-// import leakageAnalysis from "../menuView/leakageAnalysis/leakageAnalysis.vue";
-// import paramsSetting from "../menuView/paramsSetting/paramsSetting.vue";
-
 import { GetDeviceList } from "../../api/api";
 export default {
-  components: {
-    // realTimeMonitoring,
-    // historyStandingBook,
-    // WarnEvent,
-    // ErrorState,
-    // leakageAnalysis,
-    // paramsSetting,
-  },
   created: async function () {
     //获取设备列表
     var res = await GetDeviceList();
@@ -362,6 +351,15 @@ export default {
       this.eventData = val;
       this.changeTopMenu("error-state");
     },
+  },
+  computed: {
+    // menuIcon() {
+    //   if (this.type == 0) {
+    //     return "el-icon-bianyaqi";
+    //   } else {
+    //     return "el-icon-kaiguan";
+    //   }
+    // },
   },
   destroyed() {
     window.clearInterval(this.timer);

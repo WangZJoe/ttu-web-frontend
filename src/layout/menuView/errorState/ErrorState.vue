@@ -29,6 +29,12 @@
             <el-table-column prop="time" label="时间"> </el-table-column>
           </el-table>
         </div>
+        <div class="data-tip">
+          <div>
+            共<span>{{ tableDataNum }}</span
+            >条数据
+          </div>
+        </div>
       </div>
       <div class="card-box card-charts">
         <div class="card-content column-charts">
@@ -68,6 +74,8 @@ export default {
     return {
       //表格数据
       tableData: [],
+      //表格数据条数
+      tableDataNum: 0,
       //事件时间
       eventTime: "",
       //数据时间
@@ -103,6 +111,7 @@ export default {
         } else {
           let data = res.data.data.alarm;
           this.tableData = data;
+          this.tableDataNum = data.length || 0;
           if (
             data !== undefined &&
             data !== null &&

@@ -33,11 +33,11 @@
           :row-style="selectedRowStyle"
           :cell-style="{ 'text-align': 'center', color: '#585858' }"
         >
-          <el-table-column prop="time" label="时间" min-width="17%">
+          <el-table-column prop="time" label="时间" min-width="16%">
           </el-table-column>
-          <el-table-column prop="In_Avg" label="In Avg(mA)" min-width="13%">
+          <el-table-column prop="In_Avg" label="In Avg(mA)" min-width="12%">
           </el-table-column>
-          <el-table-column prop="In_Max" label="In Max(mA)" min-width="13%">
+          <el-table-column prop="In_Max" label="In Max(mA)" min-width="12%">
           </el-table-column>
           <el-table-column prop="Ia" label="Ia(A)" min-width="7%">
           </el-table-column>
@@ -55,7 +55,7 @@
           </el-table-column>
           <el-table-column prop="In_Max" label="T(°C)" min-width="7%">
           </el-table-column>
-          <el-table-column prop="In_Max" label="H(%rh)" min-width="7%">
+          <el-table-column prop="In_Max" label="H(%rh)" min-width="10%">
           </el-table-column>
         </el-table>
       </div>
