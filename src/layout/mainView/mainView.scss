@@ -30,6 +30,11 @@
         }
 
         .tabs {
+            width: 56%;
+            .el-menu{
+                display: flex;
+                justify-content: space-between;
+            }
             li {
                 border-bottom-width: 4px !important;
 
@@ -95,6 +100,7 @@
 
     .view-body {
         display: flex;
+        flex: 1;
         height: calc(100vh - 60px);
 
         .left-menu {
@@ -103,11 +109,17 @@
             background-color: #006F6B;
 
             .el-menu {
+                height: 94%;
+                width: 200px;
                 border-right-width: 0;
             }
 
             .el-menu-item {
                 min-width: 9rem !important;
+            }
+
+            .el-menu-item.is-active {
+                background-color: #189E99 !important;
             }
 
             .online {
@@ -144,7 +156,7 @@
                 padding: 16px 12px 16px 17px;
                 box-sizing: border-box;
                 width: 200px;
-
+                height: 6%;
                 .position-title {
                     font-size: 1rem;
                     font-weight: 500;
@@ -168,19 +180,11 @@
 
                 }
             }
-
-            .el-menu-item.is-active {
-                background-color: #189E99 !important;
-            }
-
-            .el-menu {
-                height: 100%;
-                width: 200px;
-            }
         }
 
         .right-body {
             width: calc(100vw - 200px);
+            flex: 1;
             box-sizing: border-box;
             display: flex;
             padding: 20px;

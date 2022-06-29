@@ -11,7 +11,7 @@
             <div class="max">
               <div class="icon first-icon"></div>
               <div class="text">
-                <div class="tip">漏电电流最大</div>
+                <p class="tip">漏电电流最大</p>
                 <div class="value">
                   <p class="num">{{ electricMax }}</p>
                   <p class="comp">mA</p>
@@ -21,7 +21,7 @@
             <div class="average">
               <div class="icon second-icon"></div>
               <div class="text">
-                <div class="tip">漏电电流平均值</div>
+                <p class="tip">漏电电流平均值</p>
                 <div class="value">
                   <p class="num">{{ average }}</p>
                   <p class="comp">mA</p>
