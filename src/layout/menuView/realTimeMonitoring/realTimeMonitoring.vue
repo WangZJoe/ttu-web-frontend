@@ -304,6 +304,7 @@ export default {
       let relativeCharts = document.getElementById("relativeCharts");
       const h = dom.offsetHeight;
       const w = dom.offsetWidth;
+      console.log(h, w, "hw");
       electricCharts.style.width = w + "px";
       electricCharts.style.height = h + "px";
       relativeCharts.style.width = w + "px";

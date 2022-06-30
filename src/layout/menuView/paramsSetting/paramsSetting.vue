@@ -9,7 +9,7 @@
         <div class="params-msg">
           <div class="row-params-status">
             <div class="left-text">
-              <img src="../../../assets/img/loudianbaohu.png" alt="" />
+              <div class="loudianbaohu img"></div>
               <p class="text">漏电保护状态 :</p>
             </div>
             <div class="right-text switch-text">
@@ -21,7 +21,7 @@
           </div>
           <div class="row-params-status">
             <div class="left-text">
-              <img src="../../../assets/img/edingyuzhi.png" alt="" />
+              <div class="edingyuzhi img"></div>
               <p class="text">额定漏电保护阈值 :</p>
             </div>
             <div class="right-text">
@@ -33,7 +33,7 @@
           </div>
           <div class="row-params-status">
             <div class="left-text">
-              <img src="../../../assets/img/yuzhibaohu.png" alt="" />
+              <div class="yuzhibaohu img"></div>
               <p class="text">阈值保护动作时间 :</p>
             </div>
             <div class="right-text">
@@ -45,7 +45,7 @@
           </div>
           <div class="row-params-status">
             <div class="left-text">
-              <img src="../../../assets/img/edingloudian.png" alt="" />
+              <div class="edingloudian img"></div>
               <p class="text">额定漏电保护差值 :</p>
             </div>
             <div class="right-text">
@@ -57,7 +57,7 @@
           </div>
           <div class="row-params-status">
             <div class="left-text">
-              <img src="../../../assets/img/yuzhibaohu.png" alt="" />
+              <div class="yuzhibaohu img"></div>
               <p class="text">插值保护动作时间 :</p>
             </div>
             <div class="right-text">
@@ -90,7 +90,7 @@
           >
             <el-form-item label="漏电保护状态" prop="loudianbaohu">
               <div class="form-left" slot="label">
-                <img src="../../../assets/img/loudianbaohu.png" alt="" />
+                <div class="loudianbaohu img"></div>
                 <p class="text">漏电保护状态 :</p>
               </div>
               <el-select
@@ -108,7 +108,7 @@
             </el-form-item>
             <el-form-item label="额定漏电保护阈值" prop="edingyuzhi">
               <div class="form-left" slot="label">
-                <img src="../../../assets/img/edingyuzhi.png" alt="" />
+                <div class="edingyuzhi img"></div>
                 <p class="text">额定漏电保护阈值 :</p>
               </div>
               <el-input
@@ -121,7 +121,7 @@
             </el-form-item>
             <el-form-item label="阈值保护动作时间" prop="yuzhibaohu">
               <div class="form-left" slot="label">
-                <img src="../../../assets/img/yuzhibaohu.png" alt="" />
+                <div class="edingyuzhi img"></div>
                 <p class="text">阈值保护动作时间 :</p>
               </div>
               <el-input
@@ -134,7 +134,7 @@
             </el-form-item>
             <el-form-item label="额定漏电保护差值" prop="edingloudian">
               <div class="form-left" slot="label">
-                <img src="../../../assets/img/edingloudian.png" alt="" />
+                <div class="edingyuzhi img"></div>
                 <p class="text">额定漏电保护差值 :</p>
               </div>
               <el-input
@@ -147,7 +147,7 @@
             </el-form-item>
             <el-form-item label="插值保护动作时间" prop="chazhibaohu">
               <div class="form-left" slot="label">
-                <img src="../../../assets/img/yuzhibaohu.png" alt="" />
+                <div class="edingyuzhi img"></div>
                 <p class="text">插值保护动作时间 :</p>
               </div>
               <el-input

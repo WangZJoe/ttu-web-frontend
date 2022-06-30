@@ -13,8 +13,8 @@
         .title {
             display: flex;
             align-items: center;
-            padding: 18px 17px;
-            height: 50px;
+            padding: 0 17px;
+            height: 8%;
 
             .tip-color {
                 width: 0.4rem;
@@ -24,11 +24,10 @@
             }
 
             h3 {
-                font-size: 20px;
+                font-size: 1.5vw;
                 font-family: 'Source Han Sans CN-Medium, Source Han Sans CN';
                 font-weight: 500;
                 color: #333333;
-                line-height: 0px;
                 padding: 0 0 0 5px;
             }
         }
@@ -39,7 +38,7 @@
             flex-direction: column;
 
             .params-msg {
-                flex: 1;
+                height: 57%;
                 padding: 0 29.4% 0 17.6%;
                 display: flex;
                 flex-direction: column;
@@ -53,7 +52,7 @@
 
                         .comp {
                             margin-left: 0.4rem;
-                            font-size: 14px;
+                            font-size: 1.1vw;
                             font-family: Source Han Sans CN-Regular, Source Han Sans CN;
                             font-weight: 400;
                             color: #333333;
@@ -74,6 +73,7 @@
 
                     .el-form-item__label {
                         padding: 0 30px 0 0 !important;
+                        width: 51% !important;
                         &::before {
                             content: none !important;
                         }
@@ -82,14 +82,14 @@
                             display: flex;
                             align-items: center;
                             p{
-                                font-size: 14px !important;
+                                font-size: 1.1vw !important;
                                 font-family: Source Han Sans CN-Regular, Source Han Sans CN !important;
                                 font-weight: 400 !important;
                                 color: #333333 !important;
                             }
 
                             .text {
-                                font-size: 16px;
+                                font-size: 1.2vw;
                                 color: #000000;
                                 margin-left: 0.6rem;
                             }
@@ -99,17 +99,40 @@
 
                 .row-params-status {
                     display: flex;
+                    flex: 1;
                     padding: 1rem 0;
 
                     .left-text {
                         display: flex;
                         align-items: center;
                         flex-basis: 71%;
-                        height: 2.6rem;
-
+                        .img{
+                            width: 2vw;
+                            height: 2vw;
+                        }
+                        .edingyuzhi{
+                            background: url("../../../assets/img/edingyuzhi.png");
+                            background-repeat: no-repeat;
+                            background-size: 100%;
+                        }
+                        .loudianbaohu{
+                            background: url("../../../assets/img/loudianbaohu.png");
+                            background-repeat: no-repeat;
+                            background-size: 100%;
+                        }
+                        .yuzhibaohu{
+                            background: url("../../../assets/img/yuzhibaohu.png");
+                            background-repeat: no-repeat;
+                            background-size: 100%;
+                        }
+                        .edingloudian{
+                            background: url("../../../assets/img/edingloudian.png");
+                            background-repeat: no-repeat;
+                            background-size: 100%;
+                        }
                         p {
                             margin-left: 0.6rem;
-                            font-size: 14px;
+                            font-size: 1.1vw;
                             font-family: Source Han Sans CN-Regular, Source Han Sans CN;
                             font-weight: 400;
                             color: #333333;
@@ -127,7 +150,7 @@
 
                         input::-webkit-input-placeholder,
                         textarea::-webkit-input-placeholder {
-                            font-size: 14px;
+                            font-size: 1.1vw;
                             font-family: Source Han Sans CN-Normal, Source Han Sans CN;
                             font-weight: 400;
                             color: #C9C9C9
@@ -152,7 +175,7 @@
                         }
 
                         .el-icon-arrow-down {
-                            font-size: 12px;
+                            font-size: 1vw;
                         }
 
                         .fill {
@@ -160,10 +183,10 @@
                         }
 
                         .value {
-                            font-size: 24px;
+                            line-height: 1;
+                            font-size: 1.9vw;
                             font-family: font-demo;
                             font-weight: 400;
-                            line-height: 0px;
                             color: #006F6B;
                         }
 
@@ -182,7 +205,7 @@
                         }
 
                         .comp {
-                            font-size: 14px;
+                            font-size: 1.1vw;
                             font-family: Source Han Sans CN-Regular, Source Han Sans CN;
                             font-weight: 400;
                             color: #333333;
@@ -190,7 +213,7 @@
 
                         .gap-comp {
                             margin-left: .5rem;
-                            font-size: 14px;
+                            font-size: 1.1vw;
                             font-family: Source Han Sans CN-Regular, Source Han Sans CN;
                             font-weight: 400;
                             color: #333333;
@@ -201,16 +224,59 @@
 
             .right-msg{
                 padding: 0 11% 0 11.8% !important;
+                .el-form{
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    .el-form-item{
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        .el-form-item__content{
+                            flex: 1;
+                            margin-left: 0 !important;
+                        }
+                        .el-form-item__label{
+                            .form-left{
+                                .img{
+                                    width: 2vw;
+                                    height: 2vw;
+                                }
+                                .edingyuzhi{
+                                    background: url("../../../assets/img/edingyuzhi.png");
+                                    background-repeat: no-repeat;
+                                    background-size: 100%;
+                                }
+                                .loudianbaohu{
+                                    background: url("../../../assets/img/loudianbaohu.png");
+                                    background-repeat: no-repeat;
+                                    background-size: 100%;
+                                }
+                                .yuzhibaohu{
+                                    background: url("../../../assets/img/yuzhibaohu.png");
+                                    background-repeat: no-repeat;
+                                    background-size: 100%;
+                                }
+                                .edingloudian{
+                                    background: url("../../../assets/img/edingloudian.png");
+                                    background-repeat: no-repeat;
+                                    background-size: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             .params-button {
                 flex: 1;
                 padding-top: 4rem;
                 display: flex;
                 justify-content: flex-start;
+                width: 55%;
 
                 .el-button {
-                    height: 3.2rem;
-                    width: 17.5rem;
+                    height: 23%;
+                    width: 100%;
                     background-color: #006F6B;
                     color: #FFFFFF;
 

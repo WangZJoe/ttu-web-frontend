@@ -44,8 +44,8 @@
         .title {
             display: flex;
             align-items: center;
-            padding: 18px 17px;
-            height: 50px;
+            padding: 0 17px;
+            height: 18%;
 
             .tip-color {
                 width: 0.4rem;
@@ -55,11 +55,10 @@
             }
 
             h3 {
-                font-size: 20px;
+                font-size: 1.5vw;
                 font-family: "Source Han Sans CN-Medium, Source Han Sans CN";
                 font-weight: 500;
                 color: #333333;
-                line-height: 0px;
                 padding: 0 0 0 5px;
             }
         }
