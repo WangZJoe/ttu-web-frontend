@@ -1,4 +1,4 @@
-# hello-world
+# TTU-WEB-FRONTEND
 
 ## Project setup
 ```
