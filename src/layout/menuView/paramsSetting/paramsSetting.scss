@@ -24,7 +24,7 @@
             }
 
             h3 {
-                font-size: 1.5vw;
+                font-size: 18px;
                 font-family: 'Source Han Sans CN-Medium, Source Han Sans CN';
                 font-weight: 500;
                 color: #333333;
@@ -52,7 +52,7 @@
 
                         .comp {
                             margin-left: 0.4rem;
-                            font-size: 1.1vw;
+                            font-size: 14px;
                             font-family: Source Han Sans CN-Regular, Source Han Sans CN;
                             font-weight: 400;
                             color: #333333;
@@ -82,14 +82,14 @@
                             display: flex;
                             align-items: center;
                             p{
-                                font-size: 1.1vw !important;
+                                font-size: 14px !important;
                                 font-family: Source Han Sans CN-Regular, Source Han Sans CN !important;
                                 font-weight: 400 !important;
                                 color: #333333 !important;
                             }
 
                             .text {
-                                font-size: 1.2vw;
+                                font-size: 16px;
                                 color: #000000;
                                 margin-left: 0.6rem;
                             }
@@ -132,7 +132,7 @@
                         }
                         p {
                             margin-left: 0.6rem;
-                            font-size: 1.1vw;
+                            font-size: 14px;
                             font-family: Source Han Sans CN-Regular, Source Han Sans CN;
                             font-weight: 400;
                             color: #333333;
@@ -150,7 +150,7 @@
 
                         input::-webkit-input-placeholder,
                         textarea::-webkit-input-placeholder {
-                            font-size: 1.1vw;
+                            font-size: 14px;
                             font-family: Source Han Sans CN-Normal, Source Han Sans CN;
                             font-weight: 400;
                             color: #C9C9C9
@@ -175,7 +175,7 @@
                         }
 
                         .el-icon-arrow-down {
-                            font-size: 1vw;
+                            font-size: 12px;
                         }
 
                         .fill {
@@ -184,7 +184,7 @@
 
                         .value {
                             line-height: 1;
-                            font-size: 1.9vw;
+                            font-size: 36px;
                             font-family: font-demo;
                             font-weight: 400;
                             color: #006F6B;
@@ -205,7 +205,7 @@
                         }
 
                         .comp {
-                            font-size: 1.1vw;
+                            font-size: 14px;
                             font-family: Source Han Sans CN-Regular, Source Han Sans CN;
                             font-weight: 400;
                             color: #333333;
@@ -213,7 +213,7 @@
 
                         .gap-comp {
                             margin-left: .5rem;
-                            font-size: 1.1vw;
+                            font-size: 14px;
                             font-family: Source Han Sans CN-Regular, Source Han Sans CN;
                             font-weight: 400;
                             color: #333333;
@@ -285,7 +285,7 @@
                     }
 
                     span{
-                        font-size: 1.1vw !important;
+                        font-size: 14px !important;
                     }
                 }
             }

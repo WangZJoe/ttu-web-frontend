@@ -218,6 +218,14 @@ export default {
     window.addEventListener("resize", this.handleResize, false);
   },
   methods: {
+    //自适应echarts字体
+    transformFontSize(fontsize) {
+      // 获取屏幕宽度
+      const width = window.screen.width;
+      const ratio = width / 1280;
+      // 取下整
+      return parseInt(fontsize * ratio);
+    },
     handleResize() {
       const _this = this;
       const timer = setTimeout(() => {
@@ -304,7 +312,6 @@ export default {
       let relativeCharts = document.getElementById("relativeCharts");
       const h = dom.offsetHeight;
       const w = dom.offsetWidth;
-      console.log(h, w, "hw");
       electricCharts.style.width = w + "px";
       electricCharts.style.height = h + "px";
       relativeCharts.style.width = w + "px";
@@ -636,8 +643,14 @@ export default {
           bottom: 20,
           textStyle: {
             color: "#333333FF",
-            fontSize: 13,
+            fontSize: this.transformFontSize(13),
           },
+        },
+        grid: {
+          left: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
         },
         series: [
           {
@@ -645,6 +658,8 @@ export default {
             type: "gauge",
             min: -40,
             max: 150,
+            radius: "100%",
+            center: ["50%", "50%"],
             splitNumber: 19,
             colorBy: "series",
             detail: {
@@ -682,23 +697,33 @@ export default {
             axisLabel: {
               show: true,
               distance: 15,
-              fontSize: 7,
+              fontSize: this.transformFontSize(7),
             },
             pointer: {
               show: false,
             },
             // eslint-disable-next-line no-dupe-keys
             detail: {
-              formatter: "{value}℃",
-              fontSize: 20,
-              fontFamily: "font-demo",
               valueAnimation: true,
               width: "60%",
-              lineHeight: 40,
               borderRadius: 8,
               offsetCenter: [0, "-1%"],
               fontWeight: "400",
               color: "#189E99FF",
+              formatter: ["{b|{value}}", "{a|℃}"].join(""),
+              rich: {
+                a: {
+                  color: "#189E99FF",
+                  fontSize: this.transformFontSize(13),
+                  verticalAlign: "bottom",
+                },
+                b: {
+                  color: "#189E99FF",
+                  fontSize: this.transformFontSize(28),
+                  verticalAlign: "bottom",
+                  fontFamily: "font-demo",
+                },
+              },
             },
             data: [
               {
@@ -718,8 +743,15 @@ export default {
           bottom: 20,
           textStyle: {
             color: "#333333FF",
-            fontSize: 13,
+            fontSize: this.transformFontSize(13),
           },
+        },
+        grid: {
+          // 让图表占满容器
+          top: "0px",
+          left: "0px",
+          right: "0px",
+          bottom: "0px",
         },
         series: [
           {
@@ -728,6 +760,8 @@ export default {
             min: -40,
             max: 150,
             splitNumber: 19,
+            radius: "100%",
+            center: ["50%", "50%"],
             colorBy: "series",
             detail: {
               formatter: "{value}",
@@ -764,23 +798,32 @@ export default {
             axisLabel: {
               show: true,
               distance: 15,
-              fontSize: 7,
+              fontSize: this.transformFontSize(7),
             },
             pointer: {
               show: false,
             },
             // eslint-disable-next-line no-dupe-keys
             detail: {
-              formatter: "{value}℃",
-              fontSize: 20,
-              fontFamily: "font-demo",
               valueAnimation: true,
               width: "60%",
-              lineHeight: 40,
               borderRadius: 8,
               offsetCenter: [0, "-1%"],
               fontWeight: "400",
-              color: "#189E99FF",
+              formatter: ["{b|{value}}", "{a|℃}"].join(""),
+              rich: {
+                a: {
+                  color: "#189E99FF",
+                  fontSize: this.transformFontSize(13),
+                  verticalAlign: "bottom",
+                },
+                b: {
+                  color: "#189E99FF",
+                  fontSize: this.transformFontSize(28),
+                  verticalAlign: "bottom",
+                  fontFamily: "font-demo",
+                },
+              },
             },
             data: [
               {
@@ -803,6 +846,13 @@ export default {
             fontSize: 13,
           },
         },
+        grid: {
+          // 让图表占满容器
+          top: "0px",
+          left: "0px",
+          right: "0px",
+          bottom: "0px",
+        },
         series: [
           {
             name: "Pressure",
@@ -810,6 +860,8 @@ export default {
             min: -40,
             max: 150,
             splitNumber: 19,
+            radius: "100%",
+            center: ["50%", "50%"],
             colorBy: "series",
             detail: {
               formatter: "{value}",
@@ -846,23 +898,33 @@ export default {
             axisLabel: {
               show: true,
               distance: 15,
-              fontSize: 7,
+              fontSize: this.transformFontSize(7),
             },
             pointer: {
               show: false,
             },
             // eslint-disable-next-line no-dupe-keys
             detail: {
-              formatter: "{value}℃",
-              fontSize: 20,
-              fontFamily: "font-demo",
               valueAnimation: true,
               width: "60%",
-              lineHeight: 40,
               borderRadius: 8,
               offsetCenter: [0, "-1%"],
               fontWeight: "400",
               color: "#189E99FF",
+              formatter: ["{b|{value}}", "{a|℃}"].join(""),
+              rich: {
+                a: {
+                  color: "#189E99FF",
+                  fontSize: this.transformFontSize(13),
+                  verticalAlign: "bottom",
+                },
+                b: {
+                  color: "#189E99FF",
+                  fontSize: this.transformFontSize(28),
+                  verticalAlign: "bottom",
+                  fontFamily: "font-demo",
+                },
+              },
             },
             data: [
               {
