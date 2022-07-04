@@ -843,7 +843,7 @@ export default {
           bottom: 20,
           textStyle: {
             color: "#333333FF",
-            fontSize: 13,
+            fontSize: this.transformFontSize(13),
           },
         },
         grid: {
