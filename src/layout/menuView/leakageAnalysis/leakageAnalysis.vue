@@ -211,13 +211,6 @@ export default {
                 color: "rgb(142, 149, 170)",
               },
             },
-            // axisLine: {
-            //     show: false,
-            //     lineStyle: {
-            //         color: "rgb(232, 234, 238)",
-            //         width: 1,
-            //     },
-            // },
           },
         ],
         series: [

@@ -60,7 +60,6 @@ router.beforeEach((to, from, next) => {
   const token = window.sessionStorage.getItem("token");
   if (token || to.path == "/login") {
     next();
-    console.log("已跳转");
   } else {
     location.href = "/login.html";
   }

@@ -352,15 +352,6 @@ export default {
       this.changeTopMenu("error-state");
     },
   },
-  computed: {
-    // menuIcon() {
-    //   if (this.type == 0) {
-    //     return "el-icon-bianyaqi";
-    //   } else {
-    //     return "el-icon-kaiguan";
-    //   }
-    // },
-  },
   destroyed() {
     window.clearInterval(this.timer);
   },

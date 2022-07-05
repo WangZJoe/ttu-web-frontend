@@ -236,7 +236,6 @@ export default {
           textStyle: { color: "rgb(153, 153, 153)" },
           itemWidth: 8,
           itemHeight: 8,
-          // padding: 10
         },
         toolbox: {
           feature: {
@@ -349,13 +348,6 @@ export default {
                 : "auto",
           },
         ],
-        // yAxis: {
-        //     type: "value",
-        //     name: "(A)",
-        //     nameTextStyle: {
-        //         align: "right",
-        //     },
-        // },
         series: [
           {
             type: "line",
@@ -367,8 +359,6 @@ export default {
                 lineStyle: { color: "#3BECF2", width: 2 },
                 borderColor: "#FFFFFF",
                 borderWidth: 1,
-                // shadowColor: 'rgba(0, 0, 0, 0.32)',
-                // shadowBlur: 6
               },
             },
             symbol: "circle",
@@ -391,8 +381,6 @@ export default {
                 },
                 borderWidth: 1,
                 borderColor: "#FFFFFF",
-                // shadowColor: 'rgba(0, 0, 0, 0.32)',
-                // shadowBlur: 6
               },
             },
             symbol: "circle",
@@ -411,8 +399,6 @@ export default {
                 borderWidth: 1,
                 borderColor: "#FFFFFF",
                 label: { show: false },
-                // shadowColor: 'rgba(0, 0, 0, 0.32)',
-                // shadowBlur: 6,
               },
             },
             symbol: "circle",
@@ -430,8 +416,6 @@ export default {
                 lineStyle: { color: "#FF1C43", width: 2 },
                 borderColor: "#FFFFFF",
                 borderWidth: 1,
-                // shadowColor: 'rgba(0, 0, 0, 0.32)',
-                // shadowBlur: 6
               },
             },
             symbol: "circle",
@@ -444,17 +428,6 @@ export default {
       };
       let clearOption = {
         tooltip: { trigger: "axis" },
-        // toolbox: {
-        //     show: false,
-        //     feature: {
-        //         mark: { show: true },
-        //         dataView: { show: true, readOnly: true },
-        //         magicType: { show: false, type: ["line", "bar"] },
-        //         restore: { show: true },
-        //         saveAsImage: { show: true }
-        //     },
-        //     calculable: true,
-        // },
         xAxis: {
           type: "category",
           name: "(mS)",
@@ -470,13 +443,8 @@ export default {
             textStyle: { color: "rgb(142, 149, 170)" },
           },
         },
-        // xAxis: {
-        //     type: "category",
-        //     data: this.dataTimes
-        // },
         yAxis: {
           type: "value",
-          // name: "°C",
           axisLine: { show: false },
           axisLabel: {
             textStyle: { color: "rgb(142, 149, 170)" },
@@ -485,13 +453,6 @@ export default {
             lineStyle: { color: "rgb(232, 234, 238)" },
           },
         },
-        // yAxis: {
-        //     type: "value",
-        //     name: "(mA)",
-        //     nameTextStyle: {
-        //         align: "right",
-        //     },
-        // },
         series: [
           {
             name: "-",
@@ -508,12 +469,6 @@ export default {
             },
           },
         ],
-        // series: [
-        //     {
-        //         data: this.clearDatas,
-        //         type: "line",
-        //     },
-        // ],
       };
 
       myErrorCharts.setOption(errorOption);

@@ -305,15 +305,6 @@ export default {
             type: "line",
             yAxisIndex: 0,
             data: this.electricDatasA,
-            // data: [
-            //     56,
-            //     65,
-            //     67,
-            //     67,
-            //     56,
-            //     68,
-            //     89
-            // ],
             itemStyle: {
               normal: {
                 color: "#FDDD00",
@@ -325,8 +316,6 @@ export default {
                 },
                 borderWidth: 1,
                 borderColor: "#FFFFFF",
-                // shadowColor: 'rgba(0, 0, 0, 0.32)',
-                // shadowBlur: 6
               },
             },
             symbol: "circle",
@@ -338,15 +327,6 @@ export default {
             type: "line",
             yAxisIndex: 0,
             data: this.electricDatasB,
-            // data: [
-            //     45,
-            //     38,
-            //     62,
-            //     51,
-            //     56,
-            //     71,
-            //     58
-            // ],
             itemStyle: {
               normal: {
                 color: "#02E437",
@@ -354,8 +334,6 @@ export default {
                 borderWidth: 1,
                 borderColor: "#FFFFFF",
                 label: { show: false },
-                // shadowColor: 'rgba(0, 0, 0, 0.32)',
-                // shadowBlur: 6,
               },
             },
             symbol: "circle",
@@ -367,23 +345,12 @@ export default {
             name: "C相电流",
             yAxisIndex: 0,
             data: this.electricDatasC,
-            // data: [
-            //     56,
-            //     56,
-            //     67,
-            //     34,
-            //     45,
-            //     23,
-            //     23
-            // ],
             itemStyle: {
               normal: {
                 color: "#FF1C43",
                 lineStyle: { color: "#FF1C43", width: 2 },
                 borderColor: "#FFFFFF",
                 borderWidth: 1,
-                // shadowColor: 'rgba(0, 0, 0, 0.32)',
-                // shadowBlur: 6
               },
             },
             symbol: "circle",
@@ -395,15 +362,6 @@ export default {
             name: "漏电电流",
             yAxisIndex: 1,
             data: this.leakageDatas,
-            // data: [
-            //     45,
-            //     78,
-            //     79,
-            //     34,
-            //     56,
-            //     78,
-            //     34
-            // ],
             itemStyle: {
               normal: {
                 color: "#3BECF2",
@@ -665,15 +623,6 @@ export default {
             type: "line",
             yAxisIndex: 0,
             data: this.electricDatasA,
-            // data: [
-            //     56,
-            //     65,
-            //     67,
-            //     67,
-            //     56,
-            //     68,
-            //     89
-            // ],
             itemStyle: {
               normal: {
                 color: "#FDDD00",
@@ -685,8 +634,6 @@ export default {
                 },
                 borderWidth: 1,
                 borderColor: "#FFFFFF",
-                // shadowColor: 'rgba(0, 0, 0, 0.32)',
-                // shadowBlur: 6
               },
             },
             symbol: "circle",
@@ -698,15 +645,6 @@ export default {
             type: "line",
             yAxisIndex: 0,
             data: this.electricDatasB,
-            // data: [
-            //     45,
-            //     38,
-            //     62,
-            //     51,
-            //     56,
-            //     71,
-            //     58
-            // ],
             itemStyle: {
               normal: {
                 color: "#02E437",
@@ -714,8 +652,6 @@ export default {
                 borderWidth: 1,
                 borderColor: "#FFFFFF",
                 label: { show: false },
-                // shadowColor: 'rgba(0, 0, 0, 0.32)',
-                // shadowBlur: 6,
               },
             },
             symbol: "circle",
@@ -727,23 +663,12 @@ export default {
             name: "C相电流",
             yAxisIndex: 0,
             data: this.electricDatasC,
-            // data: [
-            //     56,
-            //     56,
-            //     67,
-            //     34,
-            //     45,
-            //     23,
-            //     23
-            // ],
             itemStyle: {
               normal: {
                 color: "#FF1C43",
                 lineStyle: { color: "#FF1C43", width: 2 },
                 borderColor: "#FFFFFF",
                 borderWidth: 1,
-                // shadowColor: 'rgba(0, 0, 0, 0.32)',
-                // shadowBlur: 6
               },
             },
             symbol: "circle",
@@ -755,15 +680,6 @@ export default {
             name: "漏电电流",
             yAxisIndex: 1,
             data: this.leakageDatas,
-            // data: [
-            //     45,
-            //     78,
-            //     79,
-            //     34,
-            //     56,
-            //     78,
-            //     34
-            // ],
             itemStyle: {
               normal: {
                 color: "#3BECF2",
@@ -887,7 +803,6 @@ export default {
             type: "line",
             stack: "Total",
             data: this.voltageDatasA,
-            // data: [123, 156, 178, 121, 123, 124, 126],
             itemStyle: {
               normal: {
                 color: "#FDDD00",
@@ -906,7 +821,6 @@ export default {
             type: "line",
             stack: "Total",
             data: this.voltageDatasB,
-            // data: [178, 146, 178, 189, 198, 156, 159],
             itemStyle: {
               normal: {
                 color: "#02E437",
@@ -925,7 +839,6 @@ export default {
             type: "line",
             stack: "Total",
             data: this.voltageDatasC,
-            // data:[156, 187, 176, 169, 180, 189, 209],
             itemStyle: {
               normal: {
                 color: "#FF1C43",
