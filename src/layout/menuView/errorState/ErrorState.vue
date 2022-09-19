@@ -119,10 +119,10 @@ export default {
           ) {
             this.eventTime = data[this.eventData].time;
             this.$refs.eventTable.setCurrentRow(data[this.eventData]);
-          } else {
+          } /*else {
             this.eventTime = data[0].time;
             this.$refs.eventTable.setCurrentRow(data[0]);
-          }
+          }*/
         }
       }
     },

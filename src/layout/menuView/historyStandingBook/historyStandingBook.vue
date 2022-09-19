@@ -429,6 +429,7 @@ export default {
             this.voltageDatasC.push(item.Uc);
           });
           this.tableData = data.record;
+          console.log(this.tableData);
           this.setDataCensusCharts();
           this.showData = this.tableData.slice(0, this.pageSize);
         }

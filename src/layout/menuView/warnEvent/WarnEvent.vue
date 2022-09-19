@@ -14,7 +14,7 @@
           }"
           :cell-style="{ 'text-align': 'center', color: '#585858' }"
         >
-          <el-table-column label="序号">
+          <el-table-column label="序号" width="65px">
             <template slot-scope="scope">
               {{ scope.$index + (currentPage - 1) * pageSize + 1 }}
             </template>
@@ -25,6 +25,7 @@
             label="事件类型"
             :filters="typeList"
             :filter-method="handlerFilterChange"
+            min-width="95px"
           >
           </el-table-column>
           <el-table-column prop="remark" label="事件说明"> </el-table-column>
@@ -185,6 +186,7 @@ export default {
     },
     //查看按钮跳转故障波形界面
     showDetail(scope) {
+      // console.log(scope);
       this.$emit("changeToErrorStatus", scope.$index);
       // this.$router.push({
       //     path: '/error-state?currentTabComponent=error-state',

@@ -99,6 +99,7 @@ export default {
           let data = res.data.data;
           let i = 6,
             j = 0;
+          console.log(data);
           data.record.forEach((item) => {
             this.topChartsDatas.push(new Array(j, i, item.In_Avg));
             j++;
@@ -109,6 +110,29 @@ export default {
           });
           this.setWeekCharts();
         }
+      }
+    },
+    //请求周分析数据
+    async getDayDatas(params) {
+      var datas = [
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      ];
+      if (params) {
+        let res = await GetDeviceHistoryData(params);
+        if (res.data.code != 0) {
+          this.$message.error("周分析数据请求失败");
+        } else {
+          let data = res.data.data;
+          console.log(data);
+          data.record.forEach((item) => {
+            var hour = parseInt(item.time.split(":")[0]);
+            console.log(hour);
+            datas[hour] += 1;
+          });
+          this.topChartsDatas = datas;
+          this.setWeekCharts();
+        }
+        console.log(this.topChartsDatas);
       }
     },
     //请求湿度分析数据
@@ -204,7 +228,6 @@ export default {
             type: "value",
             name: "(次)",
             power: 1,
-            splitNumber: 4,
             scale: true,
             axisLabel: {
               textStyle: {
@@ -218,6 +241,7 @@ export default {
             name: "-",
             type: "scatter",
             symbol: "circle",
+            smooth: true,
             data: this.topChartsDatas,
             itemStyle: {
               normal: {
@@ -225,10 +249,7 @@ export default {
                 color: "rgb(0, 255, 220)",
               },
             },
-            symbolSize: function anonymous(value) {
-              var radius = ((value[2] - 0) * 16) / 95 + 5;
-              return Math.max(Math.round(radius), 1) || 1;
-            },
+            symbolSize: 15,
           },
         ],
       };
@@ -341,7 +362,7 @@ export default {
               },
             },
             symbol: "circle",
-            symbolSize: 2,
+            symbolSize: 5,
           },
         ],
       };
@@ -532,7 +553,7 @@ export default {
           time_span_unit: this.topChartsSpanUnit,
           time_span_number: this.topChartsSpanNumber,
         };
-        this.getWeekDatas(weekParams);
+        this.getDayDatas(weekParams);
         let humidityParams = {
           dev: newVal,
           start_time: this.humidityStartTime,

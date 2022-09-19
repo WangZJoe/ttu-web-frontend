@@ -250,7 +250,7 @@ export default {
     handleCommand(cmd) {
       if (cmd == "outLogin") {
         window.sessionStorage.removeItem("token");
-        location.href = "/";
+        location.href = "login.html"; //location.href = "./login.html";两种写法都可以
       }
     },
     //切换设备

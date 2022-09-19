@@ -16,14 +16,14 @@ if (process.env.NODE_ENV.curMode == "development") {
 //axios.defaults.baseURL = 'https://mock.apifox.cn/m1/761759-0-default/';
 
 //本地设备包数据
-//axios.defaults.baseURL = 'http://127.0.0.1:8002/api'
+axios.defaults.baseURL = "http://127.0.0.1:8002/";
 
-//线上数据接口
+//线上数据接口//
 //axios.defaults.baseURL = window.location.href + "api";
 
-// axios.defaults.baseURL = 'http://127.0.0.1:8002/api'
-// axios.defaults.baseURL = 'http://192.168.2.33:8002/api'
-// axios.defaults.baseURL = window.location.href + "api"
+//axios.defaults.baseURL = "http://127.0.0.1:8002/";
+// axios.defaults.baseURL = "http://192.168.2.33:8002/api";
+//axios.defaults.baseURL = window.location.href + "api";
 
 async function httpget(url) {
   return axios.get(url);
