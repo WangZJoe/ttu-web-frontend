@@ -72,7 +72,7 @@ export default {
     onPagerClick(event) {
       const target = event.target;
       if (target.tagName == "I" || target.tagName == "BUTTON") {
-        let newPage = currentPage;
+        let newPage = this.currentPage;
         const pageCount = this.pageCount;
         const currentPage = this.currentPage;
         const pagerCountOffset = this.pagerCountOffset;

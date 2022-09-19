@@ -45,6 +45,12 @@ export default {
       username: "",
       password: "",
       LoginLoading: false,
+      rules: {
+        username: [
+          { required: true, message: "请输入账号", trigger: "blur" },
+          { required: true, message: "请输入密码", trigger: "blur" },
+        ],
+      },
     };
   },
   methods: {
@@ -59,21 +65,21 @@ export default {
     },
     //登录
     async loginParams(params) {
-      if (params) {
-        let res = await LoginParams(params);
-        if (res.data.code != 0) {
-          this.$message.error("登录请求失败");
-        } else {
-          let code = res.data.data.code,
-            status = res.data.data.status;
-          if (code == "0") {
-            this.$message.error(status);
-            this.LoginLoading = false;
-          } else if (code == "1") {
-            window.sessionStorage.setItem("token", code);
-            location.href = "/";
-            this.LoginLoading = false;
-          }
+      let res = await LoginParams(params);
+      if (res.data.code != 0) {
+        alert("登录请求失败");
+      } else {
+        let code = res.data.data.code;
+        let status = res.data.data.status;
+        if (code == "0") {
+          alert(status);
+          this.LoginLoading = false;
+        } else if (code == "1") {
+          alert(status);
+          window.sessionStorage.setItem("token", code);
+          location.href = "index.html";
+          // location.href = "/";
+          this.LoginLoading = false;
         }
       }
     },

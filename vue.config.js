@@ -4,6 +4,7 @@ const cdn = {
   js: ["https://lib.baomitu.com/vue/2.6.10/vue.min.js"],
 };
 module.exports = defineConfig({
+  publicPath: "./",
   pages: {
     index: {
       // page 的入口

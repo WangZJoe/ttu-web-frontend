@@ -121,7 +121,7 @@
             </el-form-item>
             <el-form-item label="阈值保护动作时间" prop="yuzhibaohu">
               <div class="form-left" slot="label">
-                <div class="edingyuzhi img"></div>
+                <div class="yuzhibaohu img"></div>
                 <p class="text">阈值保护动作时间 :</p>
               </div>
               <el-input
@@ -134,7 +134,7 @@
             </el-form-item>
             <el-form-item label="额定漏电保护差值" prop="edingloudian">
               <div class="form-left" slot="label">
-                <div class="edingyuzhi img"></div>
+                <div class="edingloudian img"></div>
                 <p class="text">额定漏电保护差值 :</p>
               </div>
               <el-input
@@ -147,7 +147,7 @@
             </el-form-item>
             <el-form-item label="插值保护动作时间" prop="chazhibaohu">
               <div class="form-left" slot="label">
-                <div class="edingyuzhi img"></div>
+                <div class="yuzhibaohu img"></div>
                 <p class="text">插值保护动作时间 :</p>
               </div>
               <el-input
@@ -232,7 +232,7 @@ export default {
         chazhibaohu: [
           {
             required: true,
-            message: "请选差值保护动作时间",
+            message: "请选插值保护动作时间",
             trigger: "blur",
           },
         ],
@@ -256,6 +256,7 @@ export default {
           this.pushLoading = true;
           setTimeout(() => {
             let params = this.getPushParams(this.curveDev);
+            console.log(params);
             this.setDevParams(params);
             this.pushLoading = false;
           }, 1000);
@@ -270,6 +271,7 @@ export default {
         dev: dev,
       };
       this.restRead();
+      console.log(params);
       return params;
     },
     getNumber(str) {
@@ -279,18 +281,18 @@ export default {
     getPushParams(dev) {
       let params = {
         dev: dev,
-        leakage_protection_statu: this.ruleForm.loudianbaohu,
+        leakage_protection_status: this.ruleForm.loudianbaohu,
         rated_leakage_protection_difference: this.getNumber(
-          this.ruleForm.edingloudian
-        ),
-        rated_protection_current_threshold: this.getNumber(
-          this.ruleForm.edingyuzhi
+          this.ruleForm.edingloudian //请选择额定漏电保护差值
         ),
         interpolation_protection_action_time: this.getNumber(
-          this.ruleForm.chazhibaohu
+          this.ruleForm.chazhibaohu //请选差值保护动作时间
         ),
         threshold_protection_action_time: this.getNumber(
-          this.ruleForm.yuzhibaohu
+          this.ruleForm.yuzhibaohu //请选择阈值保护动作时间
+        ),
+        rated_protection_current_threshold: this.getNumber(
+          this.ruleForm.edingyuzhi //请输入额定漏电保护阈值
         ),
       };
       this.restPush();
@@ -321,6 +323,7 @@ export default {
       }
       this.getLoading = false;
     },
+    //设置设备参数
     //设置设备参数
     async setDevParams(params) {
       if (params) {

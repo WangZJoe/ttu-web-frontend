@@ -206,7 +206,7 @@ export default {
   },
   computed: {
     maxTemperatureWH() {
-      debugger;
+      // debugger;
       // const w = document.querySelector(".bar-charts-max");
       return {
         width: 264 + "px",
@@ -638,7 +638,7 @@ export default {
           trigger: "item",
         },
         title: {
-          text: "环境温度",
+          text: "接点最高温度",
           left: "center",
           bottom: 20,
           textStyle: {
@@ -738,7 +738,7 @@ export default {
           trigger: "item",
         },
         title: {
-          text: "接点最高温度",
+          text: "环境温度",
           left: "center",
           bottom: 20,
           textStyle: {
@@ -911,7 +911,7 @@ export default {
               offsetCenter: [0, "-1%"],
               fontWeight: "400",
               color: "#189E99FF",
-              formatter: ["{b|{value}}", "{a|℃}"].join(""),
+              formatter: ["{b|{value}}", "{a|%}"].join(""),
               rich: {
                 a: {
                   color: "#189E99FF",
